@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- ============================================================
+     BILINGUAL SITE — Spanish is the PRIMARY language.
+     ------------------------------------------------------------
+     Every visible string is Spanish in the HTML (so the page reads
+     correctly with no JavaScript and Google indexes it as Spanish),
+     with the English translation in a `data-en` attribute. script.js
+     swaps them when the visitor toggles ES / EN in the nav and
+     remembers the choice. Attribute translations use data-en-alt,
+     data-en-aria-label, data-en-placeholder, data-en-caption.
+     The <title> and meta description are swapped from a small map in
+     script.js. Dev comments below stay in English on purpose.
+     ============================================================ -->
+
+<!-- SEO — Spanish primary. Title ~57 chars, description ~150. -->
+<title>Hector Belen, REALTOR® | Casas en el Centro de Florida y Tampa</title>
+<meta name="description" content="¿Comprando o vendiendo en el Centro de Florida o Tampa? Hector Belen: 20+ años en bienes raíces y contesta su propio teléfono. Valuación gratis.">
+<link rel="canonical" href="https://hectorbelenrealtor.com/">
+<meta name="theme-color" content="#1B2A41">
+<meta name="author" content="Hector Belen">
+
+<!-- Open Graph / Facebook / WhatsApp / iMessage previews -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Hector Belen, REALTOR®">
+<meta property="og:url" content="https://hectorbelenrealtor.com/">
+<meta property="og:title" content="Hector Belen, REALTOR® | Su Socio de Confianza en el Centro de Florida">
+<meta property="og:description" content="20+ años en bienes raíces, al servicio de todo el Centro de Florida y Tampa. Valuación de su casa gratis, sin compromiso.">
+<!-- og-image.jpg now features the Hector Belen logo on black — clean branded
+     preview on WhatsApp/Facebook. Swap it anytime (1200×630). -->
+<meta property="og:image" content="https://hectorbelenrealtor.com/assets/img/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Hector Belen, REALTOR® — Centro de Florida y Tampa">
+<meta property="og:locale" content="es_US">
+<meta property="og:locale:alternate" content="en_US">
+
+<!-- Twitter / X -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Hector Belen, REALTOR® | Centro de Florida y Tampa">
+<meta name="twitter:description" content="20+ años en bienes raíces. Valuación de su casa gratis, sin compromiso.">
+<meta name="twitter:image" content="https://hectorbelenrealtor.com/assets/img/og-image.jpg">
+
+<!-- Favicon + home-screen icon — the real H house emblem on dark. -->
+<link rel="icon" type="image/png" href="/assets/favicon.png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+
+<!-- Fonts — Google Fonts, non-blocking (font-display:swap). -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500&display=swap">
+
+<!-- Hero image is the LCP element — preload it. The three `media` ranges MUST
+     stay identical to the <source media> values on the hero <picture> below,
+     or the hero gets fetched twice. -->
+<link rel="preload" as="image" href="/assets/img/hero-760.jpg"
+      media="(max-width: 640px)" fetchpriority="high">
+<link rel="preload" as="image" href="/assets/img/hero-1200.jpg"
+      media="(min-width: 641px) and (max-width: 1280px)" fetchpriority="high">
+<link rel="preload" as="image" href="/assets/img/hero-2000.jpg"
+      media="(min-width: 1281px)" fetchpriority="high">
+
+<link rel="stylesheet" href="/style.css">
+
+<!-- JS-enabled flag before first paint, so scroll-reveal only hides content
+     when there's JS to reveal it again. -->
+<script>document.documentElement.classList.add('js');</script>
+
+<!-- Structured data — RealEstateAgent. All real values. Validate edits at
+     https://search.google.com/test/rich-results -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "RealEstateAgent",
+  "name": "Hector Belen, REALTOR®",
+  "url": "https://hectorbelenrealtor.com/",
+  "image": "https://hectorbelenrealtor.com/assets/img/hector-headshot.jpg",
+  "telephone": "+1-407-272-2898",
+  "email": "Hectorbelenrealtor@gmail.com",
+  "knowsLanguage": ["es", "en"],
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "1400 S International Pkwy #1020",
+    "addressLocality": "Lake Mary",
+    "addressRegion": "FL",
+    "postalCode": "32746",
+    "addressCountry": "US"
+  },
+  "areaServed": [
+    { "@type": "State", "name": "Central Florida" },
+    { "@type": "City", "name": "Orlando" },
+    { "@type": "City", "name": "Tampa" }
+  ],
+  "parentOrganization": {
+    "@type": "RealEstateAgent",
+    "name": "LPT Realty, LLC",
+    "identifier": "CQ1064576",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "1400 S International Pkwy #1020",
+      "addressLocality": "Lake Mary",
+      "addressRegion": "FL",
+      "postalCode": "32746",
+      "addressCountry": "US"
+    }
+  },
+  "memberOf": {
+    "@type": "Organization",
+    "name": "National Association of REALTORS®"
+  },
+  "sameAs": [
+    "https://www.instagram.com/hectorbelenrealtor",
+    "https://www.facebook.com/hectorbelenrealtor"
+  ]
+}
+</script>
+</head>
+
+<body>
+<a class="skip-link" href="#main" data-en="Skip to content">Saltar al contenido</a>
+
+<!-- ============================================================
+     HEADER / STICKY NAV
+     ============================================================ -->
+<header class="site-header" id="siteHeader" data-nav>
+  <div class="shell nav-row">
+    <a class="brand" href="#top" aria-label="Hector Belen, REALTOR® — inicio">
+      <!-- Real brand: gold/silver "H" house emblem. It's a metallic mark on
+           dark, so it rides in its own dark rounded badge — that keeps it crisp
+           and legible on BOTH the dark hero header and the light scrolled
+           header, without needing two versions. The full logo is in the footer.
+           To swap the logo later, replace /assets/img/logo-emblem.jpg (badge)
+           and /assets/img/logo-full.jpg (footer). -->
+      <img class="brand-mark" src="/assets/img/logo-emblem.jpg"
+           width="668" height="522" decoding="async"
+           alt="Hector Belen, REALTOR®">
+      <span class="brand-word" aria-hidden="true">
+        <strong>HECTOR BELEN</strong><em>REALTOR®</em>
+      </span>
+    </a>
+
+    <div class="nav-cluster">
+      <!-- Language toggle. Always visible (not hidden in the mobile drawer). -->
+      <div class="lang-toggle" role="group" aria-label="Idioma / Language">
+        <button type="button" class="lang-btn is-active" data-lang="es" aria-pressed="true">ES</button>
+        <button type="button" class="lang-btn" data-lang="en" aria-pressed="false">EN</button>
+      </div>
+
+      <nav class="nav" aria-label="Principal">
+        <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navMenu">
+          <span class="nav-toggle-bars" aria-hidden="true"><i></i><i></i><i></i></span>
+          <span class="sr-only" data-en="Menu">Menú</span>
+        </button>
+        <ul class="nav-menu" id="navMenu">
+          <li><a href="#search" data-en="Search">Buscar</a></li>
+          <li><a href="#about" data-en="About">Sobre Hector</a></li>
+          <li><a href="#contact" data-en="Contact">Contacto</a></li>
+          <li class="nav-cta-item"><a class="btn btn-sm btn-gold" href="#contact" data-en="Free Home Valuation">Valuación Gratis</a></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ==========================================================
+       1. HERO — sunset home photo with a CSS Ken Burns pan/zoom.
+       ========================================================== -->
+  <section class="hero" id="top">
+    <!-- [PLACEHOLDER] Aspirational stock photo used as a backdrop. Fine as long
+         as it's never captioned as one of Hector's own listings. Swap the three
+         hero-*.jpg files (keep the names) for a real twilight exterior when
+         available. Mobile file is a portrait crop. Ranges match the <head>
+         preloads exactly. Motion lives in .hero-media img (style.css). -->
+    <picture class="hero-media">
+      <source srcset="/assets/img/hero-760.jpg"  media="(max-width: 640px)"  width="760"  height="950">
+      <source srcset="/assets/img/hero-1200.jpg" media="(min-width: 641px) and (max-width: 1280px)" width="1200" height="900">
+      <source srcset="/assets/img/hero-2000.jpg" media="(min-width: 1281px)" width="2000" height="1200">
+      <img src="/assets/img/hero-2000.jpg"
+           alt="Elegante casa de dos pisos con porche de columnas y balcón en un día soleado"
+           data-en-alt="Elegant two-story home with a columned front porch and balcony on a sunny day"
+           width="2000" height="1200" fetchpriority="high" decoding="async">
+    </picture>
+
+    <div class="shell hero-inner">
+      <!-- Frosted panel lifts the type off the moving photo (see .hero-panel). -->
+      <div class="hero-panel reveal">
+        <p class="eyebrow" data-en="Serving all of Central Florida &amp; the Tampa area">Al servicio de todo el Centro de Florida y el área de Tampa</p>
+        <h1 class="hero-title" data-en="Your Trusted Partner in<br><em>Central Florida</em><br>Real Estate">Su Socio de Confianza<br>en Bienes Raíces en<br><em>el Centro de Florida</em></h1>
+        <p class="hero-sub" data-en="Twenty years in the housing industry before I ever handed someone a set of keys — so when I tell you what a home is worth, or what's wrong with it, I'm not guessing. And you'll always be talking to me, not an assistant.">
+          Veinte años en la industria de la vivienda antes de entregarle las
+          llaves a nadie. Así que cuando le digo cuánto vale una casa —o qué
+          tiene de malo— no estoy adivinando. Y siempre hablará conmigo, nunca
+          con un asistente.
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-gold" href="#contact" data-scroll data-en="Get Your Free Home Valuation">Obtenga su Valuación Gratis</a>
+          <a class="btn btn-ghost" href="#search" data-scroll data-en="Search Homes">Busque su Casa</a>
+        </div>
+      </div>
+    </div>
+
+    <a class="hero-scroll" href="#trust" aria-label="Desplazarse a las credenciales"
+       data-en-aria-label="Scroll to credentials" data-scroll>
+      <span aria-hidden="true"></span>
+    </a>
+  </section>
+
+
+  <!-- ==========================================================
+       2. TRUST BAR — real, verifiable credentials only.
+       ========================================================== -->
+  <section class="trust" id="trust" aria-label="Credenciales y trayectoria"
+           data-en-aria-label="Credentials and track record">
+    <div class="shell trust-grid">
+      <div class="trust-item">
+        <span class="trust-num" data-count="20" data-suffix="+">20+</span>
+        <span class="trust-label" data-en="Years in the Housing Industry">Años en la Industria de la Vivienda</span>
+      </div>
+      <div class="trust-item">
+        <span class="trust-num trust-word" data-en="All">Todo</span>
+        <span class="trust-label" data-en="of Central Florida &amp; Tampa">el Centro de Florida y Tampa</span>
+      </div>
+      <div class="trust-item">
+        <span class="trust-num trust-word">lpt</span>
+        <span class="trust-label" data-en="Brokered by LPT Realty">Corredora: LPT Realty</span>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ==========================================================
+       3. ABOUT HECTOR
+       [PLACEHOLDER BIO] Built from Hector's facts; still needs his own voice.
+       [NEEDS PHOTO] /assets/img/hector-headshot.jpg (done — real headshot in).
+       ========================================================== -->
+  <section class="about" id="about">
+    <div class="shell about-grid">
+      <figure class="about-photo reveal">
+        <img src="/assets/img/hector-headshot.jpg" loading="lazy" decoding="async"
+             width="900" height="1125"
+             alt="Hector Belen, REALTOR®, con saco color camel y lentes de armazón oscuro"
+             data-en-alt="Hector Belen, REALTOR®, in a tan blazer and dark-framed glasses">
+        <figcaption class="about-badge">
+          <strong>Hector Belen</strong>
+          <span>REALTOR® · FL Lic. SL3496104</span>
+        </figcaption>
+      </figure>
+
+      <div class="about-copy">
+        <p class="eyebrow reveal" data-en="About Hector">Sobre Hector</p>
+        <h2 class="reveal" data-en="Twenty years in real estate.">Veinte años en bienes raíces.</h2>
+
+        <p class="reveal" data-en="I spent more than two decades in the housing industry before I became a REALTOR®. That's not filler on a bio — it means I've seen how homes are built, financed, valued and fought over long before I ever sat across from a buyer. When I walk a property with you, I'm looking at things most agents never learned to look for.">
+          Pasé más de dos décadas en la industria de la vivienda antes de
+          convertirme en REALTOR®. Eso no es relleno de biografía: significa que
+          vi cómo se construyen, se financian, se valoran y se negocian las casas
+          mucho antes de sentarme frente a un comprador. Cuando recorro una
+          propiedad con usted, veo cosas que la mayoría de los agentes nunca
+          aprendió a ver.
+        </p>
+        <p class="reveal" data-en="I became a REALTOR® because I kept watching people make the biggest financial decision of their lives with bad information. The hardest part of a move usually isn't the paperwork — it's the not knowing. So I over-communicate. You'll hear from me before you have to ask, and I'll tell you when a house isn't right for you even if it costs me the commission.">
+          Me hice REALTOR® porque no dejaba de ver a personas tomar la decisión
+          financiera más grande de su vida con mala información. Lo más difícil de
+          una mudanza casi nunca es el papeleo: es la incertidumbre. Por eso
+          comunico de más. Sabrá de mí antes de tener que preguntar, y le diré
+          cuando una casa no es la indicada para usted, aunque me cueste la
+          comisión.
+        </p>
+        <p class="reveal" data-en="I work all of Central Florida and the Tampa area — first-time buyers, families trading up, and people who just want an honest number on a home they've owned for thirty years. Whichever one you are, call me directly. No pressure, no script.">
+          Trabajo en todo el Centro de Florida y el área de Tampa: compradores
+          primerizos, familias que buscan algo más grande y personas que solo
+          quieren un número honesto sobre la casa que han tenido por treinta años.
+          Sea cual sea su caso, llámeme directamente. Sin presión y sin libreto.
+        </p>
+
+        <p class="signature reveal" aria-hidden="true">Hector Belen</p>
+
+        <a class="btn btn-navy reveal" href="#contact" data-scroll data-en="Work With Hector">Trabaje con Hector</a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ==========================================================
+       4c. HOME SEARCH (IDX / MLS)
+       ----------------------------------------------------------
+       Hector has an IDX vendor (IDX Broker / iHomefinder / Showcase IDX /
+       RealGeeks / etc.). To make the live MLS search appear here, paste the
+       vendor's embed into the #idxEmbed container below and delete the
+       .idx-fallback block.
+
+       MOST VENDORS GIVE YOU ONE OF TWO THINGS:
+       • An <iframe> snippet — paste it inside #idxEmbed as-is.
+       • A <script> snippet — paste the <script> inside #idxEmbed; it injects
+         the search widget where it sits. (If the script must go in <head>,
+         put it there and leave a target <div> here per the vendor's docs.)
+
+       The site sets no Content-Security-Policy, so third-party IDX iframes and
+       scripts load fine. If you later add a CSP, allow the vendor's domain in
+       frame-src / script-src.
+
+       [PLACEHOLDER] Replace the href on the fallback button with the agent's
+       real IDX search URL (e.g. https://search.hectorbelenrealtor.com or the
+       vendor-hosted link) as an interim step before the embed is in.
+       ========================================================== -->
+  <section class="search" id="search" aria-label="Búsqueda de casas en el MLS"
+           data-en-aria-label="Home search on the MLS">
+    <div class="shell">
+      <div class="section-head search-head">
+        <p class="eyebrow reveal" data-en="Search the MLS">Busque en el MLS</p>
+        <h2 class="reveal" data-en="Find your next home">Encuentre su próxima casa</h2>
+        <p class="section-lede reveal" data-en="Search every active listing across Central Florida and Tampa — the same up-to-the-minute MLS data agents use. Save your favorites and I'll help you see the ones worth your time.">
+          Busque entre todas las propiedades activas en el Centro de Florida y
+          Tampa — los mismos datos del MLS, al minuto, que usan los agentes.
+          Guarde sus favoritas y le ayudo a ver las que valen su tiempo.
+        </p>
+      </div>
+
+      <!-- IDX vendor embed goes here. -->
+      <div class="idx-embed reveal" id="idxEmbed">
+        <!-- ===== PASTE IDX VENDOR EMBED (iframe or script) HERE ===== -->
+
+        <!-- Interim fallback shown until the embed is added. Delete this block
+             once the real search is in. -->
+        <div class="idx-fallback">
+          <span class="idx-fallback-mark" aria-hidden="true"></span>
+          <h3 data-en="The live home search is being connected.">La búsqueda de casas en vivo se está conectando.</h3>
+          <p data-en="In the meantime, tell me what you're looking for and I'll send you matching listings personally.">
+            Mientras tanto, dígame qué está buscando y le envío propiedades que
+            coincidan, personalmente.
+          </p>
+          <!-- [PLACEHOLDER] point at the vendor's hosted search URL if you have one -->
+          <a class="btn btn-gold" href="#contact" data-scroll data-en="Tell Me What You Want">Dígame Qué Busca</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ==========================================================
+       5b. NATIONAL STANDARDS — the two seals that signal a REALTOR®
+       follows the proper guidelines. Both marks are rebuilt as SVG
+       (assets/img/seal-*.svg) so they stay sharp and theme cleanly.
+       ========================================================== -->
+  <section class="standards" id="standards" aria-label="Estándares nacionales y afiliaciones"
+           data-en-aria-label="National standards and affiliations">
+    <div class="shell">
+      <div class="section-head standards-head">
+        <p class="eyebrow reveal" data-en="Standards &amp; Accountability">Estándares y Responsabilidad</p>
+        <h2 class="reveal" data-en="Held to a national standard">Regido por un estándar nacional</h2>
+        <p class="section-lede reveal" data-en="Hector isn't just licensed — he's a member of the National Association of REALTORS®, bound by a strict Code of Ethics that goes beyond state law. And every client is protected by federal Fair Housing law: equal opportunity, no exceptions.">
+          Hector no solo tiene licencia — es miembro de la Asociación Nacional de
+          REALTORS®, sujeto a un estricto Código de Ética que va más allá de la
+          ley estatal. Y cada cliente está protegido por la ley federal de
+          Igualdad de Vivienda: igualdad de oportunidades, sin excepciones.
+        </p>
+      </div>
+
+      <ul class="seal-grid">
+        <li class="seal-card reveal">
+          <img class="seal-img" src="/assets/img/seal-realtor.svg"
+               alt="REALTOR® — miembro de la Asociación Nacional de REALTORS®"
+               data-en-alt="REALTOR® — member of the National Association of REALTORS®"
+               width="118" height="136" loading="lazy" decoding="async">
+          <div class="seal-copy">
+            <h3 data-en="National Association of REALTORS®">Asociación Nacional de REALTORS®</h3>
+            <p data-en="Bound by the REALTOR® Code of Ethics — a standard of honesty and fair dealing above and beyond state license law.">
+              Sujeto al Código de Ética de los REALTORS®: un estándar de honestidad
+              y trato justo que va más allá de la ley estatal de licencias.
+            </p>
+          </div>
+        </li>
+        <li class="seal-card reveal">
+          <img class="seal-img" src="/assets/img/seal-equal-housing.svg"
+               alt="Igualdad de Oportunidad de Vivienda"
+               data-en-alt="Equal Housing Opportunity"
+               width="120" height="125" loading="lazy" decoding="async">
+          <div class="seal-copy">
+            <h3 data-en="Equal Housing Opportunity">Igualdad de Oportunidad de Vivienda</h3>
+            <p data-en="Every buyer and seller is treated fairly under federal Fair Housing law — the same opportunity for everyone, no exceptions.">
+              Cada comprador y vendedor recibe un trato justo bajo la ley federal
+              de Igualdad de Vivienda: la misma oportunidad para todos, sin
+              excepciones.
+            </p>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+
+  <!-- ==========================================================
+       6. LEAD CAPTURE FORM — Netlify Forms by default (see README/script.js).
+       Honeypot field "company" for spam.
+       ========================================================== -->
+  <section class="contact" id="contact">
+    <div class="shell contact-grid">
+
+      <div class="contact-intro">
+        <p class="eyebrow reveal" data-en="Let's Talk">Hablemos</p>
+        <h2 class="reveal" data-en="Buying, selling, or renting?">¿Comprar, vender o rentar?</h2>
+        <p class="reveal" data-en="Tell me where you are — buying your first place, selling, or looking for a rental — and I'll get back to you personally, usually the same day. Selling? I'll put together a real valuation based on what's actually closing on your street. Buying or renting? I'll send you options that actually fit.">
+          Dígame en qué punto está — comprando su primera casa, vendiendo, o
+          buscando dónde rentar — y le responderé personalmente, normalmente el
+          mismo día. ¿Vende? Le preparo una valuación real basada en lo que de
+          verdad se está cerrando en su calle. ¿Compra o renta? Le envío opciones
+          que de verdad le sirvan.
+        </p>
+
+        <ul class="assurances reveal">
+          <li data-en="No obligation and no drip-campaign spam">Sin compromiso y sin correos de campaña automática</li>
+          <li data-en="Your information is never sold or shared">Su información nunca se vende ni se comparte</li>
+          <li data-en="A real reply from Hector, not an auto-responder">Una respuesta real de Hector, no un mensaje automático</li>
+        </ul>
+
+        <div class="contact-direct reveal">
+          <p data-en="Prefer to call?">¿Prefiere llamar?</p>
+          <a class="big-link" href="tel:+14072722898">(407) 272-2898</a>
+          <a class="big-link sm" href="mailto:Hectorbelenrealtor@gmail.com">Hectorbelenrealtor@gmail.com</a>
+        </div>
+      </div>
+
+      <div class="form-wrap reveal">
+        <form id="leadForm"
+              name="lead"
+              method="POST"
+              action="/"
+              data-netlify="true"
+              netlify-honeypot="company"
+              data-netlify-honeypot="company"
+              novalidate>
+
+          <input type="hidden" name="form-name" value="lead">
+
+          <!-- LEAD ATTRIBUTION — filled in by script.js on load so your CRM
+               knows where each lead came from (language, page, referrer, and
+               any ?utm_* ad-campaign tags). Never shown to the visitor. -->
+          <input type="hidden" name="language"     value="es">
+          <input type="hidden" name="source"       value="website">
+          <input type="hidden" name="page"         value="">
+          <input type="hidden" name="referrer"     value="">
+          <input type="hidden" name="utm_source"   value="">
+          <input type="hidden" name="utm_medium"   value="">
+          <input type="hidden" name="utm_campaign" value="">
+          <input type="hidden" name="utm_term"     value="">
+          <input type="hidden" name="utm_content"  value="">
+
+          <!-- HONEYPOT — do not remove. -->
+          <p class="hp" aria-hidden="true">
+            <label>Company
+              <input type="text" name="company" tabindex="-1" autocomplete="off">
+            </label>
+          </p>
+
+          <div class="field">
+            <label for="name"><span data-en="Name">Nombre</span> <span class="req" aria-hidden="true">*</span></label>
+            <input type="text" id="name" name="name" autocomplete="name"
+                   required minlength="2" placeholder="Hector Belen"
+                   aria-describedby="name-error">
+            <small class="error" id="name-error" role="alert"></small>
+          </div>
+
+          <div class="field-row">
+            <div class="field">
+              <label for="email"><span data-en="Email">Correo electrónico</span> <span class="req" aria-hidden="true">*</span></label>
+              <input type="email" id="email" name="email" autocomplete="email"
+                     required inputmode="email" placeholder="usted@ejemplo.com"
+                     data-en-placeholder="you@example.com"
+                     aria-describedby="email-error">
+              <small class="error" id="email-error" role="alert"></small>
+            </div>
+
+            <div class="field">
+              <label for="phone"><span data-en="Phone">Teléfono</span> <span class="req" aria-hidden="true">*</span></label>
+              <input type="tel" id="phone" name="phone" autocomplete="tel"
+                     required inputmode="tel" placeholder="(555) 123-4567"
+                     aria-describedby="phone-error">
+              <small class="error" id="phone-error" role="alert"></small>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="interest"><span data-en="I'm interested in">Me interesa</span> <span class="req" aria-hidden="true">*</span></label>
+            <div class="select-wrap">
+              <select id="interest" name="interest" required aria-describedby="interest-error">
+                <option value="" selected disabled data-en="Choose one…">Seleccione una opción…</option>
+                <option value="Buying" data-en="Buying a home">Comprar una casa</option>
+                <option value="Selling" data-en="Selling a home">Vender una casa</option>
+                <option value="Renting" data-en="Renting a home">Rentar una casa</option>
+                <option value="BuyingSelling" data-en="Buying and selling">Comprar y vender</option>
+                <option value="HomeValue" data-en="Just want my home's value">Solo saber cuánto vale mi casa</option>
+              </select>
+            </div>
+            <small class="error" id="interest-error" role="alert"></small>
+          </div>
+
+          <!-- ── CONDITIONAL QUALIFIERS — shown by intent (handled in script.js) ─
+               Each `.cond` field carries data-when="<comma list of interest
+               values>" and appears only when the chosen intent matches; its
+               value is cleared when hidden so no stale data is submitted.
+               All of these are OPTIONAL — the required core stays short
+               (name / email / phone / intent / timeline / consent), which keeps
+               conversion high while still capturing the qualifying detail that
+               makes a lead worth a callback. New fields flow to the CRM
+               automatically (see netlify/functions/submit-lead.js). -->
+
+          <!-- Sellers & valuation: which property -->
+          <div class="field cond" data-when="Selling,BuyingSelling,HomeValue" hidden>
+            <label for="property_address"><span data-en="Property address">Dirección de la propiedad</span> <span class="opt" data-en="(optional)">(opcional)</span></label>
+            <input type="text" id="property_address" name="property_address" autocomplete="street-address"
+                   placeholder="Calle, ciudad" data-en-placeholder="Street, city">
+          </div>
+
+          <!-- Buyers & renters: where -->
+          <div class="field cond" data-when="Buying,Renting,BuyingSelling" hidden>
+            <label for="area"><span data-en="Areas or cities you're looking in">Zonas o ciudades de interés</span> <span class="opt" data-en="(optional)">(opcional)</span></label>
+            <input type="text" id="area" name="area"
+                   placeholder="Orlando, Kissimmee, Tampa…" data-en-placeholder="Orlando, Kissimmee, Tampa…">
+          </div>
+
+          <!-- Buyers & renters: budget + bedrooms -->
+          <div class="field-row cond" data-when="Buying,Renting,BuyingSelling" hidden>
+            <div class="field">
+              <label for="budget"><span data-en="Budget">Presupuesto</span> <span class="opt" data-en="(optional)">(opcional)</span></label>
+              <input type="text" id="budget" name="budget" inputmode="numeric"
+                     placeholder="$350,000 o $2,000/mes" data-en-placeholder="$350,000 or $2,000/mo">
+            </div>
+            <div class="field">
+              <label for="bedrooms"><span data-en="Bedrooms">Recámaras</span> <span class="opt" data-en="(optional)">(opcional)</span></label>
+              <div class="select-wrap">
+                <select id="bedrooms" name="bedrooms">
+                  <option value="" selected data-en="Any">Cualquiera</option>
+                  <option value="1+">1+</option>
+                  <option value="2+">2+</option>
+                  <option value="3+">3+</option>
+                  <option value="4+">4+</option>
+                  <option value="5+">5+</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- Buyers: financing status — the single most important buyer qualifier -->
+          <div class="field cond" data-when="Buying,BuyingSelling" hidden>
+            <label for="financing"><span data-en="Are you pre-approved for a mortgage?">¿Tiene preaprobación de hipoteca?</span> <span class="opt" data-en="(optional)">(opcional)</span></label>
+            <div class="select-wrap">
+              <select id="financing" name="financing">
+                <option value="" selected data-en="Choose one…">Seleccione una opción…</option>
+                <option value="Pre-approved" data-en="Yes, pre-approved">Sí, con preaprobación</option>
+                <option value="Not yet" data-en="Not yet">Todavía no</option>
+                <option value="Cash" data-en="Paying cash">Pago en efectivo</option>
+                <option value="Needs help" data-en="I need help with financing">Necesito ayuda con el financiamiento</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Universal qualifier: timeline (required — the #1 lead qualifier) -->
+          <div class="field">
+            <label for="timeline"><span data-en="When are you looking to move?">¿Cuándo planea mudarse?</span> <span class="req" aria-hidden="true">*</span></label>
+            <div class="select-wrap">
+              <select id="timeline" name="timeline" required aria-describedby="timeline-error">
+                <option value="" selected disabled data-en="Choose one…">Seleccione una opción…</option>
+                <option value="ASAP" data-en="As soon as possible">Lo antes posible</option>
+                <option value="1-3 months" data-en="In 1–3 months">En 1–3 meses</option>
+                <option value="3-6 months" data-en="In 3–6 months">En 3–6 meses</option>
+                <option value="6-12 months" data-en="In 6–12 months">En 6–12 meses</option>
+                <option value="Just exploring" data-en="Just exploring for now">Solo estoy explorando</option>
+              </select>
+            </div>
+            <small class="error" id="timeline-error" role="alert"></small>
+          </div>
+
+          <!-- Universal (optional): best way + time to reach them -->
+          <div class="field">
+            <label for="contact_method"><span data-en="Best way to reach you">Mejor forma de contactarle</span> <span class="opt" data-en="(optional)">(opcional)</span></label>
+            <div class="select-wrap">
+              <select id="contact_method" name="contact_method">
+                <option value="" selected data-en="No preference">Sin preferencia</option>
+                <option value="Call" data-en="Call">Llamada</option>
+                <option value="Text" data-en="Text message">Mensaje de texto</option>
+                <option value="WhatsApp">WhatsApp</option>
+                <option value="Email" data-en="Email">Correo electrónico</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="message"><span data-en="Anything else?">¿Algo más?</span> <span class="opt" data-en="(optional)">(opcional)</span></label>
+            <textarea id="message" name="message" rows="3"
+                      placeholder="Cualquier cosa que quiera que yo sepa…"
+                      data-en-placeholder="Anything you'd like me to know…"></textarea>
+          </div>
+
+          <!-- [PLACEHOLDER] Consent wording — have LPT confirm the exact TCPA
+               language for Florida (and its Spanish translation) before launch. -->
+          <div class="field consent">
+            <label class="check">
+              <input type="checkbox" id="consent" name="consent" value="yes" required
+                     aria-describedby="consent-error">
+              <span data-en="I agree to be contacted by Hector Belen about my inquiry. &lt;b class=&quot;ph&quot;&gt;[PLACEHOLDER — broker to confirm TCPA wording]&lt;/b&gt;">Acepto que Hector Belen me contacte sobre mi solicitud.
+                <b class="ph">[PLACEHOLDER — LPT debe confirmar el texto TCPA]</b></span>
+            </label>
+            <small class="error" id="consent-error" role="alert"></small>
+          </div>
+
+          <button type="submit" class="btn btn-gold btn-block" id="submitBtn">
+            <span class="btn-text">Contactar a Hector</span>
+            <span class="spinner" aria-hidden="true"></span>
+          </button>
+
+          <p class="form-foot" data-en="Typical response time: same business day.">Tiempo de respuesta típico: el mismo día hábil.</p>
+          <p class="form-error" id="formError" role="alert" hidden></p>
+        </form>
+
+        <!-- Inline thank-you — swapped in by script.js, no reload. -->
+        <div class="thanks" id="formThanks" hidden tabindex="-1">
+          <span class="thanks-mark" aria-hidden="true"></span>
+          <h3 data-en="Thank you — your message is on its way.">Gracias — su mensaje va en camino.</h3>
+          <p data-en="I've got your details and I'll be in touch personally, usually within a few hours during the business week. If it's urgent, call or text me directly at &lt;a href=&quot;tel:+14072722898&quot;&gt;(407) 272-2898&lt;/a&gt;.">
+            Ya tengo sus datos y me pondré en contacto personalmente, normalmente
+            en unas horas durante la semana hábil. Si es urgente, llámeme o
+            escríbame directamente al <a href="tel:+14072722898">(407) 272-2898</a>.
+          </p>
+          <p class="thanks-sig">— Hector</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</main>
+
+
+<!-- ============================================================
+     7. FOOTER
+     ============================================================ -->
+<footer class="site-footer">
+  <div class="shell footer-grid">
+
+    <div class="footer-brand">
+      <!-- Real full logo. Sits on the dark footer, where the metallic mark
+           belongs. Swap /assets/img/logo-full.jpg to change it. -->
+      <img class="footer-logo" src="/assets/img/logo-full.jpg"
+           width="810" height="782" loading="lazy" decoding="async"
+           alt="Hector Belen, REALTOR®">
+      <p data-en="Helping people buy and sell across Central Florida and the Tampa area.">Ayudando a comprar y vender en todo el Centro de Florida y el área de Tampa.</p>
+    </div>
+
+    <div class="footer-col">
+      <h4 data-en="Contact">Contacto</h4>
+      <ul>
+        <li><a href="tel:+14072722898">(407) 272-2898</a></li>
+        <li><a href="mailto:Hectorbelenrealtor@gmail.com">Hectorbelenrealtor@gmail.com</a></li>
+        <li>1400 S International Pkwy #1020<br>Lake Mary, FL 32746</li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4 data-en="Explore">Explorar</h4>
+      <ul>
+        <li><a href="#about" data-scroll data-en="About Hector">Sobre Hector</a></li>
+        <li><a href="#search" data-scroll data-en="Home Search">Buscar Casas</a></li>
+        <li><a href="#standards" data-scroll data-en="Standards">Estándares</a></li>
+        <li><a href="#contact" data-scroll data-en="Free Valuation">Valuación Gratis</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4 data-en="Follow">Síganos</h4>
+      <!-- [PLACEHOLDER] LinkedIn + YouTube are still "#". Add real URLs or delete. -->
+      <ul class="social">
+        <li><a href="https://www.instagram.com/hectorbelenrealtor" aria-label="Instagram" rel="noopener" target="_blank">
+          <svg viewBox="0 0 24 24" aria-hidden="true" width="20" height="20"><path d="M12 2.2c3.2 0 3.6 0 4.9.07 1.2.05 1.8.25 2.2.42.6.22 1 .48 1.4.9.43.42.7.82.92 1.4.17.42.37 1.06.42 2.25.06 1.28.07 1.66.07 4.9s-.01 3.6-.07 4.9c-.05 1.2-.25 1.8-.42 2.2-.22.6-.5 1-.9 1.4-.43.43-.83.7-1.4.92-.42.17-1.06.37-2.25.42-1.28.06-1.66.07-4.9.07s-3.6-.01-4.9-.07c-1.2-.05-1.8-.25-2.2-.42a3.9 3.9 0 0 1-1.4-.9 3.9 3.9 0 0 1-.92-1.4c-.17-.42-.37-1.06-.42-2.25C2.21 15.6 2.2 15.2 2.2 12s.01-3.6.07-4.9c.05-1.2.25-1.8.42-2.2.22-.6.5-1 .9-1.4.43-.43.83-.7 1.4-.92.42-.17 1.06-.37 2.25-.42C8.4 2.21 8.8 2.2 12 2.2Zm0 1.8c-3.14 0-3.5.01-4.74.07-.9.04-1.38.19-1.7.31-.43.17-.73.37-1.05.69-.32.32-.52.62-.69 1.05-.12.32-.27.8-.31 1.7C3.45 8.5 3.44 8.86 3.44 12s.01 3.5.07 4.74c.04.9.19 1.38.31 1.7.17.43.37.73.69 1.05.32.32.62.52 1.05.69.32.12.8.27 1.7.31 1.24.06 1.6.07 4.74.07s3.5-.01 4.74-.07c.9-.04 1.38-.19 1.7-.31.43-.17.73-.37 1.05-.69.32-.32.52-.62.69-1.05.12-.32.27-.8.31-1.7.06-1.24.07-1.6.07-4.74s-.01-3.5-.07-4.74c-.04-.9-.19-1.38-.31-1.7a2.8 2.8 0 0 0-.69-1.05 2.8 2.8 0 0 0-1.05-.69c-.32-.12-.8-.27-1.7-.31C15.5 4.01 15.14 4 12 4Zm0 3.06a4.94 4.94 0 1 1 0 9.88 4.94 4.94 0 0 1 0-9.88Zm0 1.8a3.14 3.14 0 1 0 0 6.28 3.14 3.14 0 0 0 0-6.28Zm5.15-3.2a1.15 1.15 0 1 1 0 2.3 1.15 1.15 0 0 1 0-2.3Z"/></svg>
+          <span>Instagram</span></a></li>
+        <li><a href="https://www.facebook.com/hectorbelenrealtor" aria-label="Facebook" rel="noopener" target="_blank">
+          <svg viewBox="0 0 24 24" aria-hidden="true" width="20" height="20"><path d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06C2 17.08 5.66 21.24 10.44 22v-7.03H7.9v-2.91h2.54V9.85c0-2.51 1.49-3.9 3.77-3.9 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.78-1.63 1.57v1.88h2.78l-.45 2.91h-2.33V22C18.34 21.24 22 17.08 22 12.06Z"/></svg>
+          <span>Facebook</span></a></li>
+        <li><a href="#" aria-label="LinkedIn" rel="noopener">
+          <svg viewBox="0 0 24 24" aria-hidden="true" width="20" height="20"><path d="M6.94 5.5a2.19 2.19 0 1 1-4.38 0 2.19 2.19 0 0 1 4.38 0ZM3 21.5h3.86V8.9H3v12.6ZM9.4 8.9h3.7v1.73h.05c.52-.94 1.79-1.93 3.68-1.93 3.93 0 4.66 2.5 4.66 5.76v7.04h-3.86v-6.24c0-1.49-.03-3.4-2.11-3.4-2.12 0-2.44 1.62-2.44 3.29v6.35H9.4V8.9Z"/></svg>
+          <span>LinkedIn</span></a></li>
+        <li><a href="#" aria-label="YouTube" rel="noopener">
+          <svg viewBox="0 0 24 24" aria-hidden="true" width="20" height="20"><path d="M23.5 6.9a3 3 0 0 0-2.1-2.13C19.5 4.25 12 4.25 12 4.25s-7.5 0-9.4.52A3 3 0 0 0 .5 6.9C0 8.8 0 12 0 12s0 3.2.5 5.1a3 3 0 0 0 2.1 2.13c1.9.52 9.4.52 9.4.52s7.5 0 9.4-.52a3 3 0 0 0 2.1-2.13c.5-1.9.5-5.1.5-5.1s0-3.2-.5-5.1ZM9.6 15.6V8.4L15.8 12l-6.2 3.6Z"/></svg>
+          <span>YouTube</span></a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="shell footer-legal">
+
+    <!-- COMPLIANCE BADGES — REALTOR® and Equal Housing rebuilt as SVG seals
+         (assets/img/seal-*.svg). .badge-invert flips them to white on navy.
+         [NEEDS LOGO FILE] lpt-realty-logo.png is still a placeholder — save a
+         transparent PNG of the LPT logo there. -->
+    <ul class="compliance" aria-label="Afiliaciones de corredora e industria"
+        data-en-aria-label="Brokerage and industry affiliations">
+      <li>
+        <img class="badge-invert" src="/assets/img/lpt-realty-logo.png" alt="LPT Realty"
+             width="120" height="60" loading="lazy" decoding="async">
+      </li>
+      <li>
+        <img class="badge-invert" src="/assets/img/seal-realtor.svg" alt="REALTOR®"
+             width="52" height="60" loading="lazy" decoding="async">
+      </li>
+      <li>
+        <img class="badge-invert" src="/assets/img/seal-equal-housing.svg"
+             alt="Igualdad de Oportunidad de Vivienda"
+             data-en-alt="Equal Housing Opportunity"
+             width="58" height="60" loading="lazy" decoding="async">
+      </li>
+    </ul>
+
+    <!-- ⚠ REQUIRED DISCLOSURE — LPT compliance should confirm the exact wording
+         (and its Spanish). Names/license numbers stay as-is in both languages. -->
+    <p class="disclosure" data-en="Hector Belen · REALTOR® · Florida License&nbsp;#&nbsp;&lt;strong&gt;SL3496104&lt;/strong&gt;&lt;br&gt;Brokered by &lt;strong&gt;LPT Realty, LLC&lt;/strong&gt; · 1400 S International Pkwy&nbsp;#1020, Lake Mary, FL&nbsp;32746&lt;br&gt;Brokerage Corp. License&nbsp;#&nbsp;&lt;strong&gt;CQ1064576&lt;/strong&gt; · Principal Broker License&nbsp;#&nbsp;&lt;strong&gt;BK3378992&lt;/strong&gt;">
+      Hector Belen · REALTOR® · Licencia de Florida&nbsp;#&nbsp;<strong>SL3496104</strong><br>
+      Corredora: <strong>LPT Realty, LLC</strong> · 1400 S International Pkwy&nbsp;#1020, Lake Mary, FL&nbsp;32746<br>
+      Licencia Corp. de la Corredora&nbsp;#&nbsp;<strong>CQ1064576</strong> · Licencia del Corredor Principal&nbsp;#&nbsp;<strong>BK3378992</strong>
+    </p>
+    <p class="disclosure fine" data-en="Equal Housing Opportunity. All information is deemed reliable but not guaranteed and should be independently verified. Properties shown may have been listed or sold by other brokerages. Not intended as a solicitation of property already listed. REALTOR® is a registered collective membership mark identifying real estate professionals who are members of the National Association of REALTORS®.">
+      Igualdad de Oportunidad de Vivienda. Toda la información se considera
+      confiable pero no está garantizada y debe verificarse de forma
+      independiente. Las propiedades mostradas pueden haber sido listadas o
+      vendidas por otras corredoras. No pretende ser una solicitud de propiedades
+      ya listadas. REALTOR® es una marca registrada de membresía colectiva que
+      identifica a profesionales de bienes raíces miembros de la Asociación
+      Nacional de REALTORS®.
+    </p>
+    <p class="copyright">
+      &copy; <span id="year">2026</span> Hector Belen. <span data-en="All rights reserved.">Todos los derechos reservados.</span> ·
+      <a href="#top" data-scroll data-en="Back to top">Volver arriba</a>
+    </p>
+  </div>
+</footer>
+
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true"
+     aria-label="Foto de propiedad" data-en-aria-label="Property photo" hidden>
+  <button class="lb-close" id="lbClose" aria-label="Cerrar foto" data-en-aria-label="Close photo">&times;</button>
+  <button class="lb-nav lb-prev" id="lbPrev" aria-label="Foto anterior" data-en-aria-label="Previous photo">&#8249;</button>
+  <figure class="lb-figure">
+    <img id="lbImage" src="" alt="">
+    <figcaption id="lbCaption"></figcaption>
+  </figure>
+  <button class="lb-nav lb-next" id="lbNext" aria-label="Foto siguiente" data-en-aria-label="Next photo">&#8250;</button>
+  <p class="lb-count" id="lbCount"></p>
+</div>
+
+<script src="/script.js" defer></script>
+</body>
+</html>

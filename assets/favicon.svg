@@ -1,0 +1,11 @@
+<!-- PLACEHOLDER FAVICON — replace with the mark from Hector's brand board.
+     Modern browsers use this SVG; see README for generating the .ico/.png
+     fallbacks for older browsers and iOS home-screen icons. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <rect width="64" height="64" rx="10" fill="#1B2A41" />
+  <g fill="none" stroke="#C9A44C" stroke-width="3.4" stroke-linejoin="round">
+    <path d="M14 32 L32 15 L50 32" />
+    <path d="M20 30 v19 h24 v-19" />
+  </g>
+  <rect x="29" y="38" width="6" height="11" fill="#C9A44C" />
+</svg>

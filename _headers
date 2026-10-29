@@ -1,0 +1,20 @@
+# Cloudflare Pages reads this file. (Netlify reads it too, but netlify.toml
+# already covers Netlify — keeping both means either host works unchanged.)
+
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.html
+  Cache-Control: public, max-age=0, must-revalidate
+
+/script.js
+  Cache-Control: public, max-age=0, must-revalidate
+
+/style.css
+  Cache-Control: public, max-age=0, must-revalidate
+
+/*
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: SAMEORIGIN
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: geolocation=(), microphone=(), camera=()

@@ -1,0 +1,18 @@
+<!-- Equal Housing Opportunity seal — single-tone navy line art on transparent.
+     Rebuilt as SVG so it stays razor-sharp at any size and inverts cleanly to
+     white on the dark footer (via the .badge-invert CSS filter). This is the
+     standard HUD Equal Housing symbol; a REALTOR® member may display it.
+     viewBox is 240 wide so the "EQUAL HOUSING" wordmark never clips. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 250"
+     role="img" aria-label="Equal Housing Opportunity">
+  <g fill="#1B2A41">
+    <path d="M120 26 L192 82 L192 160 L48 160 L48 82 Z"
+          fill="none" stroke="#1B2A41" stroke-width="19" stroke-linejoin="round"/>
+    <rect x="84" y="92" width="72" height="18" rx="2"/>
+    <rect x="84" y="123" width="72" height="18" rx="2"/>
+    <text x="120" y="197" text-anchor="middle"
+          font-family="Arial, Helvetica, sans-serif" font-weight="700" font-size="25">EQUAL HOUSING</text>
+    <text x="120" y="229" text-anchor="middle"
+          font-family="Arial, Helvetica, sans-serif" font-weight="700" font-size="25">OPPORTUNITY</text>
+  </g>
+</svg>

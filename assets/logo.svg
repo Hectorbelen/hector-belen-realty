@@ -1,0 +1,18 @@
+<!-- PLACEHOLDER LOGO — swap in Hector's final logo file from the brand board.
+     Keep the same filename (/assets/logo.svg) and nothing else needs to change.
+     currentColor is used for the wordmark so the logo inverts automatically
+     against the dark hero nav and the light scrolled nav. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 64" role="img"
+     aria-label="Hector Belen, Realtor" width="340" height="64">
+  <g fill="none" stroke="#C9A44C" stroke-width="2.2" stroke-linejoin="round">
+    <path d="M10 32 L28 15 L46 32" />
+    <path d="M16 30 v18 h24 v-18" />
+  </g>
+  <rect x="25" y="37" width="6" height="11" fill="#C9A44C" />
+  <g fill="currentColor" font-family="Cormorant Garamond, Didot, Georgia, serif">
+    <text x="66" y="34" font-size="27" letter-spacing="2.4">HECTOR BELEN</text>
+  </g>
+  <text x="67" y="50" fill="currentColor" opacity=".62" font-size="10.5"
+        letter-spacing="5.2"
+        font-family="Jost, Futura, Helvetica Neue, sans-serif">REALTOR®</text>
+</svg>

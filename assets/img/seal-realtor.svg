@@ -1,0 +1,21 @@
+<!-- REALTOR® mark — single-tone navy on transparent, rebuilt as SVG.
+     The block "R" is a mask cutout of the square, so it renders as one ink
+     color (navy) with the R punched out — which means it inverts cleanly to
+     white on the dark footer via .badge-invert. REALTOR® is a registered
+     collective membership mark of the National Association of REALTORS®;
+     display here is by a member. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 230"
+     role="img" aria-label="REALTOR, member of the National Association of REALTORS">
+  <defs>
+    <mask id="realtorR">
+      <rect x="35" y="8" width="130" height="130" rx="6" fill="#fff"/>
+      <text x="101" y="120" text-anchor="middle"
+            font-family="'Arial Black', Arial, sans-serif" font-weight="900"
+            font-size="132" fill="#000">R</text>
+    </mask>
+  </defs>
+  <rect x="35" y="8" width="130" height="130" rx="6" fill="#1B2A41" mask="url(#realtorR)"/>
+  <text x="100" y="198" text-anchor="middle"
+        font-family="Arial, Helvetica, sans-serif" font-weight="700" font-size="41"
+        letter-spacing="1.5" fill="#1B2A41">REALTOR<tspan font-size="19" dy="-17">®</tspan></text>
+</svg>

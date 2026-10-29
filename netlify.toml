@@ -1,0 +1,40 @@
+# Netlify configuration — no build step, we just publish the folder as-is.
+[build]
+  publish = "."
+  command = ""
+  # Serverless lead handler lives here. Netlify auto-deploys every .js file in
+  # this folder as a function at /.netlify/functions/<filename>.
+  functions = "netlify/functions"
+
+
+# Long cache for fingerprint-free static assets. If you replace an image and
+# don't see the change, either rename the file or purge the Netlify cache.
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# HTML, and the root-level JS/CSS, must always revalidate so content and code
+# edits go live immediately (the long-cache rule above is only for /assets/*).
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/script.js"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/style.css"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "SAMEORIGIN"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "geolocation=(), microphone=(), camera=(), interest-cohort=()"
