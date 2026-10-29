@@ -53,6 +53,20 @@
     /* Netlify Forms needs the POST to hit a real static page. '/' is correct. */
     netlifyAction: '/',
 
+    /* ---- HOME SEARCH (Lofty IDX) ------------------------------------------
+       Hector's live MLS search runs on his Lofty IDX site. Until that site is
+       live, leave this EMPTY: every "Buscar / Search" button scrolls to the
+       in-page #search section (the "search is being connected" card), and the
+       marketing site behaves exactly as it does today.
+
+       THE DAY LOFTY GIVES YOU THE IDX ADDRESS: set this to it and redeploy.
+         • Best:   your branded subdomain  'https://search.hectorbelenrealtor.com'
+         • Or:     Lofty's default URL      'https://hectorbelen.lofty.site' (example)
+       Once set, every search button routes straight to the live MLS search and
+       the #search section turns into a "Search Homes on the MLS" launcher.
+       Nothing else changes. Full steps: LOFTY-SEARCH-SETUP.md */
+    searchUrl: '',
+
     /* Minimum / maximum digits accepted in the phone field. 10 covers US
        numbers; the upper bound leaves room for country codes. */
     phoneDigits: { min: 10, max: 15 }
@@ -250,6 +264,29 @@
       setMenu(navToggle.getAttribute('aria-expanded') !== 'true');
     });
   }
+
+  /* ---- Home search routing (Lofty IDX) -----------------------------------
+     When CONFIG.searchUrl is set, every in-page "#search" button is repointed
+     at the live Lofty IDX site, and the #search section swaps its "being
+     connected" card for a live launcher. When it's empty (today), nothing
+     changes — the buttons scroll to the in-page section. Runs before the
+     scroll-spy below so repointed links drop out of the spy cleanly. */
+  (function wireSearch() {
+    var url = (CONFIG.searchUrl || '').trim();
+    if (!url) return;
+    $$('a[href="#search"]').forEach(function (a) {
+      a.setAttribute('href', url);
+      a.removeAttribute('data-scroll');
+    });
+    var live = $('#idxLive');
+    var fallback = $('#idxFallback');
+    if (fallback) fallback.hidden = true;
+    if (live) {
+      live.hidden = false;
+      var btn = live.querySelector('a.btn');
+      if (btn) btn.setAttribute('href', url);
+    }
+  })();
 
   /* Any nav click closes the drawer. Smooth scrolling is handled by CSS
      (scroll-behavior + scroll-padding-top), so we don't fight the browser. */
@@ -505,12 +542,38 @@
       var wrap = document.createElement('div');
       wrap.className = 'video-embed';
 
-      /* Guard for the handoff period: if the placeholder id is still in the
-         markup, say so plainly instead of loading a broken player. */
+      /* Self-hosted file: play a local <video> (no third-party player). The
+         file isn't fetched until this click, so it never weighs on page load. */
+      if (provider === 'file') {
+        var fsrc = btn.getAttribute('data-src');
+        if (fsrc) {
+          var v = document.createElement('video');
+          v.src = fsrc;
+          v.controls = true;
+          v.autoplay = true;
+          v.playsInline = true;
+          v.setAttribute('playsinline', '');
+          v.preload = 'auto';
+          v.className = 'video-player';
+          v.setAttribute('aria-label', btn.getAttribute('aria-label') || 'Client testimonial video');
+          wrap.appendChild(v);
+          btn.parentNode.replaceChild(wrap, btn);
+          v.focus();
+          return;
+        }
+      }
+
+      /* Guard for the handoff period: until a real video id is in the markup,
+         show a friendly bilingual "coming soon" card (safe to ship) instead of
+         loading a broken player. Replace data-id with the real id to go live. */
       if (!id || id.indexOf('PLACEHOLDER') !== -1) {
+        var soonTitle = LANG === 'en' ? 'Video coming soon' : 'Video próximamente';
+        var soonBody  = LANG === 'en'
+          ? 'This testimonial will be added shortly.'
+          : 'Este testimonio se añadirá muy pronto.';
         wrap.innerHTML =
-          '<div class="video-missing"><strong>Video not connected yet</strong>' +
-          '<span>Add the real id to <code>data-id</code> on this button in index.html.</span></div>';
+          '<div class="video-missing"><strong>' + soonTitle + '</strong>' +
+          '<span>' + soonBody + '</span></div>';
         btn.parentNode.replaceChild(wrap, btn);
         return;
       }
@@ -532,6 +595,42 @@
       iframe.focus();
     });
   });
+
+
+  /* ============================ 7b. Horizontal film strips === */
+  /* Compact photo + video sliders that scroll sideways. The arrow buttons
+     scroll the strip by about one-and-a-half items; native swipe/scroll works
+     on touch. Clicking a photo opens the shared lightbox (wired in §6 via the
+     #galleryGrid cards); clicking a video loads its player (§7). Arrows hide
+     themselves when the strip isn't wide enough to scroll. */
+  $$('.film-wrap').forEach(function (wrap) {
+    var film = $('.film', wrap);
+    if (!film) return;
+    var prevBtn = $('.film-prev', wrap);
+    var nextBtn = $('.film-next', wrap);
+
+    function stepWidth() {
+      var item = film.querySelector('.card, .video-card');
+      var gap = 14;
+      return (item ? item.getBoundingClientRect().width : 220) * 1.5 + gap;
+    }
+    if (prevBtn) prevBtn.addEventListener('click', function () {
+      film.scrollBy({ left: -stepWidth(), behavior: prefersReducedMotion ? 'auto' : 'smooth' });
+    });
+    if (nextBtn) nextBtn.addEventListener('click', function () {
+      film.scrollBy({ left: stepWidth(), behavior: prefersReducedMotion ? 'auto' : 'smooth' });
+    });
+
+    /* Hide the arrows when everything already fits (nothing to scroll). */
+    function syncArrows() {
+      var scrollable = film.scrollWidth - film.clientWidth > 4;
+      if (prevBtn) prevBtn.hidden = !scrollable;
+      if (nextBtn) nextBtn.hidden = !scrollable;
+    }
+    syncArrows();
+    window.addEventListener('resize', syncArrows);
+    window.addEventListener('load', syncArrows);
+  })
 
 
   /* =========================================== 8. Lead form === */

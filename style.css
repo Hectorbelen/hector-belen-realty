@@ -842,6 +842,117 @@ button { font: inherit; color: inherit; border: 0; background: none; cursor: poi
 .idx-fallback h3 { font-size: clamp(1.3rem, 1.1rem + 1vw, 1.7rem); margin-bottom: .75rem; }
 .idx-fallback p { color: var(--ink-soft); margin-bottom: 1.75rem; }
 
+/* ------------------------------------------------------ 8b. Testimonials */
+.testimonials {
+  padding-block: var(--section-y);
+  background: var(--cream-200);
+}
+.testimonials-head { max-width: 46rem; margin-inline: auto; text-align: center; }
+.testimonials-head .section-lede { margin-inline: auto; }
+
+/* Image slideshow */
+/* Compact horizontal filmstrip — shared by the photo slider and the video
+   slider. Small items that scroll/swipe sideways so the section stays short. */
+.film-wrap { position: relative; margin-top: clamp(1.75rem, 1rem + 2.5vw, 3rem); }
+.film {
+  display: flex;
+  gap: .9rem;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  padding: 4px;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.film::-webkit-scrollbar { display: none; }
+@media (prefers-reduced-motion: reduce) { .film { scroll-behavior: auto; } }
+
+/* Photo thumbnails */
+.film .card { flex: 0 0 auto; width: clamp(185px, 58vw, 225px); margin: 0; scroll-snap-align: start; }
+.film .card-btn {
+  display: block; width: 100%; aspect-ratio: 4 / 5;
+  padding: 0; border: 0; cursor: pointer;
+  border-radius: 7px; overflow: hidden;
+  background: var(--navy-900); box-shadow: var(--shadow-sm);
+}
+.film .card-btn img {
+  width: 100%; height: 100%; object-fit: cover; object-position: center;
+  display: block; transition: transform .5s var(--ease);
+}
+.film .card-btn:hover img, .film .card-btn:focus-visible img { transform: scale(1.05); }
+
+/* Video thumbnails (same strip, 16:9) */
+.film .video-card { flex: 0 0 auto; width: clamp(240px, 78vw, 300px); margin: 0; scroll-snap-align: start; }
+.film .video-card .video { box-shadow: var(--shadow-sm); }
+.film .video-card .video-name { font-size: .9rem; }
+
+/* Arrow buttons */
+.film-nav {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  z-index: 3;
+  width: 42px; height: 42px;
+  display: grid; place-items: center;
+  border: 0; border-radius: 50%;
+  background: var(--navy); color: var(--cream);
+  font-size: 1.7rem; line-height: 1; cursor: pointer;
+  box-shadow: var(--shadow-md);
+  transition: background .3s var(--ease), color .3s var(--ease);
+}
+.film-nav:hover { background: var(--gold); color: var(--navy-900); }
+.film-prev { left: -8px; }
+.film-next { right: -8px; }
+@media (max-width: 680px) { .film-prev { left: 0; } .film-next { right: 0; } }
+
+/* Video gallery */
+.video-grid {
+  margin-top: clamp(2rem, 1rem + 3vw, 3.5rem);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: clamp(1rem, .5rem + 1.5vw, 1.75rem);
+}
+.video-card { margin: 0; }
+.video {
+  position: relative; display: block; width: 100%;
+  padding: 0; border: 0; cursor: pointer;
+  aspect-ratio: 16 / 9;
+  border-radius: 5px; overflow: hidden;
+  background: var(--navy-900);
+  box-shadow: var(--shadow-sm);
+}
+.video img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+  opacity: .85; transition: opacity .3s var(--ease), transform .5s var(--ease);
+}
+.video:hover img, .video:focus-visible img { opacity: 1; transform: scale(1.03); }
+.video-play {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  width: 62px; height: 62px; border-radius: 50%;
+  background: rgba(14, 23, 36, .55); border: 2px solid var(--cream);
+  transition: background .3s var(--ease), border-color .3s var(--ease), transform .3s var(--ease);
+}
+.video:hover .video-play, .video:focus-visible .video-play {
+  background: var(--gold); border-color: var(--gold); transform: translate(-50%, -50%) scale(1.06);
+}
+.video-play::before {
+  content: ""; position: absolute; top: 50%; left: 54%; transform: translate(-50%, -50%);
+  border-style: solid; border-width: 10px 0 10px 16px;
+  border-color: transparent transparent transparent var(--cream);
+}
+.video:hover .video-play::before, .video:focus-visible .video-play::before { border-left-color: var(--navy-900); }
+.video-embed { position: relative; aspect-ratio: 16 / 9; border-radius: 5px; overflow: hidden; background: #000; }
+.video-embed iframe { width: 100%; height: 100%; border: 0; display: block; }
+/* Self-hosted player — contain so portrait phone videos letterbox cleanly. */
+.video-player { width: 100%; height: 100%; display: block; background: #000; object-fit: contain; }
+.video-missing {
+  display: grid; place-items: center; text-align: center; gap: .4rem;
+  aspect-ratio: 16 / 9; border-radius: 5px;
+  background: var(--navy); color: var(--cream); padding: 1.5rem;
+}
+.video-missing strong { font-size: 1.05rem; }
+.video-missing span { color: rgba(247, 244, 239, .75); font-size: .9rem; }
+.video-name { margin: .85rem 0 0; font-weight: 600; color: var(--navy); font-size: .98rem; }
+
 /* ------------------------------------------- 8c. National standards / seals */
 .standards {
   padding-block: clamp(3.5rem, 2rem + 6vw, 7rem);

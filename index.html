@@ -64,7 +64,7 @@
 <link rel="preload" as="image" href="/assets/img/hero-2000.jpg"
       media="(min-width: 1281px)" fetchpriority="high">
 
-<link rel="stylesheet" href="/style.css">
+<link rel="stylesheet" href="/style.css?v=3">
 
 <!-- JS-enabled flag before first paint, so scroll-reveal only hides content
      when there's JS to reveal it again. -->
@@ -158,6 +158,7 @@
         <ul class="nav-menu" id="navMenu">
           <li><a href="#search" data-en="Search">Buscar</a></li>
           <li><a href="#about" data-en="About">Sobre Hector</a></li>
+          <li><a href="#testimonials" data-en="Testimonials">Testimonios</a></li>
           <li><a href="#contact" data-en="Contact">Contacto</a></li>
           <li class="nav-cta-item"><a class="btn btn-sm btn-gold" href="#contact" data-en="Free Home Valuation">Valuación Gratis</a></li>
         </ul>
@@ -322,22 +323,262 @@
         </p>
       </div>
 
-      <!-- IDX vendor embed goes here. -->
+      <!-- HOME SEARCH launcher.
+           Two states, toggled by script.js based on CONFIG.searchUrl:
+             • searchUrl EMPTY  → #idxFallback shows ("being connected" card).
+             • searchUrl SET    → #idxLive shows (a launcher to the Lofty IDX
+               site) and every "Search / Buscar" button routes there too.
+           See LOFTY-SEARCH-SETUP.md. -->
       <div class="idx-embed reveal" id="idxEmbed">
-        <!-- ===== PASTE IDX VENDOR EMBED (iframe or script) HERE ===== -->
 
-        <!-- Interim fallback shown until the embed is added. Delete this block
-             once the real search is in. -->
-        <div class="idx-fallback">
+        <!-- Shown until Lofty's IDX address is set in CONFIG.searchUrl. -->
+        <div class="idx-fallback" id="idxFallback">
           <span class="idx-fallback-mark" aria-hidden="true"></span>
           <h3 data-en="The live home search is being connected.">La búsqueda de casas en vivo se está conectando.</h3>
           <p data-en="In the meantime, tell me what you're looking for and I'll send you matching listings personally.">
             Mientras tanto, dígame qué está buscando y le envío propiedades que
             coincidan, personalmente.
           </p>
-          <!-- [PLACEHOLDER] point at the vendor's hosted search URL if you have one -->
           <a class="btn btn-gold" href="#contact" data-scroll data-en="Tell Me What You Want">Dígame Qué Busca</a>
         </div>
+
+        <!-- Shown once CONFIG.searchUrl is set — script.js fills in the href. -->
+        <div class="idx-fallback" id="idxLive" hidden>
+          <span class="idx-fallback-mark" aria-hidden="true"></span>
+          <h3 data-en="Search every active listing across Central Florida &amp; Tampa.">Busque entre todas las propiedades activas en el Centro de Florida y Tampa.</h3>
+          <p data-en="Browse live MLS listings, save your favorites, and set up alerts for new homes that match — I'll see what you love and help you move on the ones worth it.">
+            Explore propiedades del MLS en vivo, guarde sus favoritas y reciba
+            alertas de casas nuevas que coincidan — yo veo lo que le gusta y le
+            ayudo a actuar sobre las que valen la pena.
+          </p>
+          <a class="btn btn-gold" href="#" data-en="Search Homes on the MLS">Buscar Casas en el MLS</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ==========================================================
+       5. TESTIMONIALS — client photo slideshow + video gallery
+       ----------------------------------------------------------
+       IMAGES: swap each .slide's <img> for a real client / closing photo
+       (use a *-full.jpg size). Keep alt + data-en-alt accurate; the
+       <figcaption> is an optional bilingual caption. Add or remove .slide
+       figures freely — the slideshow adapts to any count.
+
+       VIDEOS: each .video button loads a YouTube/Vimeo player only on click
+       (no autoplay, no third-party JS on load — see script.js §7). To connect
+       a real video, set data-provider ("youtube" | "vimeo") and data-id to the
+       video's id, and swap the poster <img>. Until a real id is set, the card
+       shows a friendly bilingual "coming soon" message, so it's safe to ship.
+
+       ⚠️ Do NOT invent client quotes or names — add real, permission-granted
+       testimonials only. See TESTIMONIALS-SETUP.md.
+       ========================================================== -->
+  <section class="testimonials" id="testimonials" aria-label="Testimonios de clientes"
+           data-en-aria-label="Client testimonials">
+    <div class="shell">
+      <div class="section-head testimonials-head">
+        <p class="eyebrow reveal" data-en="Client Stories">Historias de Clientes</p>
+        <h2 class="reveal" data-en="Real moves, real families">Mudanzas reales, familias reales</h2>
+        <p class="section-lede reveal" data-en="A look at the closings, keys, and families Hector has helped — with video testimonials in clients' own words.">
+          Un vistazo a los cierres, las llaves y las familias que Hector ha
+          ayudado — con testimonios en video, en las propias palabras de sus
+          clientes.
+        </p>
+      </div>
+
+      <!-- ===== IMAGE SLIDER (compact, scrolls sideways) =====
+           A horizontal filmstrip of small photos. Click any one to open it
+           full-screen in the shared lightbox (arrows / swipe / caption). The
+           container id="galleryGrid" is what wires each .card into the lightbox
+           (see script.js §6). To add/remove a photo, add/remove a .card here;
+           data-full = the big image shown on click, data-caption/-en-caption =
+           its bilingual caption. -->
+      <div class="film-wrap reveal">
+        <button class="film-nav film-prev" type="button" aria-label="Fotos anteriores" data-en-aria-label="Previous photos">
+          <span aria-hidden="true">&lsaquo;</span>
+        </button>
+
+        <div class="film" id="galleryGrid">
+          <figure class="card" data-tags="all">
+            <button class="card-btn" data-full="assets/img/testimonials/02.jpg"
+                    data-caption="Diciendo sí a la dirección" data-en-caption="Saying yes to the address">
+              <img src="assets/img/testimonials/02.jpg" alt="Clientes y Hector celebrando con un cartel de &quot;yes to the address&quot;"
+                   data-en-alt="Clients and Hector celebrating with a &quot;yes to the address&quot; sign" loading="lazy">
+              <span class="card-zoom" aria-hidden="true"></span>
+            </button>
+          </figure>
+          <figure class="card" data-tags="all">
+            <button class="card-btn" data-full="assets/img/testimonials/05.jpg"
+                    data-caption="Frente a su nueva casa" data-en-caption="In front of their new home">
+              <img src="assets/img/testimonials/05.jpg" alt="Familia frente a su nueva casa sosteniendo el cartel de la dirección"
+                   data-en-alt="Family in front of their new home holding the address sign" loading="lazy">
+              <span class="card-zoom" aria-hidden="true"></span>
+            </button>
+          </figure>
+          <figure class="card" data-tags="all">
+            <button class="card-btn" data-full="assets/img/testimonials/07.jpg"
+                    data-caption="¡Tenemos las llaves!" data-en-caption="We got the keys!">
+              <img src="assets/img/testimonials/07.jpg" alt="Pareja sosteniendo una llave gigante frente a su casa nueva"
+                   data-en-alt="Couple holding a giant key in front of their new home" loading="lazy">
+              <span class="card-zoom" aria-hidden="true"></span>
+            </button>
+          </figure>
+          <figure class="card" data-tags="all">
+            <button class="card-btn" data-full="assets/img/testimonials/03.jpg"
+                    data-caption="Cerrado y con las llaves en mano" data-en-caption="Closed — keys in hand">
+              <img src="assets/img/testimonials/03.jpg" alt="Clientes con carteles de 'Just Closed' y 'Got the keys' junto a Hector"
+                   data-en-alt="Clients holding 'Just Closed' and 'Got the keys' signs with Hector" loading="lazy">
+              <span class="card-zoom" aria-hidden="true"></span>
+            </button>
+          </figure>
+          <figure class="card" data-tags="all">
+            <button class="card-btn" data-full="assets/img/testimonials/08.jpg"
+                    data-caption="Una nueva etapa en familia" data-en-caption="A new chapter, together">
+              <img src="assets/img/testimonials/08.jpg" alt="Familia frente a su nueva casa adosada"
+                   data-en-alt="Family in front of their new townhome" loading="lazy">
+              <span class="card-zoom" aria-hidden="true"></span>
+            </button>
+          </figure>
+          <figure class="card" data-tags="all">
+            <button class="card-btn" data-full="assets/img/testimonials/04.jpg"
+                    data-caption="Un sí en el corazón de la ciudad" data-en-caption="A yes in the heart of the city">
+              <img src="assets/img/testimonials/04.jpg" alt="Pareja con el cartel 'We said yes to the address' frente al centro"
+                   data-en-alt="Couple with a 'We said yes to the address' sign downtown" loading="lazy">
+              <span class="card-zoom" aria-hidden="true"></span>
+            </button>
+          </figure>
+          <figure class="card" data-tags="all">
+            <button class="card-btn" data-full="assets/img/testimonials/06.jpg"
+                    data-caption="Día de cierre" data-en-caption="Closing day">
+              <img src="assets/img/testimonials/06.jpg" alt="Hector con una clienta en la oficina de títulos el día del cierre"
+                   data-en-alt="Hector with a client at the title office on closing day" loading="lazy">
+              <span class="card-zoom" aria-hidden="true"></span>
+            </button>
+          </figure>
+          <figure class="card" data-tags="all">
+            <button class="card-btn" data-full="assets/img/testimonials/01.jpg"
+                    data-caption="Top REALTOR&reg; Nacional 2026 — LPT Realty" data-en-caption="Top Nationwide REALTOR&reg; 2026 — LPT Realty">
+              <img src="assets/img/testimonials/01.jpg" alt="Reconocimiento de LPT Realty a Hector Belen como Top Realtor Nacional 2026"
+                   data-en-alt="LPT Realty recognition naming Hector Belen a Top Nationwide Realtor for 2026" loading="lazy">
+              <span class="card-zoom" aria-hidden="true"></span>
+            </button>
+          </figure>
+          <figure class="card" data-tags="all">
+            <button class="card-btn" data-full="assets/img/testimonials/09.jpg"
+                    data-caption="En la sede de LPT Realty" data-en-caption="At LPT Realty headquarters">
+              <img src="assets/img/testimonials/09.jpg" alt="Hector frente al edificio de LPT Realty"
+                   data-en-alt="Hector in front of the LPT Realty building" loading="lazy">
+              <span class="card-zoom" aria-hidden="true"></span>
+            </button>
+          </figure>
+          <figure class="card" data-tags="all">
+            <button class="card-btn" data-full="assets/img/testimonials/10.jpg"
+                    data-caption="Trabajando para cada cliente" data-en-caption="Working for every client">
+              <img src="assets/img/testimonials/10.jpg" alt="Hector trabajando en su computadora portátil"
+                   data-en-alt="Hector working at his laptop" loading="lazy">
+              <span class="card-zoom" aria-hidden="true"></span>
+            </button>
+          </figure>
+          <figure class="card" data-tags="all">
+            <button class="card-btn" data-full="assets/img/testimonials/11.jpg"
+                    data-caption="Siempre en movimiento por sus clientes" data-en-caption="Always on the move for his clients">
+              <img src="assets/img/testimonials/11.jpg" alt="Hector a bordo de un avión"
+                   data-en-alt="Hector aboard a plane" loading="lazy">
+              <span class="card-zoom" aria-hidden="true"></span>
+            </button>
+          </figure>
+          <figure class="card" data-tags="all">
+            <button class="card-btn" data-full="assets/img/testimonials/12.jpg"
+                    data-caption="Comprometido con la excelencia" data-en-caption="Committed to excellence">
+              <img src="assets/img/testimonials/12.jpg" alt="Hector con traje claro junto a un auto deportivo"
+                   data-en-alt="Hector in a light suit beside a sports car" loading="lazy">
+              <span class="card-zoom" aria-hidden="true"></span>
+            </button>
+          </figure>
+        </div>
+
+        <button class="film-nav film-next" type="button" aria-label="Más fotos" data-en-aria-label="More photos">
+          <span aria-hidden="true">&rsaquo;</span>
+        </button>
+      </div>
+
+      <!-- ===== VIDEO SLIDER (same compact sideways strip) =====
+           Each .video button loads its YouTube/Vimeo player only on click
+           (nothing heavy loads up front — see script.js §7), so you can add
+           many without slowing the site. To add a video: copy a .video-card,
+           set data-provider ("youtube" | "vimeo") + data-id to the video id,
+           and swap the poster <img>. Until a real id is set it shows a tidy
+           bilingual "coming soon" card. -->
+      <p class="film-label reveal" data-en="Watch their stories">Vea sus historias en video</p>
+      <div class="film-wrap reveal">
+        <button class="film-nav film-prev" type="button" aria-label="Videos anteriores" data-en-aria-label="Previous videos">
+          <span aria-hidden="true">&lsaquo;</span>
+        </button>
+
+        <div class="film" id="tVideos">
+          <figure class="video-card">
+            <button class="video" type="button" data-provider="file" data-src="assets/video/t1.mp4"
+                    aria-label="Reproducir video: día de entrega de llaves" data-en-aria-label="Play video: key handover day">
+              <img src="assets/video/t1.jpg" alt="" loading="lazy">
+              <span class="video-play" aria-hidden="true"></span>
+            </button>
+            <figcaption class="video-name" data-en="Key handover day">Día de entrega de llaves</figcaption>
+          </figure>
+          <figure class="video-card">
+            <button class="video" type="button" data-provider="file" data-src="assets/video/t2.mp4"
+                    aria-label="Reproducir video: en la mesa de cierre" data-en-aria-label="Play video: at the closing table">
+              <img src="assets/video/t2.jpg" alt="" loading="lazy">
+              <span class="video-play" aria-hidden="true"></span>
+            </button>
+            <figcaption class="video-name" data-en="At the closing table">En la mesa de cierre</figcaption>
+          </figure>
+          <figure class="video-card">
+            <button class="video" type="button" data-provider="file" data-src="assets/video/t3.mp4"
+                    aria-label="Reproducir video: un cliente comparte su experiencia" data-en-aria-label="Play video: a client shares his experience">
+              <img src="assets/video/t3.jpg" alt="" loading="lazy">
+              <span class="video-play" aria-hidden="true"></span>
+            </button>
+            <figcaption class="video-name" data-en="A client shares his experience">Un cliente comparte su experiencia</figcaption>
+          </figure>
+          <figure class="video-card">
+            <button class="video" type="button" data-provider="file" data-src="assets/video/t4.mp4"
+                    aria-label="Reproducir video: un comprador y su agente" data-en-aria-label="Play video: a buyer and his agent">
+              <img src="assets/video/t4.jpg" alt="" loading="lazy">
+              <span class="video-play" aria-hidden="true"></span>
+            </button>
+            <figcaption class="video-name" data-en="A buyer and his agent">Un comprador y su agente</figcaption>
+          </figure>
+          <figure class="video-card">
+            <button class="video" type="button" data-provider="file" data-src="assets/video/t5.mp4"
+                    aria-label="Reproducir video: conseguimos las llaves" data-en-aria-label="Play video: we got the keys">
+              <img src="assets/video/t5.jpg" alt="" loading="lazy">
+              <span class="video-play" aria-hidden="true"></span>
+            </button>
+            <figcaption class="video-name" data-en="We got the keys!">¡Conseguimos las llaves!</figcaption>
+          </figure>
+          <figure class="video-card">
+            <button class="video" type="button" data-provider="file" data-src="assets/video/t6.mp4"
+                    aria-label="Reproducir video: una clienta comparte su experiencia" data-en-aria-label="Play video: a client shares her experience">
+              <img src="assets/video/t6.jpg" alt="" loading="lazy">
+              <span class="video-play" aria-hidden="true"></span>
+            </button>
+            <figcaption class="video-name" data-en="A client shares her experience">Una clienta comparte su experiencia</figcaption>
+          </figure>
+          <figure class="video-card">
+            <button class="video" type="button" data-provider="file" data-src="assets/video/t7.mp4"
+                    aria-label="Reproducir video: la historia de una familia" data-en-aria-label="Play video: a family's story">
+              <img src="assets/video/t7.jpg" alt="" loading="lazy">
+              <span class="video-play" aria-hidden="true"></span>
+            </button>
+            <figcaption class="video-name" data-en="A family's story">La historia de una familia</figcaption>
+          </figure>
+        </div>
+
+        <button class="film-nav film-next" type="button" aria-label="Más videos" data-en-aria-label="More videos">
+          <span aria-hidden="true">&rsaquo;</span>
+        </button>
       </div>
     </div>
   </section>
@@ -665,6 +906,7 @@
       <ul>
         <li><a href="#about" data-scroll data-en="About Hector">Sobre Hector</a></li>
         <li><a href="#search" data-scroll data-en="Home Search">Buscar Casas</a></li>
+        <li><a href="#testimonials" data-scroll data-en="Testimonials">Testimonios</a></li>
         <li><a href="#standards" data-scroll data-en="Standards">Estándares</a></li>
         <li><a href="#contact" data-scroll data-en="Free Valuation">Valuación Gratis</a></li>
       </ul>
@@ -746,6 +988,6 @@
   <p class="lb-count" id="lbCount"></p>
 </div>
 
-<script src="/script.js" defer></script>
+<script src="/script.js?v=3" defer></script>
 </body>
 </html>
