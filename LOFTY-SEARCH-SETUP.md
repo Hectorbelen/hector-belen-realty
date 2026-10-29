@@ -1,80 +1,75 @@
 # 🔎 Lofty IDX home-search — setup (staged, ready to flip)
 
-**What this is:** the live MLS home search (listings, buyer accounts, saved
-favorites, saved searches, new-listing alerts) runs on **Hector's Lofty IDX
-site**, not on this marketing site. This marketing site stays the front door and
-sends buyers into the Lofty search. All buyer activity flows into Lofty CRM.
+**Decision:** Hector is moving to his **own independent Lofty account** (not LPT's
+brokerage Lofty). That's what makes a fully branded search on **his** domain, with
+**his** leads, possible. This doc is the turnkey plan for when that account + its
+IDX feed are live.
 
-Everything on the website side is **already staged**. When Lofty's IDX is live,
-it's a ~2-minute flip — no rebuild.
+## Why independent (what we learned)
+LPT's brokerage Lofty runs the search on **lpthomesearch.com** — Hector couldn't
+brand it, use his own domain, or guarantee he keeps the leads. An **independent
+Lofty** gives him his own IDX site, custom-domain support, and full lead ownership.
 
-## How it fits together
+## How it fits together (unchanged)
 ```
 hectorbelenrealtor.com   ──"Buscar/Search"──►   search.hectorbelenrealtor.com
-(this site: brand, lead form)                   (Lofty IDX: live MLS + accounts)
+(this site: brand, lead form)                   (HIS Lofty IDX: live MLS + accounts)
         │                                                   │
-        └──────── lead (Zapier) ───►  LOFTY CRM  ◄── every save/search/favorite
+        └──────── lead (Zapier) ───►  HIS LOFTY CRM  ◄── every save/search/favorite
                                            ▲
-                                           └── MLS feed (managed by Lofty)
+                                           └── MLS feed (his own, Lofty-managed)
 ```
 
-## Who does what
-- **Lofty** connects the MLS and hosts the search. The **MLS credentials Hector
-  is getting go INTO Lofty's IDX setup**, not into this website's code.
-- **This site** just links its "Search / Buscar" buttons to the Lofty site, on a
-  branded subdomain so buyers never see a Lofty URL.
+## Credentials rule (important)
+Hector enters all logins himself — **MLS credentials and Lofty logins go into
+Lofty, never into this website and never pasted to the assistant.** The site only
+ever needs the finished public search URL.
 
-## Steps (do in this order, once Lofty's IDX site exists)
+## Steps (in order, once the independent Lofty account exists)
 
-### 1. In Lofty — get the IDX site address + allow the custom subdomain
-- Turn on / confirm the IDX website in Lofty (plug in the MLS data there).
-- Confirm Lofty allows a **custom domain/subdomain** for the IDX site (almost all
-  plans do). Tell Lofty you want `search.hectorbelenrealtor.com` pointed at it.
-- Lofty gives you a **target** to point the subdomain at — usually either:
-  - a **CNAME target** (e.g. `sites.lofty.com` / `idx.lofty.com` — use whatever
-    Lofty tells you), or
-  - their **default URL** (e.g. `hectorbelen.lofty.site`) if you skip the subdomain.
+### 1. In HIS Lofty — set up the IDX + MLS feed
+- Lofty onboarding connects his MLS board feed (he provides/enters his MLS
+  credentials there). **Board approval takes a few business days.**
+- Confirm the IDX website is live and shows listings.
 
-### 2. In GoDaddy — add ONE DNS record for the subdomain
+### 2. In HIS Lofty — turn on a custom domain for the IDX site
+- Ask Lofty to use **`search.hectorbelenrealtor.com`** for his IDX site.
+- Lofty gives a **target** to point the subdomain at (usually a CNAME host; or
+  their default URL like `hectorbelen.lofty.site` if he skips the subdomain).
+
+### 3. In GoDaddy — add ONE DNS record (free; it's a subdomain, not a new domain)
 `dcc.godaddy.com` → `hectorbelenrealtor.com` → **DNS → Manage DNS → Add New Record**:
 
-| Type  | Name     | Value / Data                 | TTL    |
-|-------|----------|------------------------------|--------|
+| Type  | Name     | Value / Data                   | TTL    |
+|-------|----------|--------------------------------|--------|
 | CNAME | `search` | *(the target Lofty gives you)* | 1 Hour |
 
-- This is **free** — a subdomain, not a new domain.
-- Don't touch the existing records (`@` A → 75.2.60.5, `www` CNAME → Netlify, etc.).
-- If Lofty hands you an IP instead of a hostname, use an **A** record for `search`
-  with that IP instead of a CNAME.
+- Don't touch the existing records (`@` A → 75.2.60.5, `www` CNAME → Netlify, DMARC).
+- If Lofty gives an IP instead of a hostname, use an **A** record for `search`.
+- Verify: `dig +short search.hectorbelenrealtor.com`
 
-Verify from a terminal after a few minutes:
-```bash
-dig +short search.hectorbelenrealtor.com
-```
-
-### 3. In this repo — set the search URL and redeploy
+### 4. In this repo — set the search URL and redeploy
 Edit **`script.js`** → `CONFIG.searchUrl`:
 ```js
 searchUrl: 'https://search.hectorbelenrealtor.com',
 ```
-(If you skipped the subdomain, use Lofty's default URL instead.)
+(or Lofty's default URL if the subdomain is skipped). Commit + push to `main`;
+Netlify auto-deploys.
 
-Commit + push to `main`. Netlify auto-redeploys. Done.
+**What the flip does (already coded):** every "Buscar / Search Homes" button routes
+to his live Lofty IDX, and the `#search` section turns into a "Search Homes on the
+MLS" launcher. Bilingual copy for both states is in place. Rollback anytime by
+setting `searchUrl: ''` and redeploying.
 
-### What the flip does automatically (already coded)
-- Every **"Buscar / Search Homes"** button (nav, hero, footer) routes to the
-  live Lofty search.
-- The `#search` section swaps its "search is being connected" card for a
-  **"Search Homes on the MLS"** launcher (`#idxLive` in `index.html`).
-- Bilingual (ES/EN) copy for both states is already in place.
+### 5. Wire the contact form → his Lofty CRM (Zapier)
+- Keep Netlify Forms on (backup ledger). Add a Zap: **Netlify: New Form Submission
+  → Lofty: Create Lead**. Now both the site's form and the IDX registrations land
+  in his Lofty CRM.
 
-## Rollback
-Set `searchUrl: ''` and redeploy — instantly back to the in-page fallback. Safe
-to flip on/off anytime.
+## Before switching off LPT's Lofty
+- **Export his existing contacts/leads** from the LPT Lofty so nothing is lost
+  (own-your-database). Confirm with LPT what he's allowed to take.
 
-## Notes
-- **Keep it on the subdomain.** Lofty's only in-page embed path is their
-  **WordPress plugin**; this is a custom static site, so we route to the Lofty
-  site rather than rebuilding on WordPress. Buyers get the identical
-  save/account/alert experience either way.
-- Lofty handles MLS/IDX display compliance on their hosted site.
+## Cost note
+Independent Lofty is a **paid subscription** (brokerage one was free) — confirm
+current pricing with Lofty before committing.
