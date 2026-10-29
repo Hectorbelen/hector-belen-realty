@@ -1,0 +1,16 @@
+<!-- LPT Realty mark — clean SVG recreation in LPT's blue, on transparent.
+     ⚠️ This is an approximation drawn to replace a low-res, WATERMARKED preview
+     image. Before final launch, replace this file with LPT Realty's OFFICIAL
+     logo from the LPT agent/brand portal (keep the filename lpt-realty.svg, or
+     update the <img src> in index.html). Brokerage marks have brand guidelines;
+     use their approved artwork. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"
+     role="img" aria-label="LPT Realty">
+  <circle cx="100" cy="100" r="85" fill="none" stroke="#6A8EE8" stroke-width="7"/>
+  <text x="100" y="108" text-anchor="middle"
+        font-family="'Arial Rounded MT Bold', 'Helvetica Neue', Arial, sans-serif"
+        font-weight="700" font-size="76" letter-spacing="-3" fill="#6A8EE8">lpt</text>
+  <text x="100" y="140" text-anchor="middle"
+        font-family="'Helvetica Neue', Arial, sans-serif"
+        font-weight="600" font-size="21" letter-spacing="3" fill="#6A8EE8">realty</text>
+</svg>

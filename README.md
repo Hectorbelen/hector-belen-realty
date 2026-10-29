@@ -104,28 +104,38 @@ and basic security headers. Keeping both means either host works unchanged.
 
 ## 3. The lead funnel + CRM
 
-**How a lead flows:** visitor fills the form → `script.js` validates it and POSTs
-JSON to a small serverless function (`netlify/functions/submit-lead.js`) → the
-function re-validates and forwards a clean payload to your **CRM webhook** → the
-visitor sees the inline thank-you. No page reload, no lead lost to a bad browser.
-
-The function also captures **lead attribution** automatically — which language
-the visitor used, the page URL, the referrer, and any `?utm_*` ad-campaign tags
-— so your CRM knows where every lead came from.
+> **Active setup (turn-in):** leads go to **Netlify Forms** — Hector's email +
+> a searchable list in the Netlify dashboard (Site → Forms). Zero extra
+> accounts; it's live the moment you deploy. Just turn on the email notification
+> after the first deploy (steps below). The full-CRM path is built and ready
+> whenever he wants to upgrade — see "Connect a real CRM later."
 
 The provider is a one-line switch at the top of [`script.js`](script.js):
 
 ```js
 var CONFIG = {
-  provider: 'function',   // 'function' (CRM) | 'netlify' | 'formspree'
+  provider: 'netlify',    // ACTIVE. 'netlify' | 'function' (CRM) | 'formspree'
   functionEndpoint: '/.netlify/functions/submit-lead',
   ...
 };
 ```
 
-### Connect your CRM (the `function` path — default)
+### Turn on lead emails (Netlify Forms — the active path)
 
-1. Deploy to Netlify (see §2). The function deploys automatically — it lives in
+1. Deploy to Netlify (§2). Netlify auto-detects the `lead` form on first deploy.
+2. **Site configuration → Notifications → Add notification → Email notification**
+   → pick the `lead` form → enter Hector's email. **Do this, or leads just sit in
+   the dashboard unseen.**
+3. Submit a real test from the live URL and confirm the email arrives. Done.
+
+Every field is captured — intent, timeline, budget, pre-approval, area, etc. —
+plus attribution (language, page, referrer, any `?utm_*` ad tags).
+
+### Connect a real CRM later (the `function` path)
+
+Flip `provider` to `'function'` in `script.js` and set up the webhook:
+
+1. The serverless function deploys automatically — it lives in
    `netlify/functions/` and `netlify.toml` points Netlify at that folder.
 2. Create an **inbound webhook** that feeds your CRM. Easiest options:
    - **Zapier / Make** — create a "Catch Hook"; it gives you a URL. Then map the
@@ -335,7 +345,7 @@ them back to placeholders.
 | ☐ | Read the three About paragraphs aloud with Hector — they're built from his facts but not yet his voice; the origin story especially | `#about` |
 | ✅ | ~~Gallery / Trabajo Reciente~~ — section removed for now; re-add when good listing media is ready | — |
 | ☐ | Paste the IDX vendor embed into the Home Search section (§3c) | `#search` |
-| ☐ | LinkedIn + YouTube URLs, or delete those two icons | footer |
+| ✅ | LinkedIn + YouTube icons removed; Instagram + Facebook remain | footer |
 | ☐ | Verify the hero subheadline sounds like Hector | `#hero` |
 | ✅ | ~~Testimonials~~ — section removed for now; re-add when videos are edited (§3d) | — |
 
@@ -348,7 +358,7 @@ changes needed. Three currently show labeled "PENDING" placeholder boxes.
 | # | Save this | To this exact path |
 |---|-----------|--------------------|
 | ☐ | Hector's headshot (tan blazer) | `assets/img/hector-headshot.jpg` |
-| ☐ | lpt realty logo — **transparent PNG** | `assets/img/lpt-realty-logo.png` |
+| ⚠️ | LPT logo — clean SVG recreation is in (`lpt-realty.svg`); swap LPT's **official** logo before launch | `assets/img/lpt-realty.svg` |
 | ✅ | REALTOR® seal — rebuilt as SVG, no file needed | `assets/img/seal-realtor.svg` |
 | ✅ | Equal Housing seal — rebuilt as SVG, no file needed | `assets/img/seal-equal-housing.svg` |
 
