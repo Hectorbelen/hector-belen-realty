@@ -57,9 +57,33 @@ Either host works. Netlify is simpler because the form backend is built in.
    - Build command: *(empty)*
    - Publish directory: `.`
 4. Deploy. Forms work immediately — see §3.
-5. **Domain settings → Add a custom domain** → `hectorbelenrealtor.com`, then
-   point the registrar's nameservers or DNS records at Netlify. HTTPS is
-   provisioned automatically.
+5. **Connect the GoDaddy domain** — see §2a below.
+
+### 2a. Point the GoDaddy domain (hectorbelenrealtor.com) at Netlify
+
+Do this *after* the site is deployed to Netlify. Two ways — the **Netlify DNS**
+route is the simplest and gives automatic HTTPS + www handling.
+
+**Option 1 — let Netlify run DNS (recommended):**
+1. Netlify → your site → **Domain management → Add a domain** → type
+   `hectorbelenrealtor.com` → **Verify / Add**.
+2. Netlify shows **4 nameservers** (like `dns1.p0X.nsone.net`). Copy them.
+3. In **GoDaddy → My Products → Domain → DNS → Nameservers → Change →
+   "I'll use my own nameservers"** → paste Netlify's four → **Save**.
+4. Wait for propagation (usually 15 min–a few hours, up to 48h). Netlify
+   provisions the HTTPS certificate automatically once it resolves.
+
+**Option 2 — keep DNS at GoDaddy (A + CNAME records):**
+1. Netlify → **Domain management → Add a domain** → add `hectorbelenrealtor.com`.
+   Netlify will show the exact target values to use.
+2. In **GoDaddy → DNS → Records**, set:
+   - **A** record, host `@`, value **`75.2.60.5`** (Netlify's load balancer).
+   - **CNAME** record, host `www`, value **`<your-site>.netlify.app`**.
+   (Use whatever Netlify shows if it differs.)
+3. Save. Wait for propagation; Netlify issues HTTPS automatically.
+
+Either way, set `hectorbelenrealtor.com` (or the `www` version) as the
+**primary domain** in Netlify so the other redirects to it.
 
 ### Cloudflare Pages
 
@@ -369,8 +393,8 @@ Other assets:
 
 | # | Item | Where |
 |---|------|-------|
-| ☐ | **Set `LEAD_WEBHOOK_URL` in Netlify** to your CRM webhook, then send a real test lead end-to-end | §3 |
-| ☐ | (Optional) turn on Netlify Forms email as a backup capture | §3 |
+| ☐ | **Turn on the Netlify Forms email notification** (Site configuration → Notifications) so leads reach Hector's inbox, then send a real test lead | §3 |
+| ☐ | (Later) switch to a real CRM — set `provider: 'function'` + `LEAD_WEBHOOK_URL` | §3 |
 | ☐ | Update `<lastmod>` | `sitemap.xml` |
 | ☐ | Add the site to Google Search Console and submit the sitemap | — |
 | ☐ | Add analytics if wanted (a conversion hook is marked in `script.js`) | `showThanks()` |
