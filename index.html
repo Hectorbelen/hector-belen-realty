@@ -64,7 +64,7 @@
 <link rel="preload" as="image" href="/assets/img/hero-2000.jpg"
       media="(min-width: 1281px)" fetchpriority="high">
 
-<link rel="stylesheet" href="/style.css?v=6">
+<link rel="stylesheet" href="/style.css?v=7">
 
 <!-- JS-enabled flag before first paint, so scroll-reveal only hides content
      when there's JS to reveal it again. -->
@@ -82,6 +82,12 @@
   "telephone": "+1-407-272-2898",
   "email": "Hectorbelenrealtor@gmail.com",
   "knowsLanguage": ["es", "en"],
+  "hasCredential": {
+    "@type": "EducationalOccupationalCredential",
+    "credentialCategory": "license",
+    "name": "Florida Real Estate License",
+    "identifier": "SL3496104"
+  },
   "address": {
     "@type": "PostalAddress",
     "streetAddress": "1400 S International Pkwy #1020",
@@ -91,8 +97,9 @@
     "addressCountry": "US"
   },
   "areaServed": [
-    { "@type": "State", "name": "Central Florida" },
     { "@type": "City", "name": "Orlando" },
+    { "@type": "City", "name": "Lake Mary" },
+    { "@type": "City", "name": "Kissimmee" },
     { "@type": "City", "name": "Tampa" }
   ],
   "parentOrganization": {
@@ -139,7 +146,7 @@
            width="668" height="522" decoding="async"
            alt="Hector Belen, REALTOR®">
       <span class="brand-word" aria-hidden="true">
-        <strong>HECTOR BELEN</strong><em>REALTOR®</em>
+        <strong>HECTOR BELEN</strong> <em>REALTOR®</em>
       </span>
     </a>
 
@@ -227,7 +234,7 @@
       </div>
       <div class="trust-item">
         <span class="trust-num trust-word">lpt</span>
-        <span class="trust-label" data-en="Brokered by LPT Realty">Corredora: LPT Realty</span>
+        <span class="trust-label" data-en="Brokered by LPT Realty">Corredor: LPT Realty</span>
       </div>
     </div>
   </section>
@@ -342,11 +349,11 @@
           <input type="hidden" name="utm_term"     value="">
           <input type="hidden" name="utm_content"  value="">
 
-          <!-- HONEYPOT — do not remove. -->
+          <!-- HONEYPOT — do not remove. Hidden (.hp + aria-hidden); a bot that
+               fills "company" is silently dropped (script.js §8). No visible
+               label, so a human never sees a "Company" field. -->
           <p class="hp" aria-hidden="true">
-            <label>Company
-              <input type="text" name="company" tabindex="-1" autocomplete="off">
-            </label>
+            <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true">
           </p>
 
           <div class="field">
@@ -913,6 +920,17 @@
     </div>
 
     <div class="footer-col">
+      <h4 data-en="Services">Servicios</h4>
+      <ul>
+        <li><a href="/compradores/" data-en="For Buyers">Para Compradores</a></li>
+        <li><a href="/vendedores/" data-en="For Sellers">Para Vendedores</a></li>
+        <li><a href="/rentas/" data-en="Rentals">Rentas</a></li>
+        <li><a href="/valuacion-gratis/" data-en="Free Valuation">Valuación Gratis</a></li>
+        <li><a href="/blog/" data-en="Blog">Blog</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
       <h4 data-en="Follow">Síganos</h4>
       <!-- Instagram + Facebook — @hectorbelenrealtor. (LinkedIn/YouTube removed.) -->
       <ul class="social">
@@ -933,7 +951,7 @@
          LPT Realty is a colored brand mark, so it keeps its blue (no invert).
          [SWAP] /assets/img/lpt-realty.svg is a clean recreation — replace it
          with LPT's OFFICIAL logo file before final launch (see the SVG header). -->
-    <ul class="compliance" aria-label="Afiliaciones de corredora e industria"
+    <ul class="compliance" aria-label="Afiliaciones de corredor e industria"
         data-en-aria-label="Brokerage and industry affiliations">
       <li>
         <img class="lpt-badge" src="/assets/img/lpt-realty.svg" alt="LPT Realty"
@@ -955,7 +973,7 @@
          (and its Spanish). Names/license numbers stay as-is in both languages. -->
     <p class="disclosure" data-en="Hector Belen · REALTOR® · Florida License&nbsp;#&nbsp;&lt;strong&gt;SL3496104&lt;/strong&gt;&lt;br&gt;Brokered by &lt;strong&gt;LPT Realty, LLC&lt;/strong&gt; · 1400 S International Pkwy&nbsp;#1020, Lake Mary, FL&nbsp;32746&lt;br&gt;Brokerage Corp. License&nbsp;#&nbsp;&lt;strong&gt;CQ1064576&lt;/strong&gt; · Principal Broker License&nbsp;#&nbsp;&lt;strong&gt;BK3378992&lt;/strong&gt;">
       Hector Belen · REALTOR® · Licencia de Florida&nbsp;#&nbsp;<strong>SL3496104</strong><br>
-      Corredora: <strong>LPT Realty, LLC</strong> · 1400 S International Pkwy&nbsp;#1020, Lake Mary, FL&nbsp;32746<br>
+      Corredor: <strong>LPT Realty, LLC</strong> · 1400 S International Pkwy&nbsp;#1020, Lake Mary, FL&nbsp;32746<br>
       Licencia Corp. de la Corredora&nbsp;#&nbsp;<strong>CQ1064576</strong> · Licencia del Corredor Principal&nbsp;#&nbsp;<strong>BK3378992</strong>
     </p>
     <p class="disclosure fine" data-en="Equal Housing Opportunity. All information is deemed reliable but not guaranteed and should be independently verified. Properties shown may have been listed or sold by other brokerages. Not intended as a solicitation of property already listed. REALTOR® is a registered collective membership mark identifying real estate professionals who are members of the National Association of REALTORS®.">
@@ -1003,6 +1021,6 @@
   <p class="lb-count" id="lbCount"></p>
 </div>
 
-<script src="/script.js?v=6" defer></script>
+<script src="/script.js?v=7" defer></script>
 </body>
 </html>

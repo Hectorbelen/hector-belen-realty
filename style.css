@@ -1371,7 +1371,7 @@ button { font: inherit; color: inherit; border: 0; background: none; cursor: poi
 }
 @media (min-width: 640px) { .footer-grid { grid-template-columns: repeat(2, 1fr); } }
 @media (min-width: 1000px) {
-  .footer-grid { grid-template-columns: 1.6fr 1fr 1fr 1fr; gap: 3rem; }
+  .footer-grid { grid-template-columns: 1.5fr 1fr 1fr 1fr 1fr; gap: 2.4rem; }
 }
 
 /* Full logo on the dark footer, as a subtle rounded plaque. */
@@ -1574,6 +1574,11 @@ body.is-locked { overflow: hidden; }
   margin: 2.2rem 0 .5rem;
 }
 .legal-page p { font-size: var(--body); line-height: 1.7; color: var(--ink-soft); margin: .6rem 0; }
+.legal-page ul, .legal-page ol { margin: .6rem 0 1rem 1.3rem; }
+.legal-page li { font-size: var(--body); line-height: 1.7; color: var(--ink-soft); margin: .35rem 0; }
+.legal-page li::marker { color: var(--gold-600); }
+.legal-page .lead { font-size: calc(var(--body) + .12rem); color: var(--ink); }
+.subpage-cta { margin-top: 2.4rem; display: flex; flex-wrap: wrap; gap: .8rem; }
 .legal-page a { color: var(--gold-600); border-bottom: 1px solid var(--line); }
 .legal-page a:hover { color: var(--navy); border-color: var(--gold); }
 .legal-updated { font-size: .85rem; color: var(--navy-400); margin-bottom: 1.4rem; }
