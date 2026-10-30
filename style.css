@@ -421,12 +421,12 @@ button { font: inherit; color: inherit; border: 0; background: none; cursor: poi
    The image never drops below scale(1.06), which keeps ~3% of overflow on
    every side — more than the pan ever travels — so no edge is ever exposed. */
 @keyframes heroKenBurns {
-  from { transform: scale(1.06) translate3d(0, 0, 0); }
-  to   { transform: scale(1.16) translate3d(-1.6%, -1.4%, 0); }
+  from { transform: scale(1.02) translate3d(0, 0, 0); }
+  to   { transform: scale(1.06) translate3d(-0.7%, -0.6%, 0); }
 }
 .hero-media img {
-  transform-origin: 58% 42%;   /* pivot toward the house, away from the palm */
-  animation: heroKenBurns 30s ease-in-out infinite alternate;
+  transform-origin: 50% 45%;   /* gentle drift, centered on the house */
+  animation: heroKenBurns 36s ease-in-out infinite alternate;
   will-change: transform;
 }
 /* Anyone who asked their OS for less motion gets a static, centered frame. */
