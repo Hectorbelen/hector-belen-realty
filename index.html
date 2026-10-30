@@ -57,11 +57,11 @@
 <!-- Hero image is the LCP element — preload it. The three `media` ranges MUST
      stay identical to the <source media> values on the hero <picture> below,
      or the hero gets fetched twice. -->
-<link rel="preload" as="image" href="/assets/img/hero-760.jpg"
+<link rel="preload" as="image" href="/assets/img/hero-760.jpg?v=2"
       media="(max-width: 640px)" fetchpriority="high">
-<link rel="preload" as="image" href="/assets/img/hero-1200.jpg"
+<link rel="preload" as="image" href="/assets/img/hero-1200.jpg?v=2"
       media="(min-width: 641px) and (max-width: 1280px)" fetchpriority="high">
-<link rel="preload" as="image" href="/assets/img/hero-2000.jpg"
+<link rel="preload" as="image" href="/assets/img/hero-2000.jpg?v=2"
       media="(min-width: 1281px)" fetchpriority="high">
 
 <link rel="stylesheet" href="/style.css?v=10">
@@ -187,12 +187,12 @@
          available. Mobile file is a portrait crop. Ranges match the <head>
          preloads exactly. Motion lives in .hero-media img (style.css). -->
     <picture class="hero-media">
-      <source srcset="/assets/img/hero-760.jpg"  media="(max-width: 640px)"  width="760"  height="950">
-      <source srcset="/assets/img/hero-1200.jpg" media="(min-width: 641px) and (max-width: 1280px)" width="1200" height="900">
-      <source srcset="/assets/img/hero-2000.jpg" media="(min-width: 1281px)" width="2000" height="1200">
-      <img src="/assets/img/hero-2000.jpg"
-           alt="Elegante casa de dos pisos con porche de columnas y balcón en un día soleado"
-           data-en-alt="Elegant two-story home with a columned front porch and balcony on a sunny day"
+      <source srcset="/assets/img/hero-760.jpg?v=2"  media="(max-width: 640px)"  width="760"  height="950">
+      <source srcset="/assets/img/hero-1200.jpg?v=2" media="(min-width: 641px) and (max-width: 1280px)" width="1200" height="900">
+      <source srcset="/assets/img/hero-2000.jpg?v=2" media="(min-width: 1281px)" width="2000" height="1200">
+      <img src="/assets/img/hero-2000.jpg?v=2"
+           alt="Casa estilo craftsman con fachada en tonos tierra, frontón azul marino, garaje blanco para dos autos y acentos de piedra en un día soleado"
+           data-en-alt="Craftsman-style home with taupe siding, a navy-blue gable, a white two-car garage and stone accents on a sunny day"
            width="2000" height="1200" fetchpriority="high" decoding="async">
     </picture>
 
