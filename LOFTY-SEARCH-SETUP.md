@@ -11,8 +11,17 @@
 
 - ✅ Hector set up his **own independent (free DIY) Lofty website**.
 - ⏳ **MLS feed approval is in progress — ~10 business days (≈ Nov 10, 2026).**
-  Until the board approves the feed, his Lofty IDX won't show live listings, so
-  there is **nothing to connect for the SEARCH yet** (the funnel is separate).
+  Until the board approves the feed, his Lofty IDX won't show live listings.
+- ✅ **Custom domain connected (2026-10-29):** `search.hectorbelenrealtor.com`
+  linked to his Lofty site via **GoDaddy Domain Connect** ("Do it for me"). DNS
+  resolves to Lofty (52.52.24.52 / 52.9.101.47) and the domain is saved in Lofty
+  (re-adding says "already exists").
+- ⏳ **SSL still provisioning on Lofty's side** as of 2026-10-29 ~22:25 ET: the
+  URL returns `403` and serves Lofty's default `chime.me` cert, not one for the
+  subdomain. Automatic; usually ready within minutes–hours. **Do NOT flip
+  `CONFIG.searchUrl` until `https://search.hectorbelenrealtor.com` loads cleanly**
+  (ideally also once listings are live, so the first impression isn't an empty
+  search).
 - ✅ **Site lead funnel switched to the CRM path** (2026-10-29): `script.js`
   `CONFIG.provider` is now `'function'` — every lead POSTs to the serverless
   handler, which forwards the full qualifier payload to `LEAD_WEBHOOK_URL`.
