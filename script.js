@@ -136,8 +136,11 @@
     { data: 'data-en-caption',    attr: 'data-caption' }
   ];
 
-  /* Head/meta swaps that aren't simple element text. */
-  var I18N_META = {
+  /* Head/meta swaps that aren't simple element text. A sub-page (privacy, terms,
+     /compradores, …) can define its own title + description by setting
+     window.PAGE_META before this script loads; otherwise the homepage values
+     below are used. */
+  var I18N_META = window.PAGE_META || {
     es: {
       title: 'Hector Belen, REALTOR® | Casas en Florida — Orlando y Tampa',
       description: '¿Comprando o vendiendo en Florida? Hector Belen contesta su propio teléfono y le da una valuación gratis, sin compromiso. De Orlando a Miami.'

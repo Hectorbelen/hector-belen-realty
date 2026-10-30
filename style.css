@@ -1548,3 +1548,36 @@ body.is-locked { overflow: hidden; }
   .contact, .trust, .site-footer { background: #fff; color: #000; }
   .js .reveal { opacity: 1 !important; transform: none !important; }
 }
+
+/* ----------------------------------------------------- Legal / sub-pages ---
+   Simple readable prose pages (Privacy, Terms) that reuse the site shell,
+   header and footer. Light background, generous measure. */
+.legal-page {
+  background: var(--cream);
+  color: var(--ink);
+  padding-top: clamp(6rem, 5rem + 4vw, 8rem);
+  padding-bottom: var(--section-y);
+  min-height: 60vh;
+}
+.legal-shell { max-width: 60rem; }
+.legal-page h1 {
+  font-family: var(--serif);
+  font-size: var(--h1);
+  color: var(--navy);
+  margin: .2rem 0 .3rem;
+  line-height: 1.05;
+}
+.legal-page h2 {
+  font-family: var(--serif);
+  font-size: clamp(1.4rem, 1.1rem + 1vw, 1.9rem);
+  color: var(--navy);
+  margin: 2.2rem 0 .5rem;
+}
+.legal-page p { font-size: var(--body); line-height: 1.7; color: var(--ink-soft); margin: .6rem 0; }
+.legal-page a { color: var(--gold-600); border-bottom: 1px solid var(--line); }
+.legal-page a:hover { color: var(--navy); border-color: var(--gold); }
+.legal-updated { font-size: .85rem; color: var(--navy-400); margin-bottom: 1.4rem; }
+.legal-back { margin-top: 2.6rem; }
+.legal-back a { border-bottom: none; }
+.legal-footer { padding-block: 2rem; }
+.legal-footer .copyright a { color: inherit; }

@@ -64,7 +64,7 @@
 <link rel="preload" as="image" href="/assets/img/hero-2000.jpg"
       media="(min-width: 1281px)" fetchpriority="high">
 
-<link rel="stylesheet" href="/style.css?v=3">
+<link rel="stylesheet" href="/style.css?v=4">
 
 <!-- JS-enabled flag before first paint, so scroll-reveal only hides content
      when there's JS to reveal it again. -->
@@ -465,14 +465,17 @@
                       data-en-placeholder="Anything you'd like me to know…"></textarea>
           </div>
 
-          <!-- [PLACEHOLDER] Consent wording — have LPT confirm the exact TCPA
-               language for Florida (and its Spanish translation) before launch. -->
+          <!-- CONSENT — neutral TCPA-style wording. The form will not submit
+               unless this box is checked (required + validated in script.js).
+               TODO (LPT Realty): have the broker's compliance team approve the
+               final TCPA consent wording for Florida in BOTH languages before
+               a paid-ads launch. This is a sensible neutral default, not legal
+               advice. -->
           <div class="field consent">
             <label class="check">
               <input type="checkbox" id="consent" name="consent" value="yes" required
                      aria-describedby="consent-error">
-              <span data-en="I agree to be contacted by Hector Belen about my inquiry. &lt;b class=&quot;ph&quot;&gt;[PLACEHOLDER — broker to confirm TCPA wording]&lt;/b&gt;">Acepto que Hector Belen me contacte sobre mi solicitud.
-                <b class="ph">[PLACEHOLDER — LPT debe confirmar el texto TCPA]</b></span>
+              <span data-en="I agree to be contacted by Hector Belen by phone call, text message, or email about real estate services. Message and data rates may apply. Consent is not a condition of any purchase. See our &lt;a href=&quot;/privacy/&quot;&gt;Privacy Policy&lt;/a&gt;.">Acepto que Hector Belen me contacte por llamada telefónica, mensaje de texto o correo electrónico sobre servicios de bienes raíces. Pueden aplicar tarifas de mensajes y datos. El consentimiento no es condición para ninguna compra. Consulte nuestra <a href="/privacy/">Política de Privacidad</a>.</span>
             </label>
             <small class="error" id="consent-error" role="alert"></small>
           </div>
@@ -597,6 +600,11 @@
               <span class="card-zoom" aria-hidden="true"></span>
             </button>
           </figure>
+          <!-- TODO (award proof): "Top REALTOR® Nacional 2026 — LPT Realty" is
+               HIDDEN until Hector supplies the awarding organization + a link/
+               proof, or confirms it should be removed permanently. Do NOT show
+               an award claim without verification. To restore, uncomment the
+               figure below (assets/img/testimonials/01.jpg).
           <figure class="card" data-tags="all">
             <button class="card-btn" data-full="assets/img/testimonials/01.jpg"
                     data-caption="Top REALTOR&reg; Nacional 2026 — LPT Realty" data-en-caption="Top Nationwide REALTOR&reg; 2026 — LPT Realty">
@@ -605,6 +613,7 @@
               <span class="card-zoom" aria-hidden="true"></span>
             </button>
           </figure>
+          -->
           <figure class="card" data-tags="all">
             <button class="card-btn" data-full="assets/img/testimonials/09.jpg"
                     data-caption="En la sede de LPT Realty" data-en-caption="At LPT Realty headquarters">
@@ -937,6 +946,9 @@
     </p>
     <p class="copyright">
       &copy; <span id="year">2026</span> Hector Belen. <span data-en="All rights reserved.">Todos los derechos reservados.</span> ·
+      <a href="/privacy/" data-en="Privacy Policy">Política de Privacidad</a> ·
+      <a href="/terms/" data-en="Terms of Use">Términos de Uso</a> ·
+      <a href="https://www.hud.gov/program_offices/fair_housing_equal_opp" rel="noopener" target="_blank" data-en="Fair Housing">Igualdad de Vivienda</a> ·
       <a href="#top" data-scroll data-en="Back to top">Volver arriba</a>
     </p>
   </div>
@@ -956,6 +968,6 @@
   <p class="lb-count" id="lbCount"></p>
 </div>
 
-<script src="/script.js?v=3" defer></script>
+<script src="/script.js?v=4" defer></script>
 </body>
 </html>
