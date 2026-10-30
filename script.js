@@ -688,8 +688,10 @@
           var cap = labelEs
             ? '<figcaption class="video-name" data-en="' + esc(labelEn) + '">' + esc(labelEs) + '</figcaption>'
             : '';
-          var img = '<img src="' + esc(v.poster) + '" alt="' + esc(altEs) +
-                    '" data-en-alt="' + esc(altEn) + '" loading="lazy">';
+          var webp = String(v.poster || '').replace(/\.jpe?g$/i, '.webp');
+          var img = '<picture><source srcset="' + esc(webp) + '" type="image/webp">' +
+                    '<img src="' + esc(v.poster) + '" alt="' + esc(altEs) +
+                    '" data-en-alt="' + esc(altEn) + '" loading="lazy"></picture>';
           if (v.src) {
             var ariaEs = 'Reproducir video' + (capEs ? ': ' + capEs : '');
             var ariaEn = 'Play video' + (capEn ? ': ' + capEn : '');
