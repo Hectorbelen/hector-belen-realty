@@ -953,12 +953,15 @@
 
       setSending(true);
 
-      /* Clean, name-stamped subject for the lead email (helps Lofty/CRM parse). */
+      /* Clean, name-stamped, UNIQUE subject. The timestamp keeps every alert's
+         subject different so Gmail never threads leads together — and so Lofty's
+         Gmail parser sees each one as a NEW email (and creates a new lead). */
       if (form.elements.subject) {
-        var leadName = (form.elements.name.value || '').trim();
-        form.elements.subject.value = leadName
-          ? 'New Website Lead — ' + leadName
-          : 'New Website Lead (hectorbelenrealtor.com)';
+        var leadName = (form.elements.name.value || '').trim() || 'Website';
+        var stamp = new Date().toLocaleString('en-US', {
+          month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit', second: '2-digit'
+        });
+        form.elements.subject.value = 'New Website Lead — ' + leadName + ' · ' + stamp;
       }
 
       if (IS_LOCAL) {
