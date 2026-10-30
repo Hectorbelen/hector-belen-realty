@@ -64,7 +64,7 @@
 <link rel="preload" as="image" href="/assets/img/hero-2000.jpg"
       media="(min-width: 1281px)" fetchpriority="high">
 
-<link rel="stylesheet" href="/style.css?v=7">
+<link rel="stylesheet" href="/style.css?v=8">
 
 <!-- JS-enabled flag before first paint, so scroll-reveal only hides content
      when there's JS to reveal it again. -->
@@ -996,6 +996,20 @@
 </footer>
 
 
+<!-- Cookie consent — shown by script.js ONLY when an analytics ID is configured
+     in CONFIG.analytics. Decline is the privacy-preserving default. -->
+<div class="cookie-banner" id="cookieBanner" role="dialog" aria-live="polite"
+     aria-label="Aviso de cookies" data-en-aria-label="Cookie notice" hidden>
+  <p data-en="We use optional analytics cookies to understand site usage. Essential features work either way. See our &lt;a href=&quot;/privacy/&quot;&gt;Privacy Policy&lt;/a&gt;.">
+    Usamos cookies de análisis opcionales para entender el uso del sitio. Las
+    funciones esenciales funcionan igual. Consulte nuestra
+    <a href="/privacy/">Política de Privacidad</a>.</p>
+  <div class="cookie-actions">
+    <button type="button" class="btn btn-ghost btn-sm" id="cookieDecline" data-en="Decline">Rechazar</button>
+    <button type="button" class="btn btn-gold btn-sm" id="cookieAccept" data-en="Accept">Aceptar</button>
+  </div>
+</div>
+
 <!-- Sticky mobile quick-contact: click-to-call + WhatsApp. Mobile-only (CSS). -->
 <div class="mobile-cta">
   <a class="mcta call" href="tel:+14072722898" aria-label="Llamar a Hector" data-en-aria-label="Call Hector">
@@ -1021,6 +1035,6 @@
   <p class="lb-count" id="lbCount"></p>
 </div>
 
-<script src="/script.js?v=7" defer></script>
+<script src="/script.js?v=8" defer></script>
 </body>
 </html>

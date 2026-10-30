@@ -92,7 +92,16 @@
        mailbox is set up. Keeping Gmail for now. NOTE: the email also appears
        statically in the <head> JSON-LD + the /privacy/ and /terms/ pages —
        update those by hand when the branded address goes live. */
-    contactEmail: 'Hectorbelenrealtor@gmail.com'
+    contactEmail: 'Hectorbelenrealtor@gmail.com',
+
+    /* ---- ANALYTICS (optional, consent-gated) ------------------------------
+       Paste IDs to enable. EMPTY = no analytics AND no cookie banner — the
+       privacy-preserving default. When an ID is set, a cookie-consent banner
+       appears and the scripts load ONLY after the visitor clicks Accept. */
+    analytics: {
+      ga4Id: '',          /* e.g. 'G-XXXXXXXXXX' (Google Analytics 4) */
+      metaPixelId: ''     /* e.g. '123456789012345' (Meta / Facebook Pixel) */
+    }
   };
 
   /* When you open index.html straight off your laptop there is no Netlify or
@@ -885,12 +894,10 @@
       /* Keep the confirmation in view on small screens. */
       thanks.scrollIntoView({ behavior: prefersReducedMotion ? 'auto' : 'smooth', block: 'center' });
 
-      /* ---- ANALYTICS / CONVERSION TRACKING HOOK ----------------------------
-         This is the moment a lead converts. Drop your tracking call here once
-         Hector has an analytics account. Examples:
-           gtag('event', 'generate_lead', { value: 1 });
-           fbq('track', 'Lead');
-         Leaving this empty is fine — the form works without it. */
+      /* Conversion tracking — fires ONLY if analytics were loaded after the
+         visitor accepted cookies (see §10). No-ops otherwise. */
+      if (window.gtag) window.gtag('event', 'generate_lead', { value: 1 });
+      if (window.fbq)  window.fbq('track', 'Lead');
     }
 
     function setSending(sending) {
@@ -1046,6 +1053,59 @@
         setLang(LANG);
       })
       .catch(function () {});
+  })();
+
+
+  /* ============================ 10. Analytics (consent-gated) === */
+  /* Loads GA4 and/or Meta Pixel ONLY when an ID is configured AND the visitor
+     accepts cookies. No IDs → nothing loads and no banner appears. */
+  (function analyticsConsent() {
+    var cfg = CONFIG.analytics || {};
+    if (!cfg.ga4Id && !cfg.metaPixelId) return;   // privacy default: do nothing
+
+    function loadGA4(id) {
+      var s = document.createElement('script');
+      s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(id);
+      document.head.appendChild(s);
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = function () { window.dataLayer.push(arguments); };
+      window.gtag('js', new Date());
+      window.gtag('config', id, { anonymize_ip: true });
+    }
+    function loadPixel(id) {
+      !function (f, b, e, v, n, t, s) {
+        if (f.fbq) return; n = f.fbq = function () {
+          n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments);
+        };
+        if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
+        n.queue = []; t = b.createElement(e); t.async = !0; t.src = v;
+        s = b.getElementsByTagName(e)[0]; s.parentNode.insertBefore(t, s);
+      }(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
+      window.fbq('init', id);
+      window.fbq('track', 'PageView');
+    }
+    function loadAll() {
+      if (cfg.ga4Id) loadGA4(cfg.ga4Id);
+      if (cfg.metaPixelId) loadPixel(cfg.metaPixelId);
+    }
+
+    var choice = null;
+    try { choice = localStorage.getItem('cookieConsent'); } catch (e) {}
+    if (choice === 'accepted') { loadAll(); return; }
+    if (choice === 'declined') { return; }
+
+    var banner = $('#cookieBanner');
+    if (!banner) { return; }
+    banner.hidden = false;
+    function decide(accepted) {
+      try { localStorage.setItem('cookieConsent', accepted ? 'accepted' : 'declined'); } catch (e) {}
+      banner.hidden = true;
+      if (accepted) loadAll();
+    }
+    var a = $('#cookieAccept'), d = $('#cookieDecline');
+    if (a) a.addEventListener('click', function () { decide(true); });
+    if (d) d.addEventListener('click', function () { decide(false); });
   })();
 
 

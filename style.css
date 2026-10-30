@@ -1652,3 +1652,30 @@ body.is-locked { overflow: hidden; }
   .mcta.wa   { background: #25D366; color: #fff; }
   .mcta-ico  { width: 24px; height: 24px; fill: currentColor; }
 }
+
+/* Cookie-consent banner — shown only when analytics is configured (script.js). */
+.cookie-banner {
+  position: fixed;
+  left: 1rem;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 70;
+  max-width: 44rem;
+  margin-inline: auto;
+  background: var(--navy);
+  color: var(--cream);
+  border: 1px solid rgba(247, 244, 239, .14);
+  border-radius: 14px;
+  padding: 1rem 1.15rem;
+  box-shadow: 0 14px 44px rgba(14, 23, 36, .4);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: .75rem 1.2rem;
+}
+.cookie-banner p { font-size: .9rem; line-height: 1.5; margin: 0; flex: 1 1 18rem; color: rgba(247, 244, 239, .85); }
+.cookie-banner a { color: var(--gold); border-bottom: 1px solid rgba(201, 164, 76, .5); }
+.cookie-actions { display: flex; gap: .6rem; flex: 0 0 auto; }
+@media (max-width: 760px) {
+  .cookie-banner { bottom: 5.6rem; } /* clear the floating call/WhatsApp buttons */
+}
