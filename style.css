@@ -1581,3 +1581,15 @@ body.is-locked { overflow: hidden; }
 .legal-back a { border-bottom: none; }
 .legal-footer { padding-block: 2rem; }
 .legal-footer .copyright a { color: inherit; }
+
+/* IDX / MLS search iframe — rendered by script.js when CONFIG.idxEmbedUrl is set. */
+.idx-frame {
+  display: block;
+  width: 100%;
+  min-height: 760px;
+  border: 0;
+  border-radius: 14px;
+  background: var(--white);
+  box-shadow: 0 10px 40px rgba(14, 23, 36, .12);
+}
+@media (max-width: 640px) { .idx-frame { min-height: 580px; border-radius: 10px; } }

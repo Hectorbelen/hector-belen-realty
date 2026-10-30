@@ -67,6 +67,21 @@
        Nothing else changes. Full steps: LOFTY-SEARCH-SETUP.md */
     searchUrl: '',
 
+    /* ---- IDX / MLS EMBED (optional) ---------------------------------------
+       If your IDX/MLS vendor gives you an EMBEDDABLE search URL (an iframe src
+       — e.g. from IDX Broker, iHomefinder, Showcase IDX, RealGeeks, or Lofty's
+       embed option), paste it here. When set, it renders as a live, in-page
+       search iframe inside the #search section. Leave EMPTY to show the
+       friendly fallback card with the "Dígame Qué Busca" button.
+
+       Difference from searchUrl above:
+         • idxEmbedUrl  → embeds the search INSIDE this page (iframe).
+         • searchUrl    → re-points the "Search / Buscar" buttons to an external
+                          site (e.g. search.hectorbelenrealtor.com).
+       You can set either, both, or neither. See the "Needs from LPT/MLS" note
+       in the final report / LOFTY-SEARCH-SETUP.md for what to request. */
+    idxEmbedUrl: '',
+
     /* Minimum / maximum digits accepted in the phone field. 10 covers US
        numbers; the upper bound leaves room for country codes. */
     phoneDigits: { min: 10, max: 15 }
@@ -275,20 +290,45 @@
      changes — the buttons scroll to the in-page section. Runs before the
      scroll-spy below so repointed links drop out of the spy cleanly. */
   (function wireSearch() {
-    var url = (CONFIG.searchUrl || '').trim();
-    if (!url) return;
-    $$('a[href="#search"]').forEach(function (a) {
-      a.setAttribute('href', url);
-      a.removeAttribute('data-scroll');
-    });
-    var live = $('#idxLive');
-    var fallback = $('#idxFallback');
-    if (fallback) fallback.hidden = true;
-    if (live) {
-      live.hidden = false;
-      var btn = live.querySelector('a.btn');
-      if (btn) btn.setAttribute('href', url);
+    var embedUrl = (CONFIG.idxEmbedUrl || '').trim();
+    var url      = (CONFIG.searchUrl || '').trim();
+    var container = $('#idxEmbed');
+    var live      = $('#idxLive');
+    var fallback  = $('#idxFallback');
+
+    /* 1) Preferred: a real in-page IDX/MLS iframe embed. When a vendor embed
+       URL exists, drop the iframe in and hide both launcher cards. */
+    if (embedUrl && container) {
+      if (fallback) fallback.hidden = true;
+      if (live) live.hidden = true;
+      var frame = document.createElement('iframe');
+      frame.className = 'idx-frame';
+      frame.src = embedUrl;
+      frame.title = LANG === 'en' ? 'Home search on the MLS' : 'Búsqueda de casas en el MLS';
+      frame.loading = 'lazy';
+      frame.setAttribute('allowfullscreen', '');
+      frame.referrerPolicy = 'strict-origin-when-cross-origin';
+      container.appendChild(frame);
     }
+
+    /* 2) External launcher: re-point every "#search" button at the standalone
+       IDX site. (Still useful alongside an embed, or on its own.) */
+    if (url) {
+      $$('a[href="#search"]').forEach(function (a) {
+        a.setAttribute('href', url);
+        a.removeAttribute('data-scroll');
+      });
+      if (!embedUrl) {
+        if (fallback) fallback.hidden = true;
+        if (live) {
+          live.hidden = false;
+          var btn = live.querySelector('a.btn');
+          if (btn) btn.setAttribute('href', url);
+        }
+      }
+    }
+    /* 3) Neither set → the "being connected" fallback card (default HTML) stays,
+       with its "Dígame Qué Busca" button pointing at the contact form. */
   })();
 
   /* Any nav click closes the drawer. Smooth scrolling is handled by CSS
@@ -537,8 +577,7 @@
   /* The iframe is only created on click. That keeps the YouTube/Vimeo player
      (roughly 1 MB of third-party JavaScript per embed) off the initial page
      load and makes it impossible for a video to autoplay with sound. */
-  $$('.video').forEach(function (btn) {
-    btn.addEventListener('click', function () {
+  function playVideo(btn) {
       var provider = btn.getAttribute('data-provider');
       var id       = btn.getAttribute('data-id');
 
@@ -596,8 +635,61 @@
       wrap.appendChild(iframe);
       btn.parentNode.replaceChild(wrap, btn);
       iframe.focus();
-    });
+  }
+
+  /* Delegated click so JSON-rendered video cards (§7c) also play. */
+  document.addEventListener('click', function (e) {
+    var btn = e.target && e.target.closest ? e.target.closest('.video') : null;
+    if (btn) playVideo(btn);
   });
+
+
+  /* ============================ 7c. Testimonial videos from data file === */
+  /* The #tVideos strip is rendered from assets/data/testimonial-videos.json so
+     Hector can add/remove videos without touching HTML. The static cards in the
+     markup are the no-JS / fetch-failed fallback. An entry with no "src" shows
+     as a plain photo (no play icon). Never invents client names (see the JSON). */
+  (function renderVideos() {
+    var strip = $('#tVideos');
+    if (!strip || !window.fetch) return;
+    function esc(s) {
+      return String(s == null ? '' : s)
+        .replace(/&/g, '&amp;').replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+    fetch('assets/data/testimonial-videos.json', { cache: 'no-cache' })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (data) {
+        if (!data || !Array.isArray(data.videos) || !data.videos.length) return;
+        strip.innerHTML = data.videos.map(function (v) {
+          var capEs = v.caption_es || '';
+          var capEn = v.caption_en || capEs;
+          var labelEs = v.name ? (capEs + ' — ' + v.name) : capEs;
+          var labelEn = v.name ? (capEn + ' — ' + v.name) : capEn;
+          var altEs = 'Miniatura de video' + (capEs ? ': ' + capEs : '') + (v.name ? ' — ' + v.name : '');
+          var altEn = 'Video thumbnail' + (capEn ? ': ' + capEn : '') + (v.name ? ' — ' + v.name : '');
+          var cap = labelEs
+            ? '<figcaption class="video-name" data-en="' + esc(labelEn) + '">' + esc(labelEs) + '</figcaption>'
+            : '';
+          var img = '<img src="' + esc(v.poster) + '" alt="' + esc(altEs) +
+                    '" data-en-alt="' + esc(altEn) + '" loading="lazy">';
+          if (v.src) {
+            var ariaEs = 'Reproducir video' + (capEs ? ': ' + capEs : '');
+            var ariaEn = 'Play video' + (capEn ? ': ' + capEn : '');
+            return '<figure class="video-card">' +
+              '<button class="video" type="button" data-provider="file" data-src="' + esc(v.src) + '"' +
+              ' aria-label="' + esc(ariaEs) + '" data-en-aria-label="' + esc(ariaEn) + '">' +
+              img + '<span class="video-play" aria-hidden="true"></span></button>' +
+              cap + '</figure>';
+          }
+          /* No video source → plain photo, no play icon. */
+          return '<figure class="video-card no-video">' + img + cap + '</figure>';
+        }).join('');
+        setLang(LANG);                               // translate the new nodes
+        window.dispatchEvent(new Event('resize'));   // re-sync the film arrows
+      })
+      .catch(function () { /* keep the static fallback cards already in the HTML */ });
+  })();
 
 
   /* ============================ 7b. Horizontal film strips === */

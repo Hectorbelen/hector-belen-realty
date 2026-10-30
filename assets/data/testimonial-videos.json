@@ -1,0 +1,12 @@
+{
+  "_README": "Testimonial videos, rendered by script.js (§7c) into #tVideos. EDIT THIS FILE to add/remove/reorder videos — no HTML changes needed. RULES: (1) NEVER invent a client name or quote — leave 'name' empty ('') until the client gives written permission, then put ONLY their first name. (2) 'src' is the video file (or a YouTube/Vimeo is possible via a future provider field). If 'src' is empty, the entry renders as a plain photo with NO play icon. (3) 'poster' is the thumbnail image. (4) caption_es / caption_en are the bilingual labels.",
+  "videos": [
+    { "src": "assets/video/t1.mp4", "poster": "assets/video/t1.jpg", "name": "", "caption_es": "Día de entrega de llaves", "caption_en": "Key handover day" },
+    { "src": "assets/video/t2.mp4", "poster": "assets/video/t2.jpg", "name": "", "caption_es": "En la mesa de cierre", "caption_en": "At the closing table" },
+    { "src": "assets/video/t3.mp4", "poster": "assets/video/t3.jpg", "name": "", "caption_es": "Un cliente comparte su experiencia", "caption_en": "A client shares his experience" },
+    { "src": "assets/video/t4.mp4", "poster": "assets/video/t4.jpg", "name": "", "caption_es": "Un comprador y su agente", "caption_en": "A buyer and his agent" },
+    { "src": "assets/video/t5.mp4", "poster": "assets/video/t5.jpg", "name": "", "caption_es": "¡Conseguimos las llaves!", "caption_en": "We got the keys!" },
+    { "src": "assets/video/t6.mp4", "poster": "assets/video/t6.jpg", "name": "", "caption_es": "Una clienta comparte su experiencia", "caption_en": "A client shares her experience" },
+    { "src": "assets/video/t7.mp4", "poster": "assets/video/t7.jpg", "name": "", "caption_es": "La historia de una familia", "caption_en": "A family's story" }
+  ]
+}
