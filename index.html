@@ -64,7 +64,7 @@
 <link rel="preload" as="image" href="/assets/img/hero-2000.jpg?v=3"
       media="(min-width: 1281px)" fetchpriority="high">
 
-<link rel="stylesheet" href="/style.css?v=11">
+<link rel="stylesheet" href="/style.css?v=12">
 
 <!-- JS-enabled flag before first paint, so scroll-reveal only hides content
      when there's JS to reveal it again. -->
@@ -335,18 +335,11 @@
 
           <input type="hidden" name="form-name" value="lead">
 
-          <!-- LEAD ATTRIBUTION — filled in by script.js on load so your CRM
-               knows where each lead came from (language, page, referrer, and
-               any ?utm_* ad-campaign tags). Never shown to the visitor. -->
-          <input type="hidden" name="language"     value="es">
-          <input type="hidden" name="source"       value="website">
-          <input type="hidden" name="page"         value="">
-          <input type="hidden" name="referrer"     value="">
-          <input type="hidden" name="utm_source"   value="">
-          <input type="hidden" name="utm_medium"   value="">
-          <input type="hidden" name="utm_campaign" value="">
-          <input type="hidden" name="utm_term"     value="">
-          <input type="hidden" name="utm_content"  value="">
+          <!-- Email subject for the lead notification. Netlify uses a field
+               named "subject" as the alert's subject line; script.js rewrites it
+               on submit to "New Website Lead — <name>" so each alert is clean and
+               easy for a CRM (Lofty) to parse. -->
+          <input type="hidden" name="subject" value="New Website Lead (hectorbelenrealtor.com)">
 
           <!-- HONEYPOT — do not remove. Hidden (.hp + aria-hidden); a bot that
                fills "company" is silently dropped (script.js §8). No visible
@@ -507,6 +500,19 @@
             </label>
             <small class="error" id="consent-error" role="alert"></small>
           </div>
+
+          <!-- LEAD ATTRIBUTION (kept at the END so the notification email leads
+               with Name / Email / Phone). Filled by script.js: language, page,
+               referrer, and any ?utm_* ad-campaign tags. Never shown to visitors. -->
+          <input type="hidden" name="language"     value="es">
+          <input type="hidden" name="source"       value="website">
+          <input type="hidden" name="page"         value="">
+          <input type="hidden" name="referrer"     value="">
+          <input type="hidden" name="utm_source"   value="">
+          <input type="hidden" name="utm_medium"   value="">
+          <input type="hidden" name="utm_campaign" value="">
+          <input type="hidden" name="utm_term"     value="">
+          <input type="hidden" name="utm_content"  value="">
 
           <button type="submit" class="btn btn-gold btn-block" id="submitBtn">
             <span class="btn-text">Contactar a Hector</span>
@@ -969,6 +975,6 @@
   <p class="lb-count" id="lbCount"></p>
 </div>
 
-<script src="/script.js?v=11" defer></script>
+<script src="/script.js?v=12" defer></script>
 </body>
 </html>

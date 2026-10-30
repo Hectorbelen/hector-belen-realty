@@ -953,6 +953,14 @@
 
       setSending(true);
 
+      /* Clean, name-stamped subject for the lead email (helps Lofty/CRM parse). */
+      if (form.elements.subject) {
+        var leadName = (form.elements.name.value || '').trim();
+        form.elements.subject.value = leadName
+          ? 'New Website Lead — ' + leadName
+          : 'New Website Lead (hectorbelenrealtor.com)';
+      }
+
       if (IS_LOCAL) {
         console.warn(
           '[lead form] Local preview: skipping the network request.\n' +
