@@ -29,7 +29,7 @@
 <meta property="og:site_name" content="Hector Belen, REALTOR®">
 <meta property="og:url" content="https://hectorbelenrealtor.com/">
 <meta property="og:title" content="Hector Belen, REALTOR® | Su Agente de Confianza en el Centro de Florida">
-<meta property="og:description" content="Al servicio del Centro de Florida —Orlando, Lake Mary, Kissimmee y Tampa— y también Miami y Jacksonville. Valuación de su casa gratis, sin compromiso.">
+<meta property="og:description" content="Al servicio del Centro de Florida: Orlando, Lake Mary, Kissimmee, Tampa, Miami y Jacksonville. Valuación de su casa gratis, sin compromiso.">
 <!-- og-image.jpg now features the Hector Belen logo on black — clean branded
      preview on WhatsApp/Facebook. Swap it anytime (1200×630). -->
 <meta property="og:image" content="https://hectorbelenrealtor.com/assets/img/og-image.jpg">
@@ -64,7 +64,7 @@
 <link rel="preload" as="image" href="/assets/img/hero-2000.jpg"
       media="(min-width: 1281px)" fetchpriority="high">
 
-<link rel="stylesheet" href="/style.css?v=9">
+<link rel="stylesheet" href="/style.css?v=10">
 
 <!-- JS-enabled flag before first paint, so scroll-reveal only hides content
      when there's JS to reveal it again. -->
@@ -168,7 +168,6 @@
           <li><a href="#about" data-en="About">Sobre Hector</a></li>
           <li><a href="#contact" data-en="Contact">Contacto</a></li>
           <li><a href="#testimonials" data-en="Testimonials">Testimonios</a></li>
-          <li><a href="#search" data-en="Search">Buscar</a></li>
           <li class="nav-cta-item"><a class="btn btn-sm btn-gold" href="#contact" data-en="Free Home Valuation">Valuación Gratis</a></li>
         </ul>
       </nav>
@@ -202,17 +201,15 @@
       <div class="hero-panel reveal">
         <p class="eyebrow" data-en="Serving Central Florida &amp; the Tampa area">Al servicio del Centro de Florida y el área de Tampa</p>
         <h1 class="hero-title" data-en="Your Trusted Agent in<br><em>Central Florida</em><br>Real Estate">Su Agente de Confianza<br>en Bienes Raíces en<br><em>el Centro de la Florida</em></h1>
-        <!-- Service area: PRIMARY = Central Florida (Orlando, Lake Mary,
-             Kissimmee, Tampa area); SECONDARY = Miami & Jacksonville
-             (confirmed by Hector, 2026-10-30). -->
-        <p class="hero-sub" data-en="A well-experienced real estate agent serving Central Florida — Orlando, Lake Mary, Kissimmee, and the Tampa area — plus Miami and Jacksonville.">
+        <!-- Service area — all markets in one list (confirmed by Hector). -->
+        <p class="hero-sub" data-en="A well-experienced real estate agent serving Central Florida — Orlando, Lake Mary, Kissimmee, Tampa, Miami, and Jacksonville.">
           Un agente de bienes raíces con amplia experiencia, al servicio del
-          Centro de Florida —Orlando, Lake Mary, Kissimmee y el área de Tampa— y
-          también Miami y Jacksonville.
+          Centro de Florida: Orlando, Lake Mary, Kissimmee, Tampa, Miami y
+          Jacksonville.
         </p>
         <div class="hero-actions">
           <a class="btn btn-gold" href="#contact" data-scroll data-en="Get Your Free Home Valuation">Obtenga su Valuación Gratis</a>
-          <a class="btn btn-ghost" href="#search" data-scroll data-en="Search Homes">Busque su Casa</a>
+          <a class="btn btn-ghost" href="#contact" data-scroll data-en="Tell Me What You're Looking For">Dígame Qué Busca</a>
         </div>
       </div>
     </div>
@@ -764,74 +761,12 @@
   </section>
 
 
-  <!-- ==========================================================
-       4c. HOME SEARCH (IDX / MLS)
-       ----------------------------------------------------------
-       Hector has an IDX vendor (IDX Broker / iHomefinder / Showcase IDX /
-       RealGeeks / etc.). To make the live MLS search appear here, paste the
-       vendor's embed into the #idxEmbed container below and delete the
-       .idx-fallback block.
-
-       MOST VENDORS GIVE YOU ONE OF TWO THINGS:
-       • An <iframe> snippet — paste it inside #idxEmbed as-is.
-       • A <script> snippet — paste the <script> inside #idxEmbed; it injects
-         the search widget where it sits. (If the script must go in <head>,
-         put it there and leave a target <div> here per the vendor's docs.)
-
-       The site sets no Content-Security-Policy, so third-party IDX iframes and
-       scripts load fine. If you later add a CSP, allow the vendor's domain in
-       frame-src / script-src.
-
-       [PLACEHOLDER] Replace the href on the fallback button with the agent's
-       real IDX search URL (e.g. https://search.hectorbelenrealtor.com or the
-       vendor-hosted link) as an interim step before the embed is in.
-       ========================================================== -->
-  <section class="search" id="search" aria-label="Búsqueda de casas en el MLS"
-           data-en-aria-label="Home search on the MLS">
-    <div class="shell">
-      <div class="section-head search-head">
-        <p class="eyebrow reveal" data-en="Search the MLS">Busque en el MLS</p>
-        <h2 class="reveal" data-en="Find your next home">Encuentre su próxima casa</h2>
-        <p class="section-lede reveal" data-en="Search every active listing across Central Florida and Tampa — the same up-to-the-minute MLS data agents use. Save your favorites and I'll help you see the ones worth your time.">
-          Busque entre todas las propiedades activas en el Centro de Florida y
-          Tampa — los mismos datos del MLS, al minuto, que usan los agentes.
-          Guarde sus favoritas y le ayudo a ver las que valen su tiempo.
-        </p>
-      </div>
-
-      <!-- HOME SEARCH launcher.
-           Two states, toggled by script.js based on CONFIG.searchUrl:
-             • searchUrl EMPTY  → #idxFallback shows ("being connected" card).
-             • searchUrl SET    → #idxLive shows (a launcher to the Lofty IDX
-               site) and every "Search / Buscar" button routes there too.
-           See LOFTY-SEARCH-SETUP.md. -->
-      <div class="idx-embed reveal" id="idxEmbed">
-
-        <!-- Shown until Lofty's IDX address is set in CONFIG.searchUrl. -->
-        <div class="idx-fallback" id="idxFallback">
-          <span class="idx-fallback-mark" aria-hidden="true"></span>
-          <h3 data-en="The live home search is being connected.">La búsqueda de casas en vivo se está conectando.</h3>
-          <p data-en="In the meantime, tell me what you're looking for and I'll send you matching listings personally.">
-            Mientras tanto, dígame qué está buscando y le envío propiedades que
-            coincidan, personalmente.
-          </p>
-          <a class="btn btn-gold" href="#contact" data-scroll data-en="Tell Me What You Want">Dígame Qué Busca</a>
-        </div>
-
-        <!-- Shown once CONFIG.searchUrl is set — script.js fills in the href. -->
-        <div class="idx-fallback" id="idxLive" hidden>
-          <span class="idx-fallback-mark" aria-hidden="true"></span>
-          <h3 data-en="Search every active listing across Central Florida &amp; Tampa.">Busque entre todas las propiedades activas en el Centro de Florida y Tampa.</h3>
-          <p data-en="Browse live MLS listings, save your favorites, and set up alerts for new homes that match — I'll see what you love and help you move on the ones worth it.">
-            Explore propiedades del MLS en vivo, guarde sus favoritas y reciba
-            alertas de casas nuevas que coincidan — yo veo lo que le gusta y le
-            ayudo a actuar sobre las que valen la pena.
-          </p>
-          <a class="btn btn-gold" href="#" data-en="Search Homes on the MLS">Buscar Casas en el MLS</a>
-        </div>
-      </div>
-    </div>
-  </section>
+  <!-- HOME SEARCH (#search) — TEMPORARILY REMOVED until the MLS/IDX feed is
+       ready. Site is lead-capture only for now; the Buscar/Search nav, hero,
+       and footer links were removed too. TO RESTORE: recover the
+       <section class="search" id="search">…</section> from git history, set
+       CONFIG.idxEmbedUrl or CONFIG.searchUrl in script.js, and re-add the
+       Search links. -->
 
 
   <!-- ==========================================================
@@ -913,7 +848,6 @@
       <h4 data-en="Explore">Explorar</h4>
       <ul>
         <li><a href="#about" data-scroll data-en="About Hector">Sobre Hector</a></li>
-        <li><a href="#search" data-scroll data-en="Home Search">Buscar Casas</a></li>
         <li><a href="#testimonials" data-scroll data-en="Testimonials">Testimonios</a></li>
         <li><a href="#standards" data-scroll data-en="Standards">Estándares</a></li>
         <li><a href="#contact" data-scroll data-en="Free Valuation">Valuación Gratis</a></li>
@@ -927,7 +861,6 @@
         <li><a href="/vendedores/" data-en="For Sellers">Para Vendedores</a></li>
         <li><a href="/rentas/" data-en="Rentals">Rentas</a></li>
         <li><a href="/valuacion-gratis/" data-en="Free Valuation">Valuación Gratis</a></li>
-        <li><a href="/blog/" data-en="Blog">Blog</a></li>
       </ul>
     </div>
 
@@ -1036,6 +969,6 @@
   <p class="lb-count" id="lbCount"></p>
 </div>
 
-<script src="/script.js?v=9" defer></script>
+<script src="/script.js?v=10" defer></script>
 </body>
 </html>
