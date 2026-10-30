@@ -1,5 +1,18 @@
 # 🔎 Lofty IDX home-search — setup (staged, ready to flip)
 
+## ⏳ CURRENT STATUS (as of 2026-10-29) — READ FIRST
+- ✅ Hector set up his **own independent (free DIY) Lofty website**.
+- ⏳ **MLS feed approval is in progress — ~10 business days (≈ Nov 10, 2026).**
+  Until the board approves the feed, his Lofty IDX won't show live listings, so
+  there is **nothing to connect on the website yet**. Everything below is staged
+  and waits on that approval.
+- 📌 **Next session (in ~10 days, once MLS is approved):** confirm his Lofty IDX
+  is live with listings, get his **personal search URL** (and ask Lofty if a
+  **custom domain** `search.hectorbelenrealtor.com` is allowed on the free DIY
+  tier — it may not be), then do the steps below. Pick up by reading this file.
+- 🎨 Marketing kit (business card, flyer, QR cards) already delivered as a
+  separate Artifact — not part of the website repo.
+
 **Decision:** Hector is moving to his **own independent Lofty account** (not LPT's
 brokerage Lofty). That's what makes a fully branded search on **his** domain, with
 **his** leads, possible. This doc is the turnkey plan for when that account + its
