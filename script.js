@@ -139,12 +139,12 @@
   /* Head/meta swaps that aren't simple element text. */
   var I18N_META = {
     es: {
-      title: 'Hector Belen, REALTOR® | Casas en el Centro de Florida y Tampa',
-      description: '¿Comprando o vendiendo en el Centro de Florida o Tampa? Hector Belen: 20+ años en bienes raíces y contesta su propio teléfono. Valuación gratis.'
+      title: 'Hector Belen, REALTOR® | Casas en Florida — Orlando y Tampa',
+      description: '¿Comprando o vendiendo en Florida? Hector Belen contesta su propio teléfono y le da una valuación gratis, sin compromiso. De Orlando a Miami.'
     },
     en: {
-      title: 'Hector Belen, REALTOR® | Central Florida & Tampa Homes',
-      description: "Buying or selling in Central Florida or Tampa? Hector Belen brings 20+ years in the housing industry and answers his own phone. Get a free home valuation."
+      title: 'Hector Belen, REALTOR® | Florida Homes — Orlando & Tampa',
+      description: "Buying or selling in Florida? Hector Belen answers his own phone and gives you a free home valuation, no obligation. From Orlando to Miami."
     }
   };
 
