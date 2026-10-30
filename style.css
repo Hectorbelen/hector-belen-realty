@@ -1593,3 +1593,57 @@ body.is-locked { overflow: hidden; }
   box-shadow: 0 10px 40px rgba(14, 23, 36, .12);
 }
 @media (max-width: 640px) { .idx-frame { min-height: 580px; border-radius: 10px; } }
+
+/* About stats — rendered by script.js only when assets/data/about.json has
+   real values; empty config renders nothing. */
+.about-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(135px, 1fr));
+  gap: 1.1rem 1.6rem;
+  margin: 1.8rem 0 .2rem;
+  padding: 1.2rem 0 0;
+  border-top: 1px solid var(--line);
+}
+.about-stat dt {
+  font-family: var(--sans);
+  font-size: .7rem;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--navy-400);
+}
+.about-stat dd {
+  font-family: var(--serif);
+  font-size: 1.35rem;
+  line-height: 1.15;
+  color: var(--navy);
+  margin: .2rem 0 0;
+}
+
+/* Sticky mobile quick-contact (click-to-call + WhatsApp). Desktop: hidden.
+   Mobile: two unobtrusive floating round buttons, bottom-right. */
+.mobile-cta { display: none; }
+@media (max-width: 760px) {
+  .mobile-cta {
+    position: fixed;
+    right: .85rem;
+    bottom: calc(.85rem + env(safe-area-inset-bottom, 0px));
+    z-index: 60;
+    display: flex;
+    flex-direction: column;
+    gap: .6rem;
+  }
+  .mcta {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 6px 18px rgba(14, 23, 36, .3);
+    transition: transform .15s var(--ease);
+  }
+  .mcta:active { transform: scale(.92); }
+  .mcta.call { background: var(--gold); color: var(--navy-900); }
+  .mcta.wa   { background: #25D366; color: #fff; }
+  .mcta-ico  { width: 24px; height: 24px; fill: currentColor; }
+}

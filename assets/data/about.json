@@ -1,0 +1,8 @@
+{
+  "_README": "About-section stats, rendered by script.js (§9b) into #aboutStats. HARD RULE: fill ONLY with real, verified facts. Any field left empty ('') does NOT render on the live page — so leaving a value blank is the safe, honest default. Do NOT invent years, counts, languages, or specialties.",
+  "yearsInRealEstate": "",
+  "languages": "",
+  "specialties": "",
+  "areasServed": "",
+  "familiesHelped": ""
+}

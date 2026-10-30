@@ -84,7 +84,15 @@
 
     /* Minimum / maximum digits accepted in the phone field. 10 covers US
        numbers; the upper bound leaves room for country codes. */
-    phoneDigits: { min: 10, max: 15 }
+    phoneDigits: { min: 10, max: 15 },
+
+    /* Contact email — change it here in ONE place and every mailto link + label
+       marked data-email updates automatically.
+       TODO (branded email): switch to hector@hectorbelenrealtor.com once that
+       mailbox is set up. Keeping Gmail for now. NOTE: the email also appears
+       statically in the <head> JSON-LD + the /privacy/ and /terms/ pages —
+       update those by hand when the branded address goes live. */
+    contactEmail: 'Hectorbelenrealtor@gmail.com'
   };
 
   /* When you open index.html straight off your laptop there is no Netlify or
@@ -157,12 +165,12 @@
      below are used. */
   var I18N_META = window.PAGE_META || {
     es: {
-      title: 'Hector Belen, REALTOR® | Casas en Florida — Orlando y Tampa',
-      description: '¿Comprando o vendiendo en Florida? Hector Belen contesta su propio teléfono y le da una valuación gratis, sin compromiso. De Orlando a Miami.'
+      title: 'Hector Belen, REALTOR® | Casas en el Centro de Florida y Tampa',
+      description: '¿Comprando o vendiendo en el Centro de Florida o Tampa? Hector Belen contesta su propio teléfono y le da una valuación gratis, sin compromiso.'
     },
     en: {
-      title: 'Hector Belen, REALTOR® | Florida Homes — Orlando & Tampa',
-      description: "Buying or selling in Florida? Hector Belen answers his own phone and gives you a free home valuation, no obligation. From Orlando to Miami."
+      title: 'Hector Belen, REALTOR® | Central Florida & Tampa Homes',
+      description: "Buying or selling in Central Florida or Tampa? Hector Belen answers his own phone and gives you a free home valuation, no obligation."
     }
   };
 
@@ -993,6 +1001,52 @@
   /* ==================================================== 9. Footer year === */
   var year = $('#year');
   if (year) year.textContent = new Date().getFullYear();
+
+
+  /* ---- Contact email from config → every [data-email] link/label (item 10). */
+  (function applyContactEmail() {
+    var email = CONFIG.contactEmail;
+    if (!email) return;
+    $$('[data-email]').forEach(function (el) {
+      el.textContent = email;
+      if (el.tagName === 'A') el.setAttribute('href', 'mailto:' + email);
+    });
+  })();
+
+
+  /* ============================ 9b. About stats from data file === */
+  /* Renders #aboutStats from assets/data/about.json. Only non-empty values show,
+     so an empty config renders nothing — the honest default. HARD RULE: never
+     invent years, counts, languages, specialties, or areas. */
+  (function renderAboutStats() {
+    var dl = $('#aboutStats');
+    if (!dl || !window.fetch) return;
+    var LABELS = {
+      yearsInRealEstate: { es: 'Años en bienes raíces', en: 'Years in real estate' },
+      languages:         { es: 'Idiomas',               en: 'Languages' },
+      specialties:       { es: 'Especialidades',         en: 'Specialties' },
+      areasServed:       { es: 'Zonas atendidas',        en: 'Areas served' },
+      familiesHelped:    { es: 'Familias ayudadas',       en: 'Families helped' }
+    };
+    function esc(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+    fetch('assets/data/about.json', { cache: 'no-cache' })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (cfg) {
+        if (!cfg) return;
+        var html = Object.keys(LABELS).map(function (k) {
+          var val = (cfg[k] || '').toString().trim();
+          if (!val) return '';
+          return '<div class="about-stat">' +
+            '<dt data-en="' + esc(LABELS[k].en) + '">' + esc(LABELS[k].es) + '</dt>' +
+            '<dd>' + esc(val) + '</dd></div>';
+        }).join('');
+        if (!html) return;                 // nothing filled → stays hidden
+        dl.innerHTML = html;
+        dl.hidden = false;
+        setLang(LANG);
+      })
+      .catch(function () {});
+  })();
 
 
   /* ============================================== scroll listener === */
