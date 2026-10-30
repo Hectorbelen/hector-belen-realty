@@ -600,8 +600,9 @@ button { font: inherit; color: inherit; border: 0; background: none; cursor: poi
 .trust-label .ph { margin-left: .3rem; }
 
 @media (min-width: 760px) {
-  .trust-grid { grid-template-columns: repeat(3, 1fr); }
-  .trust-item:nth-child(3)::before { content: ""; }
+  /* Two trust items now (the "20+ years" tile was removed). Keep them as two
+     centered columns rather than leaving an empty third. */
+  .trust-grid { grid-template-columns: repeat(2, 1fr); max-width: 760px; margin-inline: auto; }
 }
 
 /* ----------------------------------------------------------------- 7. About */

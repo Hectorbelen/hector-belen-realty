@@ -1,11 +1,22 @@
 # 🔎 Lofty IDX home-search — setup (staged, ready to flip)
 
 ## ⏳ CURRENT STATUS (as of 2026-10-29) — READ FIRST
+
+**Two separate tracks — don't confuse them:**
+1. **🔎 IDX home-search** (the "Buscar / Search" buttons → live MLS listings) —
+   **waits on the MLS feed.** Staged, nothing to flip on the site until approval.
+2. **📨 Lead funnel → Lofty CRM + email** — **does NOT need the MLS.** Being
+   connected NOW so leads flow into Lofty from day one. See
+   "CRM funnel — connect now" below.
+
 - ✅ Hector set up his **own independent (free DIY) Lofty website**.
 - ⏳ **MLS feed approval is in progress — ~10 business days (≈ Nov 10, 2026).**
   Until the board approves the feed, his Lofty IDX won't show live listings, so
-  there is **nothing to connect on the website yet**. Everything below is staged
-  and waits on that approval.
+  there is **nothing to connect for the SEARCH yet** (the funnel is separate).
+- ✅ **Site lead funnel switched to the CRM path** (2026-10-29): `script.js`
+  `CONFIG.provider` is now `'function'` — every lead POSTs to the serverless
+  handler, which forwards the full qualifier payload to `LEAD_WEBHOOK_URL`.
+  Finish the Zapier + Netlify steps below to light it up in Lofty.
 - 📌 **Next session (in ~10 days, once MLS is approved):** confirm his Lofty IDX
   is live with listings, get his **personal search URL** (and ask Lofty if a
   **custom domain** `search.hectorbelenrealtor.com` is allowed on the free DIY
@@ -74,10 +85,41 @@ to his live Lofty IDX, and the `#search` section turns into a "Search Homes on t
 MLS" launcher. Bilingual copy for both states is in place. Rollback anytime by
 setting `searchUrl: ''` and redeploying.
 
-### 5. Wire the contact form → his Lofty CRM (Zapier)
-- Keep Netlify Forms on (backup ledger). Add a Zap: **Netlify: New Form Submission
-  → Lofty: Create Lead**. Now both the site's form and the IDX registrations land
-  in his Lofty CRM.
+### 5. Wire the contact form → his Lofty CRM (Zapier) — see "connect now" below.
+
+---
+
+## 📨 CRM funnel — connect now (ahead of the MLS)
+
+The site is already set to feed a webhook (`CONFIG.provider = 'function'`). To
+light it up, do these in **Hector's own accounts** (logins never go in the repo):
+
+1. **Zapier — create the Zap** (needs Hector's Zapier + Lofty logins):
+   - Trigger: **Webhooks by Zapier → Catch Hook**. Zapier gives a **Catch Hook
+     URL** — copy it.
+   - Action 1: **Lofty → Create Lead**. Map the JSON fields the site sends
+     (`name`, `email`, `phone`, `interest`, `timeline`, `area`, `budget`,
+     `bedrooms`, `financing`, `propertyAddress`, `message`, `language`, `source`,
+     `utm.*`). Full payload shape: bottom of `netlify/functions/submit-lead.js`.
+   - Action 2 (**email**): either let **Lofty notify Hector on every new lead**
+     (Lofty → notification settings) **or** add a Zapier **Email/Gmail** step to
+     `Hectorbelenrealtor@gmail.com`. ⚠️ With `provider:'function'`, leads no
+     longer hit Netlify Forms, so **Netlify's built-in email no longer fires** —
+     email must come from Lofty or this Zapier step.
+
+2. **Netlify — set the webhook env var**:
+   Site configuration → Environment variables → add
+   `LEAD_WEBHOOK_URL = <the Zapier Catch Hook URL>` → **redeploy**.
+
+3. **Test**: submit the live form once. Confirm the lead lands in **Lofty** and
+   that the **email** arrives. (The function also logs every lead, so nothing is
+   lost even if a step is misconfigured — recover from Netlify function logs.)
+
+⚠️ **Sequencing:** set `LEAD_WEBHOOK_URL` *before or at the same time as* the
+deploy that ships `provider:'function'`. Until the var is set, leads are accepted
+(visitor sees the thank-you) and written to the function logs, but **not forwarded
+and not emailed** — so finish steps 1–2 promptly. To pause the CRM path and fall
+back to Netlify Forms + email, set `CONFIG.provider` back to `'netlify'`.
 
 ## Before switching off LPT's Lofty
 - **Export his existing contacts/leads** from the LPT Lofty so nothing is lost
