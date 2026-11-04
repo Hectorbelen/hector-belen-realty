@@ -65,7 +65,7 @@
        Once set, every search button routes straight to the live MLS search and
        the #search section turns into a "Search Homes on the MLS" launcher.
        Nothing else changes. Full steps: LOFTY-SEARCH-SETUP.md */
-    searchUrl: '',
+    searchUrl: 'https://search.hectorbelenrealtor.com',
 
     /* ---- IDX / MLS EMBED (optional) ---------------------------------------
        If your IDX/MLS vendor gives you an EMBEDDABLE search URL (an iframe src

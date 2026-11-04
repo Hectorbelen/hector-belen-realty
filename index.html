@@ -64,7 +64,7 @@
 <link rel="preload" as="image" href="/assets/img/hero-2000.jpg?v=3"
       media="(min-width: 1281px)" fetchpriority="high">
 
-<link rel="stylesheet" href="/style.css?v=13">
+<link rel="stylesheet" href="/style.css?v=14">
 
 <!-- JS-enabled flag before first paint, so scroll-reveal only hides content
      when there's JS to reveal it again. -->
@@ -168,6 +168,7 @@
           <li><a href="#about" data-en="About">Sobre Hector</a></li>
           <li><a href="#contact" data-en="Contact">Contacto</a></li>
           <li><a href="#testimonials" data-en="Testimonials">Testimonios</a></li>
+          <li><a href="#search" data-en="Search">Buscar</a></li>
           <li class="nav-cta-item"><a class="btn btn-sm btn-gold" href="#contact" data-en="Free Home Valuation">Valuación Gratis</a></li>
         </ul>
       </nav>
@@ -209,7 +210,7 @@
         </p>
         <div class="hero-actions">
           <a class="btn btn-gold" href="#contact" data-scroll data-en="Get Your Free Home Valuation">Obtenga su Valuación Gratis</a>
-          <a class="btn btn-ghost" href="#contact" data-scroll data-en="Tell Me What You're Looking For">Dígame Qué Busca</a>
+          <a class="btn btn-ghost" href="#search" data-scroll data-en="Search Homes">Busque su Casa</a>
         </div>
       </div>
     </div>
@@ -767,12 +768,60 @@
   </section>
 
 
-  <!-- HOME SEARCH (#search) — TEMPORARILY REMOVED until the MLS/IDX feed is
-       ready. Site is lead-capture only for now; the Buscar/Search nav, hero,
-       and footer links were removed too. TO RESTORE: recover the
-       <section class="search" id="search">…</section> from git history, set
-       CONFIG.idxEmbedUrl or CONFIG.searchUrl in script.js, and re-add the
-       Search links. -->
+  <!-- ==========================================================
+       4c. HOME SEARCH (IDX / MLS)
+       ----------------------------------------------------------
+       LIVE as of 2026-11-03: CONFIG.searchUrl points at Hector's Lofty IDX
+       site (search.hectorbelenrealtor.com, Stellar MLS). script.js repoints
+       every "#search" button there and shows the #idxLive launcher below.
+       To take search offline again, set CONFIG.searchUrl = '' in script.js.
+       ========================================================== -->
+  <section class="search" id="search" aria-label="Búsqueda de casas en el MLS"
+           data-en-aria-label="Home search on the MLS">
+    <div class="shell">
+      <div class="section-head search-head">
+        <p class="eyebrow reveal" data-en="Search the MLS">Busque en el MLS</p>
+        <h2 class="reveal" data-en="Find your next home">Encuentre su próxima casa</h2>
+        <p class="section-lede reveal" data-en="Search every active listing across Central Florida and Tampa — the same up-to-the-minute MLS data agents use. Save your favorites and I'll help you see the ones worth your time.">
+          Busque entre todas las propiedades activas en el Centro de Florida y
+          Tampa — los mismos datos del MLS, al minuto, que usan los agentes.
+          Guarde sus favoritas y le ayudo a ver las que valen su tiempo.
+        </p>
+      </div>
+
+      <!-- HOME SEARCH launcher.
+           Two states, toggled by script.js based on CONFIG.searchUrl:
+             • searchUrl EMPTY  → #idxFallback shows ("being connected" card).
+             • searchUrl SET    → #idxLive shows (a launcher to the Lofty IDX
+               site) and every "Search / Buscar" button routes there too.
+           See LOFTY-SEARCH-SETUP.md. -->
+      <div class="idx-embed reveal" id="idxEmbed">
+
+        <!-- Shown until Lofty's IDX address is set in CONFIG.searchUrl. -->
+        <div class="idx-fallback" id="idxFallback">
+          <span class="idx-fallback-mark" aria-hidden="true"></span>
+          <h3 data-en="The live home search is being connected.">La búsqueda de casas en vivo se está conectando.</h3>
+          <p data-en="In the meantime, tell me what you're looking for and I'll send you matching listings personally.">
+            Mientras tanto, dígame qué está buscando y le envío propiedades que
+            coincidan, personalmente.
+          </p>
+          <a class="btn btn-gold" href="#contact" data-scroll data-en="Tell Me What You Want">Dígame Qué Busca</a>
+        </div>
+
+        <!-- Shown once CONFIG.searchUrl is set — script.js fills in the href. -->
+        <div class="idx-fallback" id="idxLive" hidden>
+          <span class="idx-fallback-mark" aria-hidden="true"></span>
+          <h3 data-en="Search every active listing across Central Florida &amp; Tampa.">Busque entre todas las propiedades activas en el Centro de Florida y Tampa.</h3>
+          <p data-en="Browse live MLS listings, save your favorites, and set up alerts for new homes that match — I'll see what you love and help you move on the ones worth it.">
+            Explore propiedades del MLS en vivo, guarde sus favoritas y reciba
+            alertas de casas nuevas que coincidan — yo veo lo que le gusta y le
+            ayudo a actuar sobre las que valen la pena.
+          </p>
+          <a class="btn btn-gold" href="#" data-en="Search Homes on the MLS">Buscar Casas en el MLS</a>
+        </div>
+      </div>
+    </div>
+  </section>
 
 
   <!-- ==========================================================
@@ -854,6 +903,7 @@
       <h4 data-en="Explore">Explorar</h4>
       <ul>
         <li><a href="#about" data-scroll data-en="About Hector">Sobre Hector</a></li>
+        <li><a href="#search" data-scroll data-en="Home Search">Buscar Casas</a></li>
         <li><a href="#testimonials" data-scroll data-en="Testimonials">Testimonios</a></li>
         <li><a href="#standards" data-scroll data-en="Standards">Estándares</a></li>
         <li><a href="#contact" data-scroll data-en="Free Valuation">Valuación Gratis</a></li>
@@ -975,6 +1025,6 @@
   <p class="lb-count" id="lbCount"></p>
 </div>
 
-<script src="/script.js?v=13" defer></script>
+<script src="/script.js?v=14" defer></script>
 </body>
 </html>
