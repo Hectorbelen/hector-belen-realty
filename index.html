@@ -64,7 +64,7 @@
 <link rel="preload" as="image" href="/assets/img/hero-2000.jpg?v=5"
       media="(min-width: 1281px)" fetchpriority="high">
 
-<link rel="stylesheet" href="/style.css?v=17">
+<link rel="stylesheet" href="/style.css?v=18">
 
 <!-- JS-enabled flag before first paint, so scroll-reveal only hides content
      when there's JS to reveal it again. -->
@@ -813,6 +813,90 @@
               <span class="video-play" aria-hidden="true"></span>
             </button>
             <figcaption class="video-name" data-en="A family's story">La historia de una familia</figcaption>
+          </figure>
+        </div>
+
+        <button class="film-nav film-next" type="button" aria-label="Más videos" data-en-aria-label="More videos">
+          <span aria-hidden="true">&rsaquo;</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ==========================================================
+       MARKET INSIGHTS / PODCAST SHORTS
+       ----------------------------------------------------------
+       Short vertical (9:16) clips of Hector educating on the market, rendered
+       by script.js from assets/data/market-videos.json into #marketVideos.
+       The static cards below are the no-JS / fetch-failed fallback. To add,
+       reorder, or recaption, edit the JSON — no HTML changes needed.
+       ========================================================== -->
+  <section class="shorts" id="market" aria-label="Conocimiento del mercado"
+           data-en-aria-label="Market insights">
+    <div class="shell">
+      <div class="section-head shorts-head">
+        <p class="eyebrow reveal" data-en="Podcast · Shorts">Podcast · Cortos</p>
+        <h2 class="reveal" data-en="Market insights">Conocimiento del mercado</h2>
+        <p class="section-lede reveal" data-en="Short, straight-talk videos from Hector on buying, selling, and what's really happening in the Central Florida market.">
+          Videos cortos y al grano de Hector sobre comprar, vender y lo que de
+          verdad está pasando en el mercado del Centro de Florida.
+        </p>
+      </div>
+
+      <div class="film-wrap shorts-wrap reveal">
+        <button class="film-nav film-prev" type="button" aria-label="Videos anteriores" data-en-aria-label="Previous videos">
+          <span aria-hidden="true">&lsaquo;</span>
+        </button>
+
+        <div class="film shorts-film" id="marketVideos">
+          <figure class="video-card">
+            <button class="video" type="button" data-provider="file" data-src="assets/video/m1.mp4"
+                    aria-label="Reproducir video: hablando de bienes raíces" data-en-aria-label="Play video: talking real estate">
+              <picture><source srcset="assets/video/m1.webp" type="image/webp"><img src="assets/video/m1.jpg" alt="Miniatura de video: Hector hablando de bienes raíces" data-en-alt="Video thumbnail: Hector talking real estate" loading="lazy"></picture>
+              <span class="video-play" aria-hidden="true"></span>
+            </button>
+            <figcaption class="video-name" data-en="Talking real estate">Hablando de bienes raíces</figcaption>
+          </figure>
+          <figure class="video-card">
+            <button class="video" type="button" data-provider="file" data-src="assets/video/m2.mp4"
+                    aria-label="Reproducir video: un consejo del mercado" data-en-aria-label="Play video: a market tip">
+              <picture><source srcset="assets/video/m2.webp" type="image/webp"><img src="assets/video/m2.jpg" alt="Miniatura de video: un consejo del mercado" data-en-alt="Video thumbnail: a market tip" loading="lazy"></picture>
+              <span class="video-play" aria-hidden="true"></span>
+            </button>
+            <figcaption class="video-name" data-en="A market tip">Un consejo del mercado</figcaption>
+          </figure>
+          <figure class="video-card">
+            <button class="video" type="button" data-provider="file" data-src="assets/video/m3.mp4"
+                    aria-label="Reproducir video: lo que debe saber" data-en-aria-label="Play video: what you should know">
+              <picture><source srcset="assets/video/m3.webp" type="image/webp"><img src="assets/video/m3.jpg" alt="Miniatura de video: lo que debe saber" data-en-alt="Video thumbnail: what you should know" loading="lazy"></picture>
+              <span class="video-play" aria-hidden="true"></span>
+            </button>
+            <figcaption class="video-name" data-en="What you should know">Lo que debe saber</figcaption>
+          </figure>
+          <figure class="video-card">
+            <button class="video" type="button" data-provider="file" data-src="assets/video/m4.mp4"
+                    aria-label="Reproducir video: educación en bienes raíces" data-en-aria-label="Play video: real estate education">
+              <picture><source srcset="assets/video/m4.webp" type="image/webp"><img src="assets/video/m4.jpg" alt="Miniatura de video: educación en bienes raíces" data-en-alt="Video thumbnail: real estate education" loading="lazy"></picture>
+              <span class="video-play" aria-hidden="true"></span>
+            </button>
+            <figcaption class="video-name" data-en="Real estate education">Educación en bienes raíces</figcaption>
+          </figure>
+          <figure class="video-card">
+            <button class="video" type="button" data-provider="file" data-src="assets/video/m5.mp4"
+                    aria-label="Reproducir video con Hector Belen" data-en-aria-label="Play video with Hector Belen">
+              <picture><source srcset="assets/video/m5.webp" type="image/webp"><img src="assets/video/m5.jpg" alt="Miniatura de video con Hector Belen" data-en-alt="Video thumbnail with Hector Belen" loading="lazy"></picture>
+              <span class="video-play" aria-hidden="true"></span>
+            </button>
+            <figcaption class="video-name" data-en="With Hector Belen">Con Hector Belen</figcaption>
+          </figure>
+          <figure class="video-card">
+            <button class="video" type="button" data-provider="file" data-src="assets/video/m6.mp4"
+                    aria-label="Reproducir video con Hector Belen" data-en-aria-label="Play video with Hector Belen">
+              <picture><source srcset="assets/video/m6.webp" type="image/webp"><img src="assets/video/m6.jpg" alt="Miniatura de video con Hector Belen" data-en-alt="Video thumbnail with Hector Belen" loading="lazy"></picture>
+              <span class="video-play" aria-hidden="true"></span>
+            </button>
+            <figcaption class="video-name" data-en="With Hector Belen">Con Hector Belen</figcaption>
           </figure>
         </div>
 

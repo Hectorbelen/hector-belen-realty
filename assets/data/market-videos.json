@@ -1,0 +1,11 @@
+{
+  "_README": "Market-insights / podcast-shorts videos, rendered by script.js (§7c) into #marketVideos. Same format as testimonial-videos.json. EDIT THIS FILE to add/remove/reorder — no HTML changes needed. These are short vertical (9:16) clips of Hector educating on the market. 'caption_es'/'caption_en' are the bilingual labels — send real topic titles anytime to swap them in. ORDER = display order.",
+  "videos": [
+    { "src": "assets/video/m1.mp4", "poster": "assets/video/m1.jpg", "name": "", "caption_es": "Hablando de bienes raíces", "caption_en": "Talking real estate" },
+    { "src": "assets/video/m2.mp4", "poster": "assets/video/m2.jpg", "name": "", "caption_es": "Un consejo del mercado", "caption_en": "A market tip" },
+    { "src": "assets/video/m3.mp4", "poster": "assets/video/m3.jpg", "name": "", "caption_es": "Lo que debe saber", "caption_en": "What you should know" },
+    { "src": "assets/video/m4.mp4", "poster": "assets/video/m4.jpg", "name": "", "caption_es": "Educación en bienes raíces", "caption_en": "Real estate education" },
+    { "src": "assets/video/m5.mp4", "poster": "assets/video/m5.jpg", "name": "", "caption_es": "Con Hector Belen", "caption_en": "With Hector Belen" },
+    { "src": "assets/video/m6.mp4", "poster": "assets/video/m6.jpg", "name": "", "caption_es": "Con Hector Belen", "caption_en": "With Hector Belen" }
+  ]
+}

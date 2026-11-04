@@ -666,15 +666,15 @@
      Hector can add/remove videos without touching HTML. The static cards in the
      markup are the no-JS / fetch-failed fallback. An entry with no "src" shows
      as a plain photo (no play icon). Never invents client names (see the JSON). */
-  (function renderVideos() {
-    var strip = $('#tVideos');
+  function renderVideoStrip(selector, jsonUrl) {
+    var strip = $(selector);
     if (!strip || !window.fetch) return;
     function esc(s) {
       return String(s == null ? '' : s)
         .replace(/&/g, '&amp;').replace(/</g, '&lt;')
         .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
     }
-    fetch('assets/data/testimonial-videos.json', { cache: 'no-cache' })
+    fetch(jsonUrl, { cache: 'no-cache' })
       .then(function (r) { return r.ok ? r.json() : null; })
       .then(function (data) {
         if (!data || !Array.isArray(data.videos) || !data.videos.length) return;
@@ -708,7 +708,9 @@
         window.dispatchEvent(new Event('resize'));   // re-sync the film arrows
       })
       .catch(function () { /* keep the static fallback cards already in the HTML */ });
-  })();
+  }
+  renderVideoStrip('#tVideos', 'assets/data/testimonial-videos.json');
+  renderVideoStrip('#marketVideos', 'assets/data/market-videos.json');
 
 
   /* ============================ 7b. Horizontal film strips === */

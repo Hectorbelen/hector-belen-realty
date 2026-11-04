@@ -993,6 +993,20 @@ button { font: inherit; color: inherit; border: 0; background: none; cursor: poi
 .video-missing span { color: rgba(247, 244, 239, .75); font-size: .9rem; }
 .video-name { margin: .85rem 0 0; font-weight: 600; color: var(--navy); font-size: .98rem; }
 
+/* ----------------------------------------- 8d. Market insights / shorts */
+.shorts {
+  padding-block: var(--section-y);
+  background: var(--cream);
+}
+.shorts-head { max-width: 46rem; margin-inline: auto; text-align: center; }
+.shorts-head .section-lede { margin-inline: auto; }
+.shorts-wrap { margin-top: clamp(1.5rem, 1rem + 2vw, 2.75rem); }
+/* Vertical 9:16 cards for short-form clips — narrower than the 16:9 testimonials,
+   and the inline player keeps the same portrait aspect so nothing letterboxes. */
+.shorts-film .video-card { flex: 0 0 auto; width: clamp(185px, 54vw, 230px); margin: 0; scroll-snap-align: start; }
+.shorts-film .video,
+.shorts-film .video-embed { aspect-ratio: 9 / 16; }
+
 /* ------------------------------------------- 8c. National standards / seals */
 .standards {
   padding-block: clamp(3.5rem, 2rem + 6vw, 7rem);
