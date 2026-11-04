@@ -224,9 +224,9 @@ function buildLoftyLead(p) {
     emails:    p.email ? [p.email] : [],
     phones:    p.phone ? [p.phone] : [],
     leadTypes: LOFTY_LEAD_TYPE[p.interest] || [-1],
-    source:    'Website – hectorbelenrealtor.com',
+    source:    'Website',                         // clean, matches a Lofty source cleanly
     language:  p.language === 'en' ? 'en' : 'es',
-    tagsAdd:   ['Website'],
+    tagsAdd:   ['Website', 'hectorbelenrealtor.com'],
     content:   loftyNote(p),
     isPin:     false,
     leadAlert: true,
@@ -240,7 +240,7 @@ function buildLoftyLead(p) {
 }
 
 function loftyNote(p) {
-  var L = ['Website lead — hectorbelenrealtor.com'];
+  var L = ['SOURCE: Hector\'s website (hectorbelenrealtor.com) contact form'];
   if (p.interest)        L.push('Interest: ' + p.interest);
   if (p.timeline)        L.push('Timeline: ' + p.timeline);
   if (p.contactMethod)   L.push('Preferred contact: ' + p.contactMethod);
