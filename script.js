@@ -42,7 +42,7 @@
 
        'formspree' — for hosts that aren't Netlify. Create a form at
                     https://formspree.io and paste its id into formspreeId. */
-    provider: 'function',
+    provider: 'netlify',
 
     /* Serverless lead handler. Default path is correct for Netlify. */
     functionEndpoint: '/.netlify/functions/submit-lead',
