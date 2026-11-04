@@ -17,8 +17,10 @@
 
      PREFERRED — straight into Lofty CRM (no Zapier, no email parsing):
        Key:   LOFTY_API_TOKEN
-       Value: a Lofty API Bearer token (CRM → API key / developer portal, or
-              ask Lofty support how to issue one for your plan).
+       Value: a Lofty API key — generate at Settings → Integrations → API with
+              ADD permission on the Leads resource. (Sent as "Authorization:
+              token <KEY>"; for an OAuth access token instead, also set
+              LOFTY_AUTH_SCHEME=Bearer.)
        Every lead is POSTed to https://api.lofty.com/v1.0/leads with the full
        qualifier set, tagged "Website", source "Website – hectorbelenrealtor.com",
        and leadAlert:true so Lofty fires its own new-lead email + phone push.
@@ -219,10 +221,18 @@ function loftyNote(p) {
 }
 
 async function postToLofty(p, token) {
+  // Auth scheme differs by credential type:
+  //   • self-serve API key (Settings → Integrations → API)  → "token <KEY>"
+  //   • OAuth 2.0 access token                               → "Bearer <TOKEN>"
+  // Default to "token" (the API-key path). Override with LOFTY_AUTH_SCHEME=Bearer
+  // for OAuth, or just put the full value (e.g. "Bearer abc...") in the env var.
+  var auth = /\s/.test(token.trim())
+    ? token.trim()
+    : (process.env.LOFTY_AUTH_SCHEME || 'token') + ' ' + token.trim();
   var res = await fetch(LOFTY_LEADS_URL, {
     method: 'POST',
     headers: {
-      'Authorization': 'Bearer ' + token,
+      'Authorization': auth,
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(buildLoftyLead(p))
