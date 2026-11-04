@@ -57,14 +57,14 @@
 <!-- Hero image is the LCP element — preload it. The three `media` ranges MUST
      stay identical to the <source media> values on the hero <picture> below,
      or the hero gets fetched twice. -->
-<link rel="preload" as="image" href="/assets/img/hero-760.jpg?v=5"
+<link rel="preload" as="image" href="/assets/img/hero-760.jpg?v=6"
       media="(max-width: 640px)" fetchpriority="high">
-<link rel="preload" as="image" href="/assets/img/hero-1200.jpg?v=5"
+<link rel="preload" as="image" href="/assets/img/hero-1200.jpg?v=6"
       media="(min-width: 641px) and (max-width: 1280px)" fetchpriority="high">
-<link rel="preload" as="image" href="/assets/img/hero-2000.jpg?v=5"
+<link rel="preload" as="image" href="/assets/img/hero-2000.jpg?v=6"
       media="(min-width: 1281px)" fetchpriority="high">
 
-<link rel="stylesheet" href="/style.css?v=18">
+<link rel="stylesheet" href="/style.css?v=19">
 
 <!-- JS-enabled flag before first paint, so scroll-reveal only hides content
      when there's JS to reveal it again. -->
@@ -188,10 +188,10 @@
          available. Mobile file is a portrait crop. Ranges match the <head>
          preloads exactly. Motion lives in .hero-media img (style.css). -->
     <picture class="hero-media">
-      <source srcset="/assets/img/hero-760.jpg?v=5"  media="(max-width: 640px)"  width="760"  height="426">
-      <source srcset="/assets/img/hero-1200.jpg?v=5" media="(min-width: 641px) and (max-width: 1280px)" width="1200" height="673">
-      <source srcset="/assets/img/hero-2000.jpg?v=5" media="(min-width: 1281px)" width="2000" height="1122">
-      <img src="/assets/img/hero-2000.jpg?v=5"
+      <source srcset="/assets/img/hero-760.jpg?v=6"  media="(max-width: 640px)"  width="760"  height="426">
+      <source srcset="/assets/img/hero-1200.jpg?v=6" media="(min-width: 641px) and (max-width: 1280px)" width="1200" height="673">
+      <source srcset="/assets/img/hero-2000.jpg?v=6" media="(min-width: 1281px)" width="2000" height="1122">
+      <img src="/assets/img/hero-2000.jpg?v=6"
            alt="Casa moderna de dos pisos al atardecer, con grandes ventanales iluminados con luz cálida, en el Centro de Florida"
            data-en-alt="Modern two-story home at dusk with large, warmly lit glass windows in Central Florida"
            width="2000" height="1122" fetchpriority="high" decoding="async">
@@ -225,15 +225,8 @@
   <!-- ==========================================================
        2. TRUST BAR — real, verifiable credentials only.
        ========================================================== -->
-  <section class="trust" id="trust" aria-label="Credenciales y trayectoria"
-           data-en-aria-label="Credentials and track record">
-    <div class="shell trust-grid">
-      <div class="trust-item">
-        <span class="trust-num trust-word" data-en="All">Todo</span>
-        <span class="trust-label" data-en="of Central Florida &amp; Tampa">el Centro de Florida y Tampa</span>
-      </div>
-    </div>
-  </section>
+  <!-- Thin brand divider between the hero and About (replaced the old trust strip). -->
+  <div class="trust-divider" aria-hidden="true"></div>
 
 
   <!-- ==========================================================
@@ -544,6 +537,61 @@
         </div>
       </div>
 
+    </div>
+  </section>
+
+
+  <!-- ==========================================================
+       MLS HOME SEARCH (IDX) — placed right after the lead form so buyers can
+       jump straight to live listings. CONFIG.searchUrl points at Hector's Lofty
+       IDX (search.hectorbelenrealtor.com, Stellar MLS); script.js repoints every
+       "#search" button there and shows the #idxLive launcher. To take search
+       offline, set CONFIG.searchUrl = '' in script.js.
+       ========================================================== -->
+  <section class="search" id="search" aria-label="Búsqueda de casas en el MLS"
+           data-en-aria-label="Home search on the MLS">
+    <div class="shell">
+      <div class="section-head search-head">
+        <p class="eyebrow reveal" data-en="Search the MLS">Busque en el MLS</p>
+        <h2 class="reveal" data-en="Find your next home">Encuentre su próxima casa</h2>
+        <p class="section-lede reveal" data-en="Search every active listing across Central Florida and Tampa — the same up-to-the-minute MLS data agents use. Save your favorites and I'll help you see the ones worth your time.">
+          Busque entre todas las propiedades activas en el Centro de Florida y
+          Tampa — los mismos datos del MLS, al minuto, que usan los agentes.
+          Guarde sus favoritas y le ayudo a ver las que valen su tiempo.
+        </p>
+      </div>
+
+      <!-- HOME SEARCH launcher.
+           Two states, toggled by script.js based on CONFIG.searchUrl:
+             • searchUrl EMPTY  → #idxFallback shows ("being connected" card).
+             • searchUrl SET    → #idxLive shows (a launcher to the Lofty IDX
+               site) and every "Search / Buscar" button routes there too.
+           See LOFTY-SEARCH-SETUP.md. -->
+      <div class="idx-embed reveal" id="idxEmbed">
+
+        <!-- Shown until Lofty's IDX address is set in CONFIG.searchUrl. -->
+        <div class="idx-fallback" id="idxFallback">
+          <span class="idx-fallback-mark" aria-hidden="true"></span>
+          <h3 data-en="The live home search is being connected.">La búsqueda de casas en vivo se está conectando.</h3>
+          <p data-en="In the meantime, tell me what you're looking for and I'll send you matching listings personally.">
+            Mientras tanto, dígame qué está buscando y le envío propiedades que
+            coincidan, personalmente.
+          </p>
+          <a class="btn btn-gold" href="#contact" data-scroll data-en="Tell Me What You Want">Dígame Qué Busca</a>
+        </div>
+
+        <!-- Shown once CONFIG.searchUrl is set — script.js fills in the href. -->
+        <div class="idx-fallback" id="idxLive" hidden>
+          <span class="idx-fallback-mark" aria-hidden="true"></span>
+          <h3 data-en="Search every active listing across Central Florida &amp; Tampa.">Busque entre todas las propiedades activas en el Centro de Florida y Tampa.</h3>
+          <p data-en="Browse live MLS listings, save your favorites, and set up alerts for new homes that match — I'll see what you love and help you move on the ones worth it.">
+            Explore propiedades del MLS en vivo, guarde sus favoritas y reciba
+            alertas de casas nuevas que coincidan — yo veo lo que le gusta y le
+            ayudo a actuar sobre las que valen la pena.
+          </p>
+          <a class="btn btn-gold" href="#" data-en="Search Homes on the MLS">Buscar Casas en el MLS</a>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -909,62 +957,6 @@
         <button class="film-nav film-next" type="button" aria-label="Más videos" data-en-aria-label="More videos">
           <span aria-hidden="true">&rsaquo;</span>
         </button>
-      </div>
-    </div>
-  </section>
-
-
-  <!-- ==========================================================
-       4c. HOME SEARCH (IDX / MLS)
-       ----------------------------------------------------------
-       LIVE as of 2026-11-03: CONFIG.searchUrl points at Hector's Lofty IDX
-       site (search.hectorbelenrealtor.com, Stellar MLS). script.js repoints
-       every "#search" button there and shows the #idxLive launcher below.
-       To take search offline again, set CONFIG.searchUrl = '' in script.js.
-       ========================================================== -->
-  <section class="search" id="search" aria-label="Búsqueda de casas en el MLS"
-           data-en-aria-label="Home search on the MLS">
-    <div class="shell">
-      <div class="section-head search-head">
-        <p class="eyebrow reveal" data-en="Search the MLS">Busque en el MLS</p>
-        <h2 class="reveal" data-en="Find your next home">Encuentre su próxima casa</h2>
-        <p class="section-lede reveal" data-en="Search every active listing across Central Florida and Tampa — the same up-to-the-minute MLS data agents use. Save your favorites and I'll help you see the ones worth your time.">
-          Busque entre todas las propiedades activas en el Centro de Florida y
-          Tampa — los mismos datos del MLS, al minuto, que usan los agentes.
-          Guarde sus favoritas y le ayudo a ver las que valen su tiempo.
-        </p>
-      </div>
-
-      <!-- HOME SEARCH launcher.
-           Two states, toggled by script.js based on CONFIG.searchUrl:
-             • searchUrl EMPTY  → #idxFallback shows ("being connected" card).
-             • searchUrl SET    → #idxLive shows (a launcher to the Lofty IDX
-               site) and every "Search / Buscar" button routes there too.
-           See LOFTY-SEARCH-SETUP.md. -->
-      <div class="idx-embed reveal" id="idxEmbed">
-
-        <!-- Shown until Lofty's IDX address is set in CONFIG.searchUrl. -->
-        <div class="idx-fallback" id="idxFallback">
-          <span class="idx-fallback-mark" aria-hidden="true"></span>
-          <h3 data-en="The live home search is being connected.">La búsqueda de casas en vivo se está conectando.</h3>
-          <p data-en="In the meantime, tell me what you're looking for and I'll send you matching listings personally.">
-            Mientras tanto, dígame qué está buscando y le envío propiedades que
-            coincidan, personalmente.
-          </p>
-          <a class="btn btn-gold" href="#contact" data-scroll data-en="Tell Me What You Want">Dígame Qué Busca</a>
-        </div>
-
-        <!-- Shown once CONFIG.searchUrl is set — script.js fills in the href. -->
-        <div class="idx-fallback" id="idxLive" hidden>
-          <span class="idx-fallback-mark" aria-hidden="true"></span>
-          <h3 data-en="Search every active listing across Central Florida &amp; Tampa.">Busque entre todas las propiedades activas en el Centro de Florida y Tampa.</h3>
-          <p data-en="Browse live MLS listings, save your favorites, and set up alerts for new homes that match — I'll see what you love and help you move on the ones worth it.">
-            Explore propiedades del MLS en vivo, guarde sus favoritas y reciba
-            alertas de casas nuevas que coincidan — yo veo lo que le gusta y le
-            ayudo a actuar sobre las que valen la pena.
-          </p>
-          <a class="btn btn-gold" href="#" data-en="Search Homes on the MLS">Buscar Casas en el MLS</a>
-        </div>
       </div>
     </div>
   </section>
