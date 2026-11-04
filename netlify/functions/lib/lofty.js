@@ -32,6 +32,7 @@ function buildPayloadFromForm(d) {
     area: String(d.area || ''),
     budget: String(d.budget || ''),
     bedrooms: String(d.bedrooms || ''),
+    bathrooms: String(d.bathrooms || ''),
     financing: String(d.financing || ''),
     message: String(d.message || '').trim(),
     consent: d.consent === 'yes' || d.consent === 'on' || d.consent === true,
@@ -88,6 +89,7 @@ function loftyNote(p) {
   if (p.area)            L.push('Area: ' + p.area);
   if (p.budget)          L.push('Budget: ' + p.budget);
   if (p.bedrooms)        L.push('Bedrooms: ' + p.bedrooms);
+  if (p.bathrooms)       L.push('Bathrooms: ' + p.bathrooms);
   if (p.financing)       L.push('Financing: ' + p.financing);
   if (p.propertyAddress) L.push('Property: ' + p.propertyAddress);
   if (p.message)         L.push('Message: ' + p.message);

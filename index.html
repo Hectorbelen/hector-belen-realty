@@ -64,7 +64,7 @@
 <link rel="preload" as="image" href="/assets/img/hero-2000.jpg?v=5"
       media="(min-width: 1281px)" fetchpriority="high">
 
-<link rel="stylesheet" href="/style.css?v=16">
+<link rel="stylesheet" href="/style.css?v=17">
 
 <!-- JS-enabled flag before first paint, so scroll-reveal only hides content
      when there's JS to reveal it again. -->
@@ -232,10 +232,6 @@
         <span class="trust-num trust-word" data-en="All">Todo</span>
         <span class="trust-label" data-en="of Central Florida &amp; Tampa">el Centro de Florida y Tampa</span>
       </div>
-      <div class="trust-item">
-        <span class="trust-num trust-word">lpt</span>
-        <span class="trust-label" data-en="Brokered by LPT Realty">Corredor: LPT Realty</span>
-      </div>
     </div>
   </section>
 
@@ -262,11 +258,11 @@
         <p class="eyebrow reveal" data-en="About Hector">Sobre Hector</p>
         <h2 class="reveal" data-en="A trusted friend every step of the way.">Un amigo de confianza en cada paso.</h2>
 
-        <p class="reveal" data-en="Behind every address is a family's story, and Hector Belen believes that finding the right home should feel less like a transaction and more like a trusted friend walking beside you. As a licensed Florida REALTOR® with LPT Realty, Hector serves buyers, sellers, and renters across Central Florida with honesty, patience, and genuine care — taking the time to listen to your goals, explain every step in clear and welcoming terms, and protect what matters most to you.">
+        <p class="reveal" data-en="Behind every address is a family's story, and Hector Belen believes that finding the right home should feel less like a transaction and more like a trusted friend walking beside you. As a licensed Florida REALTOR®, Hector serves buyers, sellers, and renters across Central Florida with honesty, patience, and genuine care — taking the time to listen to your goals, explain every step in clear and welcoming terms, and protect what matters most to you.">
           Detrás de cada dirección hay la historia de una familia, y Hector Belen
           cree que encontrar la casa correcta debería sentirse menos como una
           transacción y más como un amigo de confianza que camina a su lado. Como
-          REALTOR® con licencia de Florida afiliado a LPT Realty, Hector atiende a
+          REALTOR® con licencia de Florida, Hector atiende a
           compradores, vendedores y arrendatarios en todo el Centro de Florida con
           honestidad, paciencia y un cuidado genuino, tomándose el tiempo para
           escuchar sus metas, explicar cada paso en términos claros y acogedores, y
@@ -303,17 +299,14 @@
       <div class="contact-intro">
         <p class="eyebrow reveal" data-en="Let's Talk">Hablemos</p>
         <h2 class="reveal" data-en="Buying, selling, or renting?">¿Comprar, vender o rentar?</h2>
-        <p class="reveal" data-en="Tell me where you are — buying your first place, selling, or looking for a rental — and I'll get back to you personally, usually the same day. Selling? I'll put together a real valuation based on what's actually closing on your street. Buying or renting? I'll send you options that actually fit.">
+        <p class="reveal" data-en="Tell me where you are — buying your first home, selling, or looking for a rental. Fill out the short form and I'll reply personally, usually the same day. No obligation.">
           Dígame en qué punto está — comprando su primera casa, vendiendo, o
-          buscando dónde rentar — y le responderé personalmente, normalmente el
-          mismo día. ¿Vende? Le preparo una valuación real basada en lo que de
-          verdad se está cerrando en su calle. ¿Compra o renta? Le envío opciones
-          que de verdad le sirvan.
+          buscando dónde rentar. Llene el cuestionario y le responderé
+          personalmente el mismo día. Sin compromiso.
         </p>
 
         <ul class="assurances reveal">
-          <li data-en="No obligation and no drip-campaign spam">Sin compromiso y sin correos de campaña automática</li>
-          <li data-en="Your information is never sold or shared">Su información nunca se vende ni se comparte</li>
+          <li data-en="Your information always stays confidential">Su información estará siempre confidencial</li>
           <li data-en="A real reply from Hector, not an auto-responder">Una respuesta real de Hector, no un mensaje automático</li>
         </ul>
 
@@ -352,7 +345,7 @@
           <div class="field">
             <label for="name"><span data-en="Name">Nombre</span> <span class="req" aria-hidden="true">*</span></label>
             <input type="text" id="name" name="name" autocomplete="name"
-                   required minlength="2" placeholder="Hector Belen"
+                   required minlength="2" placeholder="Su nombre" data-en-placeholder="Your name"
                    aria-describedby="name-error">
             <small class="error" id="name-error" role="alert"></small>
           </div>
@@ -415,23 +408,37 @@
                    placeholder="Orlando, Kissimmee, Tampa…" data-en-placeholder="Orlando, Kissimmee, Tampa…">
           </div>
 
-          <!-- Buyers & renters: budget + bedrooms -->
+          <!-- Buyers & renters: purchase price (full width) -->
+          <div class="field cond" data-when="Buying,Renting,BuyingSelling" hidden>
+            <label for="budget"><span data-en="Purchase price">Precio de compra</span> <span class="opt" data-en="(optional)">(opcional)</span></label>
+            <input type="text" id="budget" name="budget"
+                   placeholder="Rango de precio de compra" data-en-placeholder="Buying price range">
+          </div>
+
+          <!-- Buyers & renters: bedrooms + bathrooms -->
           <div class="field-row cond" data-when="Buying,Renting,BuyingSelling" hidden>
             <div class="field">
-              <label for="budget"><span data-en="Budget">Presupuesto</span> <span class="opt" data-en="(optional)">(opcional)</span></label>
-              <input type="text" id="budget" name="budget" inputmode="numeric"
-                     placeholder="$350,000 o $2,000/mes" data-en-placeholder="$350,000 or $2,000/mo">
-            </div>
-            <div class="field">
-              <label for="bedrooms"><span data-en="Bedrooms">Recámaras</span> <span class="opt" data-en="(optional)">(opcional)</span></label>
+              <label for="bedrooms"><span data-en="How many bedrooms?">¿Cuántas habitaciones?</span> <span class="opt" data-en="(optional)">(opcional)</span></label>
               <div class="select-wrap">
                 <select id="bedrooms" name="bedrooms">
-                  <option value="" selected data-en="Any">Cualquiera</option>
+                  <option value="" selected disabled data-en="Choose one…">Seleccione una opción…</option>
                   <option value="1+">1+</option>
                   <option value="2+">2+</option>
                   <option value="3+">3+</option>
                   <option value="4+">4+</option>
                   <option value="5+">5+</option>
+                </select>
+              </div>
+            </div>
+            <div class="field">
+              <label for="bathrooms"><span data-en="How many bathrooms?">¿Cuántos baños?</span> <span class="opt" data-en="(optional)">(opcional)</span></label>
+              <div class="select-wrap">
+                <select id="bathrooms" name="bathrooms">
+                  <option value="" selected disabled data-en="Choose one…">Seleccione una opción…</option>
+                  <option value="1+">1+</option>
+                  <option value="2+">2+</option>
+                  <option value="3+">3+</option>
+                  <option value="4+">4+</option>
                 </select>
               </div>
             </div>
@@ -472,7 +479,7 @@
             <label for="contact_method"><span data-en="Best way to reach you">Mejor forma de contactarle</span> <span class="opt" data-en="(optional)">(opcional)</span></label>
             <div class="select-wrap">
               <select id="contact_method" name="contact_method">
-                <option value="" selected data-en="No preference">Sin preferencia</option>
+                <option value="" selected disabled data-en="Choose one…">Seleccione una opción…</option>
                 <option value="Call" data-en="Call">Llamada</option>
                 <option value="Text" data-en="Text message">Mensaje de texto</option>
                 <option value="WhatsApp">WhatsApp</option>
@@ -558,6 +565,55 @@
        ⚠️ Do NOT invent client quotes or names — add real, permission-granted
        testimonials only. See TESTIMONIALS-SETUP.md.
        ========================================================== -->
+  <!-- ==========================================================
+       RECOGNITION / AWARDS — LPT Realty 2026 recognitions (confirmed legit by
+       Hector, 2026-11-04). Dedicated "spotlight" band so the awards stand on
+       their own. Award #1 image is in place; to add award #2 (Top Producing
+       REALTOR® — Haines City / zip 33844), drop the graphic at
+       assets/img/awards/award-producer-2026.jpg (+ .webp) and uncomment the
+       second .award-card below.
+       ========================================================== -->
+  <section class="awards" id="awards" aria-label="Reconocimientos"
+           data-en-aria-label="Awards and recognition">
+    <div class="shell">
+      <div class="section-head awards-head">
+        <p class="eyebrow reveal" data-en="Recognition">Reconocimiento</p>
+        <h2 class="reveal" data-en="Recognized among the best">Reconocido entre los mejores</h2>
+        <p class="section-lede reveal" data-en="In 2026, LPT Realty recognized Hector Belen as a Top Nationwide REALTOR® and a top-producing agent in Central Florida.">
+          En 2026, LPT Realty reconoció a Hector Belen como Top REALTOR® a nivel
+          nacional y como agente de mayor producción en el Centro de Florida.
+        </p>
+      </div>
+
+      <div class="awards-grid reveal">
+        <figure class="award-card">
+          <picture>
+            <source srcset="assets/img/awards/award-growth-2026.webp" type="image/webp">
+            <img src="assets/img/awards/award-growth-2026.jpg" width="1280" height="1600"
+                 alt="Reconocimiento 2026 de LPT Realty a Hector Belen como Top REALTOR® a nivel nacional — Top 3 años de crecimiento"
+                 data-en-alt="LPT Realty 2026 recognition of Hector Belen as a Top Nationwide REALTOR® — Top 3-Year Growth"
+                 loading="lazy">
+          </picture>
+          <figcaption data-en="Top Nationwide REALTOR® · Top 3-Year Growth — 2026">Top REALTOR® Nacional · Top 3 Años de Crecimiento — 2026</figcaption>
+        </figure>
+
+        <!-- AWARD #2 — add the graphic, then uncomment:
+        <figure class="award-card">
+          <picture>
+            <source srcset="assets/img/awards/award-producer-2026.webp" type="image/webp">
+            <img src="assets/img/awards/award-producer-2026.jpg" width="1280" height="1600"
+                 alt="Reconocimiento 2026 de LPT Realty a Hector Belen como agente de mayor producción en Haines City, FL (código postal 33844)"
+                 data-en-alt="LPT Realty 2026 recognition of Hector Belen as the top-producing agent in Haines City, FL (zip 33844)"
+                 loading="lazy">
+          </picture>
+          <figcaption data-en="Top Producing REALTOR® · Haines City, FL — 2026">Top REALTOR® en Producción · Haines City, FL — 2026</figcaption>
+        </figure>
+        -->
+      </div>
+    </div>
+  </section>
+
+
   <section class="testimonials" id="testimonials" aria-label="Testimonios de clientes"
            data-en-aria-label="Client testimonials">
     <div class="shell">
@@ -963,7 +1019,7 @@
          (and its Spanish). Names/license numbers stay as-is in both languages. -->
     <p class="disclosure" data-en="Hector Belen · REALTOR® · Florida License&nbsp;#&nbsp;&lt;strong&gt;SL3496104&lt;/strong&gt;&lt;br&gt;Brokered by &lt;strong&gt;LPT Realty, LLC&lt;/strong&gt; · 1400 S International Pkwy&nbsp;#1020, Lake Mary, FL&nbsp;32746&lt;br&gt;Brokerage Corp. License&nbsp;#&nbsp;&lt;strong&gt;CQ1064576&lt;/strong&gt; · Principal Broker License&nbsp;#&nbsp;&lt;strong&gt;BK3378992&lt;/strong&gt;">
       Hector Belen · REALTOR® · Licencia de Florida&nbsp;#&nbsp;<strong>SL3496104</strong><br>
-      Corredor: <strong>LPT Realty, LLC</strong> · 1400 S International Pkwy&nbsp;#1020, Lake Mary, FL&nbsp;32746<br>
+      Broker: <strong>LPT Realty, LLC</strong> · 1400 S International Pkwy&nbsp;#1020, Lake Mary, FL&nbsp;32746<br>
       Licencia Corp. de la Corredora&nbsp;#&nbsp;<strong>CQ1064576</strong> · Licencia del Corredor Principal&nbsp;#&nbsp;<strong>BK3378992</strong>
     </p>
     <p class="disclosure fine" data-en="Equal Housing Opportunity. All information is deemed reliable but not guaranteed and should be independently verified. Properties shown may have been listed or sold by other brokerages. Not intended as a solicitation of property already listed. REALTOR® is a registered collective membership mark identifying real estate professionals who are members of the National Association of REALTORS®.">
