@@ -13,17 +13,26 @@
    lives in an environment variable the public never sees.
 
    ── SETUP (one time, in the Netlify dashboard) ──────────────────────────────
-   Site configuration → Environment variables → Add a variable:
-       Key:   LEAD_WEBHOOK_URL
-       Value: your CRM's inbound webhook URL
-              (Zapier/Make "Catch Hook" URL, Go High Level inbound webhook,
-               Follow Up Boss/HubSpot via Zapier, an Airtable automation, etc.)
-   Redeploy. That's it — every lead is forwarded there as JSON.
+   Site configuration → Environment variables → add ONE of these, then redeploy:
 
-   The JSON shape sent to the webhook is documented at the bottom of this file.
-   Until LEAD_WEBHOOK_URL is set, leads are accepted (the visitor still sees the
-   thank-you) and logged in the function logs, but NOT forwarded — so set it
-   before you rely on it. See README §3 for the full walkthrough.
+     PREFERRED — straight into Lofty CRM (no Zapier, no email parsing):
+       Key:   LOFTY_API_TOKEN
+       Value: a Lofty API Bearer token (CRM → API key / developer portal, or
+              ask Lofty support how to issue one for your plan).
+       Every lead is POSTed to https://api.lofty.com/v1.0/leads with the full
+       qualifier set, tagged "Website", source "Website – hectorbelenrealtor.com",
+       and leadAlert:true so Lofty fires its own new-lead email + phone push.
+       All the extra detail (budget, timeline, area, financing, message, UTM)
+       lands in the lead's first note. See buildLoftyLead() below.
+
+     FALLBACK — a generic JSON webhook (Zapier/Make Catch Hook, Go High Level…):
+       Key:   LEAD_WEBHOOK_URL
+       Value: the inbound webhook URL. The payload shape is at the bottom here.
+
+   If LOFTY_API_TOKEN is set it wins; else LEAD_WEBHOOK_URL is used. Until one is
+   set, leads are accepted (the visitor still sees the thank-you) and logged in
+   the function logs, but NOT delivered — so set one before you rely on it.
+   See README §3 and LOFTY-SEARCH-SETUP.md.
    ========================================================================== */
 
 exports.handler = async function (event) {
@@ -87,31 +96,42 @@ exports.handler = async function (event) {
     submittedAt: new Date().toISOString()
   };
 
-  // ---- Forward to the CRM webhook ----
-  var webhook = process.env.LEAD_WEBHOOK_URL;
-  if (!webhook) {
-    // Not configured yet: don't break the visitor's experience, but make it
-    // loud in the logs so it isn't missed. The lead object is logged so it can
-    // be recovered from Netlify's function logs if needed.
-    console.warn('[submit-lead] LEAD_WEBHOOK_URL is not set — lead NOT forwarded.');
-    console.warn('[submit-lead] lead:', JSON.stringify(payload));
-    return json(200, { ok: true, forwarded: false });
+  // ---- Deliver the lead. Lofty CRM (direct API) wins; a generic JSON webhook
+  //      is the fallback. If neither is configured, log loudly so nothing is
+  //      silently lost (recoverable from Netlify's function logs). ----
+  var loftyToken = process.env.LOFTY_API_TOKEN;
+  var webhook    = process.env.LEAD_WEBHOOK_URL;
+
+  if (loftyToken) {
+    try {
+      await postToLofty(payload, loftyToken);
+    } catch (err) {
+      console.error('[submit-lead] Lofty create-lead failed:', err);
+      console.error('[submit-lead] lead (not lost — recover from logs):', JSON.stringify(payload));
+      return json(502, { ok: false, error: 'lofty_failed' });
+    }
+    return json(200, { ok: true, forwarded: true, to: 'lofty' });
   }
 
-  try {
-    var res = await fetch(webhook, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
-    });
-    if (!res.ok) throw new Error('webhook responded ' + res.status);
-  } catch (err) {
-    console.error('[submit-lead] webhook forward failed:', err);
-    console.error('[submit-lead] lead (not lost — recover from logs):', JSON.stringify(payload));
-    return json(502, { ok: false, error: 'forward_failed' });
+  if (webhook) {
+    try {
+      var res = await fetch(webhook, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      if (!res.ok) throw new Error('webhook responded ' + res.status);
+    } catch (err) {
+      console.error('[submit-lead] webhook forward failed:', err);
+      console.error('[submit-lead] lead (not lost — recover from logs):', JSON.stringify(payload));
+      return json(502, { ok: false, error: 'forward_failed' });
+    }
+    return json(200, { ok: true, forwarded: true, to: 'webhook' });
   }
 
-  return json(200, { ok: true, forwarded: true });
+  console.warn('[submit-lead] No LOFTY_API_TOKEN or LEAD_WEBHOOK_URL set — lead NOT delivered.');
+  console.warn('[submit-lead] lead:', JSON.stringify(payload));
+  return json(200, { ok: true, forwarded: false });
 };
 
 function resp(statusCode, body) {
@@ -125,6 +145,94 @@ function json(statusCode, obj) {
   var r = resp(statusCode, JSON.stringify(obj));
   r.headers['Content-Type'] = 'application/json';
   return r;
+}
+
+/* ── Lofty CRM: create a lead directly via the REST API ───────────────────────
+   Docs: https://developer.lofty.com/api-reference/leads/create-lead
+   Maps the site's qualifier payload to Lofty's lead schema. The full detail
+   (budget, timeline, area, financing, message, UTM, page) goes into the lead's
+   first note via `content`. `leadAlert:true` makes Lofty fire its own new-lead
+   email + phone push, so Hector is notified; `welcomeEmail:false` means the
+   lead is NOT auto-emailed — Hector reaches out personally. With no
+   assignedUserId, Lofty's routing assigns the lead (the solo agent) by default.
+   ──────────────────────────────────────────────────────────────────────────── */
+var LOFTY_LEADS_URL = 'https://api.lofty.com/v1.0/leads';
+
+var LOFTY_LEAD_TYPE = {   /* our `interest` → Lofty leadTypes ids */
+  Buying: [2], Selling: [1], Renting: [5], BuyingSelling: [1, 2], HomeValue: [1]
+};
+var LOFTY_TIMEFRAME = {   /* our `timeline` → Lofty *TimeFrame enum */
+  'ASAP': '1-3', '1-3 months': '1-3', '3-6 months': '3-6',
+  '6-12 months': '6-12', 'Just exploring': 'Just Looking'
+};
+
+function buildLoftyLead(p) {
+  var parts = String(p.name).trim().split(/\s+/);
+  var firstName = parts.shift() || String(p.name).trim();
+  var lastName  = parts.join(' ');
+
+  var isSeller = p.interest === 'Selling' || p.interest === 'HomeValue' || p.interest === 'BuyingSelling';
+  var isBuyer  = p.interest === 'Buying'  || p.interest === 'Renting'   || p.interest === 'BuyingSelling';
+  var tf = LOFTY_TIMEFRAME[p.timeline] || '';
+
+  var lead = {
+    firstName: firstName,
+    lastName:  lastName,
+    emails:    p.email ? [p.email] : [],
+    phones:    p.phone ? [p.phone] : [],
+    leadTypes: LOFTY_LEAD_TYPE[p.interest] || [-1],
+    source:    'Website – hectorbelenrealtor.com',
+    language:  p.language === 'en' ? 'en' : 'es',
+    tagsAdd:   ['Website'],
+    content:   loftyNote(p),
+    isPin:     false,
+    leadAlert: true,
+    welcomeEmail: false
+  };
+  if (tf && isBuyer)  lead.buyingTimeFrame  = tf;
+  if (tf && isSeller) lead.sellingTimeFrame = tf;
+  if (p.financing === 'Pre-approved' || p.financing === 'Cash') lead.preQual = 'Yes';
+  else if (p.financing === 'Not yet' || p.financing === 'Needs help') lead.preQual = 'No';
+  return lead;
+}
+
+function loftyNote(p) {
+  var L = ['Website lead — hectorbelenrealtor.com'];
+  if (p.interest)        L.push('Interest: ' + p.interest);
+  if (p.timeline)        L.push('Timeline: ' + p.timeline);
+  if (p.contactMethod)   L.push('Preferred contact: ' + p.contactMethod);
+  if (p.area)            L.push('Area: ' + p.area);
+  if (p.budget)          L.push('Budget: ' + p.budget);
+  if (p.bedrooms)        L.push('Bedrooms: ' + p.bedrooms);
+  if (p.financing)       L.push('Financing: ' + p.financing);
+  if (p.propertyAddress) L.push('Property: ' + p.propertyAddress);
+  if (p.message)         L.push('Message: ' + p.message);
+  L.push('TCPA consent: ' + (p.consent ? 'Yes' : 'No'));
+  if (p.page)            L.push('Page: ' + p.page);
+  if (p.referrer)        L.push('Referrer: ' + p.referrer);
+  var utm = p.utm || {};
+  if (utm.source || utm.medium || utm.campaign) {
+    L.push('UTM: ' + [utm.source, utm.medium, utm.campaign].filter(Boolean).join(' / '));
+  }
+  if (p.submittedAt)     L.push('Submitted: ' + p.submittedAt);
+  return L.join('\n').slice(0, 2000);
+}
+
+async function postToLofty(p, token) {
+  var res = await fetch(LOFTY_LEADS_URL, {
+    method: 'POST',
+    headers: {
+      'Authorization': 'Bearer ' + token,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(buildLoftyLead(p))
+  });
+  if (!res.ok) {
+    var body = '';
+    try { body = await res.text(); } catch (e) {}
+    throw new Error('Lofty responded ' + res.status + ' ' + body.slice(0, 300));
+  }
+  return true;
 }
 
 /* ── WEBHOOK PAYLOAD SHAPE ────────────────────────────────────────────────────
