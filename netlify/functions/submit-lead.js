@@ -98,6 +98,22 @@ exports.handler = async function (event) {
     submittedAt: new Date().toISOString()
   };
 
+  // ---- Independent EMAIL alert (best effort) --------------------------------
+  //      Lofty's own lead emails are unreliable on this account, so fire a
+  //      second, independent notification through Netlify Forms (Netlify's own
+  //      mail — separate from Lofty entirely). The lead is also recorded under
+  //      Site → Forms as a backup log. Never blocks or fails the submission.
+  //      Turn off by setting LEAD_EMAIL_NOTIFY = 'off' in Netlify. ----
+  var emailed = false;
+  if (process.env.LEAD_EMAIL_NOTIFY !== 'off') {
+    try {
+      await postToNetlifyForms(data, event);
+      emailed = true;
+    } catch (e) {
+      console.error('[submit-lead] Netlify Forms email notify failed (non-fatal):', e);
+    }
+  }
+
   // ---- Deliver the lead. Lofty CRM (direct API) wins; a generic JSON webhook
   //      is the fallback. If neither is configured, log loudly so nothing is
   //      silently lost (recoverable from Netlify's function logs). ----
@@ -110,9 +126,9 @@ exports.handler = async function (event) {
     } catch (err) {
       console.error('[submit-lead] Lofty create-lead failed:', err);
       console.error('[submit-lead] lead (not lost — recover from logs):', JSON.stringify(payload));
-      return json(502, { ok: false, error: 'lofty_failed' });
+      return json(502, { ok: false, error: 'lofty_failed', emailed: emailed });
     }
-    return json(200, { ok: true, forwarded: true, to: 'lofty' });
+    return json(200, { ok: true, forwarded: true, to: 'lofty', emailed: emailed });
   }
 
   if (webhook) {
@@ -126,9 +142,9 @@ exports.handler = async function (event) {
     } catch (err) {
       console.error('[submit-lead] webhook forward failed:', err);
       console.error('[submit-lead] lead (not lost — recover from logs):', JSON.stringify(payload));
-      return json(502, { ok: false, error: 'forward_failed' });
+      return json(502, { ok: false, error: 'forward_failed', emailed: emailed });
     }
-    return json(200, { ok: true, forwarded: true, to: 'webhook' });
+    return json(200, { ok: true, forwarded: true, to: 'webhook', emailed: emailed });
   }
 
   console.warn('[submit-lead] No LOFTY_API_TOKEN or LEAD_WEBHOOK_URL set — lead NOT delivered.');
@@ -147,6 +163,31 @@ function json(statusCode, obj) {
   var r = resp(statusCode, JSON.stringify(obj));
   r.headers['Content-Type'] = 'application/json';
   return r;
+}
+
+/* ── Independent email alert via Netlify Forms ────────────────────────────────
+   Re-posts the submission to the site as a Netlify Forms submission (url-encoded
+   with form-name), which fires Netlify's own email notification — reliable mail
+   that does NOT depend on Lofty. The lead is also stored under Site → Forms as a
+   backup. Requires the "lead" form's email notification to be enabled in
+   Netlify → Forms → Settings & notifications. Best effort; never blocks a lead. */
+async function postToNetlifyForms(data, event) {
+  var hdrs = event.headers || {};
+  var host = hdrs.host || hdrs.Host || 'hectorbelenrealtor.com';
+  var body = new URLSearchParams();
+  body.set('form-name', data['form-name'] || 'lead');
+  Object.keys(data).forEach(function (k) {
+    if (k === 'form-name') return;
+    if (data[k] == null) return;
+    body.set(k, String(data[k]));
+  });
+  var res = await fetch('https://' + host + '/', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: body.toString()
+  });
+  if (!res.ok) throw new Error('Netlify Forms responded ' + res.status);
+  return true;
 }
 
 /* ── Lofty CRM: create a lead directly via the REST API ───────────────────────
