@@ -414,19 +414,20 @@ button { font: inherit; color: inherit; border: 0; background: none; cursor: poi
 .hero-media { position: absolute; inset: 0; z-index: -3; overflow: hidden; }
 .hero-media img { width: 100%; height: 100%; object-fit: cover; }
 
-/* ---- "b-roll" motion: a slow Ken Burns pan-and-zoom ----
-   Gives the still photo the cinematic drift of video for the cost of a GPU
-   transform. `alternate` makes it breathe out and back rather than snapping,
-   so the 30s cycle reads as one continuous 60s move with no visible reset.
-   The image never drops below scale(1.06), which keeps ~3% of overflow on
-   every side — more than the pan ever travels — so no edge is ever exposed. */
+/* ---- "b-roll" motion: a slow, cinematic Ken Burns push-in ----
+   Gives the still photo the drift of a movie establishing shot for the cost of
+   a GPU transform. A noticeable but unhurried push from scale(1.08)→scale(1.16)
+   with a diagonal drift, over 40s, `alternate` so it breathes in and back out
+   rather than snapping — reading as one continuous 80s move with no reset.
+   The image never drops below scale(1.08), keeping ~4% overflow on every side —
+   more than the ~1.2% the pan ever travels — so no edge is ever exposed. */
 @keyframes heroKenBurns {
-  from { transform: scale(1.02) translate3d(0, 0, 0); }
-  to   { transform: scale(1.06) translate3d(-0.7%, -0.6%, 0); }
+  from { transform: scale(1.08) translate3d(0.9%, 0.6%, 0); }
+  to   { transform: scale(1.16) translate3d(-1.2%, -0.9%, 0); }
 }
 .hero-media img {
-  transform-origin: 50% 45%;   /* gentle drift, centered on the house */
-  animation: heroKenBurns 36s ease-in-out infinite alternate;
+  transform-origin: 50% 42%;   /* push centered on the house + its warm windows */
+  animation: heroKenBurns 40s ease-in-out infinite alternate;
   will-change: transform;
 }
 /* Anyone who asked their OS for less motion gets a static, centered frame. */

@@ -57,14 +57,14 @@
 <!-- Hero image is the LCP element — preload it. The three `media` ranges MUST
      stay identical to the <source media> values on the hero <picture> below,
      or the hero gets fetched twice. -->
-<link rel="preload" as="image" href="/assets/img/hero-760.jpg?v=3"
+<link rel="preload" as="image" href="/assets/img/hero-760.jpg?v=4"
       media="(max-width: 640px)" fetchpriority="high">
-<link rel="preload" as="image" href="/assets/img/hero-1200.jpg?v=3"
+<link rel="preload" as="image" href="/assets/img/hero-1200.jpg?v=4"
       media="(min-width: 641px) and (max-width: 1280px)" fetchpriority="high">
-<link rel="preload" as="image" href="/assets/img/hero-2000.jpg?v=3"
+<link rel="preload" as="image" href="/assets/img/hero-2000.jpg?v=4"
       media="(min-width: 1281px)" fetchpriority="high">
 
-<link rel="stylesheet" href="/style.css?v=14">
+<link rel="stylesheet" href="/style.css?v=15">
 
 <!-- JS-enabled flag before first paint, so scroll-reveal only hides content
      when there's JS to reveal it again. -->
@@ -188,12 +188,12 @@
          available. Mobile file is a portrait crop. Ranges match the <head>
          preloads exactly. Motion lives in .hero-media img (style.css). -->
     <picture class="hero-media">
-      <source srcset="/assets/img/hero-760.jpg?v=3"  media="(max-width: 640px)"  width="760"  height="426">
-      <source srcset="/assets/img/hero-1200.jpg?v=3" media="(min-width: 641px) and (max-width: 1280px)" width="1200" height="673">
-      <source srcset="/assets/img/hero-2000.jpg?v=3" media="(min-width: 1281px)" width="2000" height="1122">
-      <img src="/assets/img/hero-2000.jpg?v=3"
-           alt="Casa estilo craftsman con fachada en tonos tierra, frontón azul marino, garaje blanco para dos autos y acentos de piedra en un día soleado"
-           data-en-alt="Craftsman-style home with taupe siding, a navy-blue gable, a white two-car garage and stone accents on a sunny day"
+      <source srcset="/assets/img/hero-760.jpg?v=4"  media="(max-width: 640px)"  width="760"  height="426">
+      <source srcset="/assets/img/hero-1200.jpg?v=4" media="(min-width: 641px) and (max-width: 1280px)" width="1200" height="673">
+      <source srcset="/assets/img/hero-2000.jpg?v=4" media="(min-width: 1281px)" width="2000" height="1122">
+      <img src="/assets/img/hero-2000.jpg?v=4"
+           alt="Casa en el Centro de Florida al atardecer, con garaje para dos autos, palmeras y ventanas iluminadas con luz cálida"
+           data-en-alt="Central Florida home at dusk with a two-car garage, palm trees and warmly lit windows"
            width="2000" height="1122" fetchpriority="high" decoding="async">
     </picture>
 
